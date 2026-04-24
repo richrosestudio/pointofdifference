@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Richard Rosewarne</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #111;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      padding: 80px 24px 120px;
+      opacity: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 560px;
+    }
+
+    h1 {
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .meta {
+      color: #999;
+      margin-bottom: 28px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: #111;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section-label {
+      color: #999;
+      margin-bottom: 12px;
+    }
+
+    .entries {
+      list-style: none;
+    }
+
+    .entries li {
+      display: flex;
+      align-items: baseline;
+      padding: 5px 0;
+      border-top: 1px solid #f0f0f0;
+      color: #111;
+      transition: padding-left 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0s;
+    }
+
+    .entries li:last-child {
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .entries:hover li {
+      color: #bbb;
+    }
+
+    .entries:hover li:hover {
+      color: #111;
+      padding-left: 5px;
+    }
+
+    .entries li a {
+      text-decoration: none;
+    }
+
+    .entry-year {
+      width: 56px;
+      flex-shrink: 0;
+      color: #999;
+    }
+
+    .entries:hover li .entry-year {
+      color: #ccc;
+    }
+
+    .entries:hover li:hover .entry-year {
+      color: #999;
+    }
+
+    .footer {
+      margin-top: 60px;
+      color: #999;
+    }
+
+    .new-badge {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 5px;
+      position: relative;
+      top: -1px;
+    }
+
+    .new-badge svg {
+      display: block;
+    }
+
+    #counter, #portfolio-counter {
+      font-weight: 600;
+    }
+
+    .stagger {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <h1 class="stagger">Richard Rosewarne</h1>
+    <p class="meta stagger">Updated Apr 24, 2026</p>
+
+    <p class="stagger"><span id="counter">10,000</span> customer conversations before I was 18. Buying and selling rare pieces to customers in Japan, America and around the globe. (If you were part of The Basement, props to you. We were 0.003% of the group membership — the same group whose other members were mainly posting good morning quotes over sunset photos.)</p>
+    <p class="stagger">Commerce and people. The education before the education. A BA(Hons) in Marketing &amp; Management gave me the framework to match it. A CMO during my internship clocked my eye for design and creativity, not bad for someone who, if an art teacher asked them to draw round their hand, would have drawn their foot.</p>
+    <p class="stagger">If a swimming instructor threw you in the deep end with no armbands, that's what I did entering a sales associate role. 1,250 business cards and a <span id="portfolio-counter">£1,000,300</span> client portfolio later, all my weaknesses were now a strength. Outside of that, I spent a year on my own time going deep on AI, and most recently built Nudge, a full stack iOS app, front end through Claude Sonnet, backend through Supabase.</p>
+    <p class="stagger">I know what people need to see. And I know how to make them act on it.</p>
+
+    <div class="section stagger">
+      <p class="section-label">Notable Projects</p>
+      <ul class="entries">
+        <li>
+          <span class="entry-year">2026</span>
+          <span class="entry-title"><a href="nudge.html">Nudge</a> <span class="new-badge"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="13" y="13" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#FFD700" font-family="-apple-system,sans-serif">✦</text><path d="M4,13 C3,7 7,3 13,3 C19,3 23,7 22,13 C23,19 19,23 13,23 C7,23 3,19 4,13" stroke="#FFD700" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M5,12 C4,6 8,2 13,2 C18,2 22,6 21,12 C22,18 18,22 13,22 C8,22 4,18 5,12" stroke="#FFD700" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/></svg></span></span>
+        </li>
+        <li>
+          <span class="entry-year"></span>
+          <span class="entry-title"><a href="#">Project Two</a></span>
+        </li>
+        <li>
+          <span class="entry-year">2025</span>
+          <span class="entry-title"><a href="#">Project Three</a></span>
+        </li>
+        <li>
+          <span class="entry-year">2024</span>
+          <span class="entry-title"><a href="#">Project Four</a></span>
+        </li>
+      </ul>
+    </div>
+
+    <p class="footer stagger"><span id="clock"></span></p>
+
+  </div>
+  <script>
+    window.addEventListener('pageshow', () => {
+      document.body.style.transition = 'none';
+      document.body.style.opacity = '1';
+
+      const els = document.querySelectorAll('.stagger');
+      els.forEach(el => {
+        el.style.transition = 'none';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(10px)';
+      });
+
+      document.body.offsetHeight;
+
+      els.forEach((el, i) => {
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, i * 70);
+      });
+
+      setTimeout(() => {
+        const counterEl = document.getElementById('counter');
+        const target = 10000;
+        const duration = 1000;
+        const start = performance.now();
+
+        function tick(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.round(eased * target);
+          counterEl.textContent = value.toLocaleString('en-GB');
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+
+        requestAnimationFrame(tick);
+      }, 140);
+
+      setTimeout(() => {
+        const portfolioEl = document.getElementById('portfolio-counter');
+        const target = 1000300;
+        const duration = 1000;
+        const start = performance.now();
+
+        function tick(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.round(eased * target);
+          portfolioEl.textContent = '£' + value.toLocaleString('en-GB');
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+
+        requestAnimationFrame(tick);
+      }, 280);
+    });
+
+    document.querySelectorAll('.entries a[href$=".html"]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        document.body.style.transition = 'opacity 0.8s cubic-bezier(0.7, 0, 1, 1)';
+        document.body.style.opacity = '0';
+        setTimeout(() => location.href = link.href, 800);
+      });
+    });
+
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString('en-GB', {
+        timeZone: 'Europe/London',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+      document.getElementById('clock').textContent = time + ' in London, United Kingdom';
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
