@@ -148,6 +148,29 @@
       margin-top: 16px;
     }
 
+    .screen-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .screen-row img {
+      width: calc(25% - 6px);
+      height: auto;
+      display: block;
+      animation: pulse 8s ease-in-out infinite;
+    }
+
+    .screen-row img:nth-child(1) { animation-delay: 0s; }
+    .screen-row img:nth-child(2) { animation-delay: 2s; }
+    .screen-row img:nth-child(3) { animation-delay: 4s; }
+    .screen-row img:nth-child(4) { animation-delay: 6s; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.08; }
+    }
+
     .placeholder-media {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -186,6 +209,7 @@
           <li class="stagger"><a href="#ai">AI &amp; Product</a></li>
           <li class="stagger"><a href="#build">The Build</a></li>
           <li class="stagger"><a href="#backend">The Backend</a></li>
+          <li class="stagger"><a href="#frontend">The Frontend</a></li>
         </ul>
       </div>
     </aside>
@@ -218,22 +242,33 @@
       <!-- The Build -->
       <div class="section stagger" id="build">
         <p>I'd built apps before. A football grounds tracker that never shipped, but taught me everything I needed: where I cut corners, what I'd do differently, how to think about architecture before writing a single line. <strong>Nudge was where those lessons got applied.</strong> This was the one I was going to take seriously.</p>
-        <p>My early apps had a recurring flaw. Beautiful interfaces. Zero infrastructure. I'd pour everything into the frontend, the kind of UI that could genuinely keep someone coming back, and then hit a wall the moment I needed anything to actually persist. No users, no data, no backend. A stunning shop front with nothing behind the door.</p>
+        <p>My early apps had a recurring flaw. <strong>Beautiful interfaces. Zero infrastructure.</strong> I'd pour everything into the frontend, the kind of UI that could genuinely keep someone coming back, and then hit a wall the moment I needed anything to actually persist. No users, no data, no backend. <em>A stunning shop front with nothing behind the door.</em></p>
         <p>With Nudge, I made a deliberate call to flip that entirely. Backend first, frontend later, even though every instinct I had was pulling me toward the design work. I sat with the unsexy stuff: databases, auth flows, relational structure, the plumbing that nobody sees but everything depends on.</p>
+        <div class="screen-row">
+          <img src="screen1.png" alt="Terrace screen 1" />
+          <img src="screen2.png" alt="Terrace screen 2" />
+          <img src="screen3.png" alt="Terrace screen 3" />
+          <img src="screen4.png" alt="Terrace screen 4" />
+        </div>
       </div>
 
       <!-- The Backend -->
       <div class="section stagger" id="backend">
         <div class="divider"></div>
-        <p>The backend is the 2026 equivalent of a receptionist. Nobody notices it when it's working. Everyone notices it when it's not. I wasn't going to make that mistake again.</p>
-        <p>What surprised me was how quickly it clicked. The concept of a relational backend, users connected to friends, friends connected to groups, groups triggering notifications, is surprisingly intuitive once you stop thinking of it as infrastructure and start thinking of it as a model of how people actually interact. It maps to real life. That realisation made it far less intimidating than I'd built it up to be.</p>
-        <p>Using Supabase as the foundation was a deliberate choice for scalability. This wasn't going to be a shell, it needed room to grow. Within roughly a day, the core was live and tested: user authentication, friend connections, communities and teams, and a notification layer all operational on a basic app shell.</p>
+        <p>The backend is the 2026 equivalent of a receptionist. <em>Nobody notices it when it's working. Everyone notices it when it's not.</em> I wasn't going to make that mistake again.</p>
+        <p>What surprised me was how quickly it clicked. The concept of a relational backend, users connected to friends, friends connected to groups, groups triggering notifications, is surprisingly intuitive once you <strong>stop thinking of it as infrastructure and start thinking of it as a model of how people actually interact.</strong> It maps to real life. That realisation made it far less intimidating than I'd built it up to be.</p>
+        <p>Using Supabase as the foundation was a deliberate choice for scalability. This wasn't going to be a shell, it needed room to grow. Within roughly a day, the core was live and tested: <strong>user authentication, friend connections, communities and teams, and a notification layer</strong> all operational on a basic app shell.</p>
         <div class="media-block">
-          <div class="placeholder-media">Image or video</div>
+          <img src="supabase.png" alt="Supabase SQL editor" />
         </div>
-        <div class="media-block">
-          <div class="placeholder-media">Image or video</div>
-        </div>
+      </div>
+
+      <!-- The Frontend -->
+      <div class="section stagger" id="frontend">
+        <p>I came into the frontend with confidence. <strong>Design had always been my thing</strong>, the part of any project I gravitated toward, the answer I'd give when someone asked what I enjoyed most about marketing. Visuals, layouts, making something feel considered. I thought this was going to be the reward for getting the backend out of the way.</p>
+        <p>I was wrong. Not about the design, about the scale of it. <em>Building an iOS app isn't designing a few screens. It's designing every screen, every state, every decision a user could possibly make and then designing what happens when they make the wrong one.</em> Layer after layer after layer, each one revealing another underneath.</p>
+        <p>Joining a team, sending a nudge, viewing a balance, handling edge cases, writing a privacy policy. None of it appears by accident. <strong>User experience design is strategic thinking dressed up as simplicity.</strong> The cleaner something feels to use, the more invisible work went into it. The very website you're reading this on is a good example. What looks simple on the surface has a lot of thought behind the animations and interactions. That principle runs through everything I build.</p>
+        <p>That gap between how effortless something looks and how deliberate it actually is, I didn't fully appreciate it until I was deep inside it. What this process taught me was <strong>empathy as a design tool.</strong> You have to consistently step outside your own understanding of the app, where the buttons are, what the flows mean, and inhabit the perspective of someone opening it for the first time. That mental shift is a skill, and it takes time to develop. I'm a better product thinker for having been forced to learn it.</p>
       </div>
 
     </main>
