@@ -100,8 +100,7 @@
     }
 
     .section {
-      margin-top: 48px;
-      padding-top: 4px;
+      margin-top: 40px;
     }
 
     .section:first-of-type {
@@ -113,11 +112,16 @@
       color: #111;
     }
 
+    .section > p:last-child,
+    .section > .quote:last-child {
+      margin-bottom: 0;
+    }
+
     .quote {
       color: #999;
       font-style: italic;
       line-height: 1.8;
-      margin: 24px 0;
+      margin: 0 0 20px;
     }
 
     .quote cite {
@@ -131,11 +135,12 @@
     .divider {
       height: 1px;
       background: #f0f0f0;
-      margin: 24px 0;
+      margin: 0 0 28px;
     }
 
     .media-block {
       margin-top: 28px;
+      margin-bottom: 8px;
     }
 
     .media-block img,
@@ -152,6 +157,7 @@
       display: flex;
       gap: 8px;
       margin-top: 28px;
+      margin-bottom: 8px;
     }
 
     .screen-row img {
@@ -210,6 +216,7 @@
           <li class="stagger"><a href="#build">The Build</a></li>
           <li class="stagger"><a href="#backend">The Backend</a></li>
           <li class="stagger"><a href="#frontend">The Frontend</a></li>
+          <li class="stagger"><a href="#tools">The Tools</a></li>
         </ul>
       </div>
     </aside>
@@ -266,9 +273,18 @@
       <!-- The Frontend -->
       <div class="section stagger" id="frontend">
         <p>I came into the frontend with confidence. <strong>Design had always been my thing</strong>, the part of any project I gravitated toward, the answer I'd give when someone asked what I enjoyed most about marketing. Visuals, layouts, making something feel considered. I thought this was going to be the reward for getting the backend out of the way.</p>
-        <p>I was wrong. Not about the design, about the scale of it. <em>Building an iOS app isn't designing a few screens. It's designing every screen, every state, every decision a user could possibly make and then designing what happens when they make the wrong one.</em> Layer after layer after layer, each one revealing another underneath.</p>
+        <p>I was wrong. Not about the design, about the scale of it.</p>
+        <p><em>Building an iOS app isn't designing a few screens. It's designing every screen, every state, every decision a user could possibly make.</em> Layer after layer after layer, each one revealing another underneath.</p>
         <p>Joining a team, sending a nudge, viewing a balance, handling edge cases, writing a privacy policy. None of it appears by accident. <strong>User experience design is strategic thinking dressed up as simplicity.</strong> The cleaner something feels to use, the more invisible work went into it. The very website you're reading this on is a good example. What looks simple on the surface has a lot of thought behind the animations and interactions. That principle runs through everything I build.</p>
         <p>That gap between how effortless something looks and how deliberate it actually is, I didn't fully appreciate it until I was deep inside it. What this process taught me was <strong>empathy as a design tool.</strong> You have to consistently step outside your own understanding of the app, where the buttons are, what the flows mean, and inhabit the perspective of someone opening it for the first time. That mental shift is a skill, and it takes time to develop. I'm a better product thinker for having been forced to learn it.</p>
+      </div>
+
+      <!-- The Tools -->
+      <div class="section stagger" id="tools">
+        <p>I didn't start with Cursor. I started where most people start, with Lovable, then Replit. Genuinely useful places to begin and I'd recommend them to anyone finding their feet. Could someone pick up Lovable today and build an app? Yes. <strong>The idea is what matters most.</strong> But there's a ceiling, and I hit it faster than I expected.</p>
+        <p>I remember going round in circles on frontend problems, making the same requests in slightly different ways, not really getting anywhere. <em>That friction was the signal. Not to give up, but to move up.</em> So I jumped to Cursor.</p>
+        <p>The difference was immediate. It wasn't just a better tool, it was a different kind of creative freedom. The ability to switch between models depending on what I needed meant I could treat each one like a specialist rather than a generalist. <strong>Gemini for UI inspiration and visual thinking. Sonnet for backend logic and structure.</strong> Having the right model for the right job changed the quality of what I was producing almost overnight.</p>
+        <p>There's a broader point here too. New models are dropping weekly, each one supposedly surpassing the last. That used to feel like something to be anxious about, a treadmill you could never quite keep up with. Now it feels like an advantage. <strong>I know the models, I know their strengths, I know how to get the best out of them.</strong> That knowledge compounds in a way that generic AI literacy simply doesn't.</p>
       </div>
 
     </main>

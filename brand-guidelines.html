@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brand Guidelines — Richard Rosewarne</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #111;
+      background: #fff;
+      opacity: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: none;
+    }
+
+    /* ── Layout ── */
+    .page {
+      display: flex;
+      min-height: 100vh;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 180px;
+      flex-shrink: 0;
+      padding: 80px 40px 80px 0;
+    }
+
+    .sidebar-inner {
+      position: sticky;
+      top: 80px;
+    }
+
+    .back {
+      display: block;
+      color: #999;
+      margin-bottom: 40px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .back:hover {
+      color: #111;
+    }
+
+    .nav-list {
+      list-style: none;
+    }
+
+    .nav-list li {
+      padding: 3px 0;
+      transition: color 0s;
+    }
+
+    .nav-list a {
+      font-size: 13px;
+      color: #bbb;
+      display: block;
+      transition: color 0s;
+    }
+
+    .nav-list a:hover,
+    .nav-list a.active {
+      color: #111;
+    }
+
+    /* ── Content ── */
+    .content {
+      flex: 1;
+      padding: 80px 0 120px 48px;
+      border-left: 1px solid #f0f0f0;
+      max-width: 560px;
+    }
+
+    h1 {
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .meta {
+      color: #999;
+      margin-bottom: 40px;
+    }
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section:first-of-type {
+      margin-top: 0;
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: #111;
+    }
+
+    .section > p:last-child,
+    .section > .quote:last-child {
+      margin-bottom: 0;
+    }
+
+    .quote {
+      color: #999;
+      font-style: italic;
+      line-height: 1.8;
+      margin: 0 0 20px;
+    }
+
+    .quote cite {
+      display: block;
+      font-style: normal;
+      font-size: 12px;
+      margin-top: 8px;
+      color: #bbb;
+    }
+
+    .divider {
+      height: 1px;
+      background: #f0f0f0;
+      margin: 0 0 28px;
+    }
+
+    .media-block {
+      margin-top: 28px;
+      margin-bottom: 24px;
+    }
+
+    .media-block img,
+    .media-block video {
+      width: 100%;
+      display: block;
+    }
+
+    .colour-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 28px;
+      margin-bottom: 28px;
+    }
+
+    .colour-row img {
+      flex: 0 0 auto;
+      max-height: 280px;
+      width: auto;
+      display: block;
+      opacity: 0;
+      animation: fadeInSwatch 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .colour-row img:nth-child(1) { animation-delay: 0.3s; }
+    .colour-row img:nth-child(2) { animation-delay: 0.9s; }
+    .colour-row img:nth-child(3) { animation-delay: 1.5s; }
+    .colour-row img:nth-child(4) { animation-delay: 2.1s; }
+
+    @keyframes fadeInSwatch {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Doc gallery ── */
+    .doc-featured {
+      margin-top: 40px;
+      margin-left: auto;
+      width: 85%;
+      display: block;
+    }
+
+    .doc-featured img {
+      width: 100%;
+      display: block;
+    }
+
+    .doc-pair {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      align-items: flex-start;
+    }
+
+    .doc-pair img {
+      width: calc(50% - 4px);
+      display: block;
+    }
+
+    .doc-full {
+      margin-top: 10px;
+    }
+
+    .doc-full img {
+      width: 100%;
+      display: block;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay {
+      transition-delay: 0.2s;
+    }
+
+    /* ── Stagger ── */
+    .stagger {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .sidebar { display: none; }
+      .content { padding: 60px 0 80px; border-left: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <a class="back stagger" id="back">← Index</a>
+        <ul class="nav-list">
+          <li class="stagger"><a href="#overview">The Brief</a></li>
+          <li class="stagger"><a href="#the-document">The Work</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+
+      <h1 class="stagger">Brand Guidelines</h1>
+      <p class="meta stagger">2026</p>
+
+      <!-- Overview -->
+      <div class="section stagger" id="overview">
+        <p>I built a set of brand guidelines that, honestly, <strong>had no business looking this good</strong> for what they were. The brief was simple, but simple doesn't mean easy.</p>
+        <p>I wanted to create something that wouldn't look out of place in an S&amp;P 500 annual report. <em>The kind of document where every decision is deliberate and nothing is there by accident.</em></p>
+        <div class="colour-row">
+          <img src="color-red.png" alt="JET PRESS Red" />
+          <img src="color-white.png" alt="JET PRESS White" />
+          <img src="color-grey.png" alt="JET PRESS Grey" />
+          <img src="color-black.png" alt="JET PRESS Black" />
+        </div>
+        <p>This is the pinnacle of minimal, premium design. One typeface, a palette you could count on one hand, and rules clear enough that a supplier around the corner and a customer on the other side of the world can both pick it up cold and know exactly what to do with it.</p>
+        <div class="media-block">
+          <img src="brand-cover.png" alt="JET PRESS Brand Guidelines cover" />
+        </div>
+        <p>No fluff, no decoration for decoration's sake. <strong>Just a system that works everywhere, for everyone, every time.</strong></p>
+      </div>
+
+      <!-- The Document -->
+      <div class="section stagger" id="the-document">
+
+        <!-- Block 1: Contents — inset, isolated -->
+        <div class="doc-featured reveal">
+          <img src="brand-contents.png" alt="Brand Guidelines contents page" />
+        </div>
+
+        <!-- Block 2: Brand Intro + Logo — paired -->
+        <div class="doc-pair">
+          <img class="reveal" src="brand-logo.png" alt="Logo guidelines page" />
+          <img class="reveal reveal-delay" src="brand-intro.png" alt="Brand Introduction page" />
+        </div>
+
+        <!-- Block 3: Typography — full width anchor -->
+        <div class="doc-full reveal">
+          <img src="brand-typography.png" alt="Typography guidelines page" />
+        </div>
+      </div>
+
+
+    </main>
+  </div>
+
+  <script>
+    window.addEventListener('pageshow', () => {
+      document.body.style.transition = 'none';
+      document.body.style.opacity = '1';
+
+      const els = document.querySelectorAll('.stagger');
+      els.forEach(el => {
+        el.style.transition = 'none';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(10px)';
+      });
+
+      document.body.offsetHeight;
+
+      els.forEach((el, i) => {
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, i * 70);
+      });
+    });
+
+    // Back navigation
+    document.getElementById('back').addEventListener('click', () => {
+      document.body.style.transition = 'opacity 0.8s cubic-bezier(0.7, 0, 1, 1)';
+      document.body.style.opacity = '0';
+      setTimeout(() => location.href = 'index.html', 800);
+    });
+
+    // Scroll-reveal for doc gallery images
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // Active sidebar link on scroll
+    const sections = document.querySelectorAll('.section[id]');
+    const navLinks = document.querySelectorAll('.nav-list a');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.nav-list a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+
+    // Smooth scroll on nav click
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
