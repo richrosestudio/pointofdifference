@@ -17,22 +17,7 @@
       line-height: 1.6;
       color: #111;
       background: #fff;
-      display: flex;
-      justify-content: center;
-      padding: 80px 24px 120px;
       opacity: 0;
-    }
-
-    .stagger {
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .container {
-      width: 100%;
-      max-width: 560px;
     }
 
     a {
@@ -41,20 +26,66 @@
       transition: none;
     }
 
-    a:hover {
-      text-decoration: underline;
+    /* ── Layout ── */
+    .page {
+      display: flex;
+      min-height: 100vh;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 180px;
+      flex-shrink: 0;
+      padding: 80px 40px 80px 0;
+    }
+
+    .sidebar-inner {
+      position: sticky;
+      top: 80px;
     }
 
     .back {
-      display: inline-block;
+      display: block;
       color: #999;
       margin-bottom: 40px;
       cursor: pointer;
+      font-size: 13px;
     }
 
     .back:hover {
       color: #111;
-      text-decoration: none;
+    }
+
+    .nav-list {
+      list-style: none;
+    }
+
+    .nav-list li {
+      padding: 3px 0;
+      transition: color 0s;
+    }
+
+    .nav-list a {
+      font-size: 13px;
+      color: #bbb;
+      display: block;
+      transition: color 0s;
+    }
+
+    .nav-list a:hover,
+    .nav-list a.active {
+      color: #111;
+    }
+
+    /* ── Content ── */
+    .content {
+      flex: 1;
+      padding: 80px 0 120px 48px;
+      border-left: 1px solid #f0f0f0;
+      max-width: 560px;
     }
 
     h1 {
@@ -68,17 +99,43 @@
       margin-bottom: 40px;
     }
 
+    .section {
+      margin-top: 48px;
+      padding-top: 4px;
+    }
+
+    .section:first-of-type {
+      margin-top: 0;
+    }
+
     p {
       margin-bottom: 20px;
       color: #111;
     }
 
-    .section-break {
-      margin-top: 48px;
+    .quote {
+      color: #999;
+      font-style: italic;
+      line-height: 1.8;
+      margin: 24px 0;
+    }
+
+    .quote cite {
+      display: block;
+      font-style: normal;
+      font-size: 12px;
+      margin-top: 8px;
+      color: #bbb;
+    }
+
+    .divider {
+      height: 1px;
+      background: #f0f0f0;
+      margin: 24px 0;
     }
 
     .media-block {
-      margin-top: 32px;
+      margin-top: 28px;
     }
 
     .media-block img,
@@ -91,21 +148,6 @@
       margin-top: 16px;
     }
 
-    .quote {
-      color: #999;
-      font-style: italic;
-      line-height: 1.8;
-      margin: 40px 0;
-    }
-
-    .quote cite {
-      display: block;
-      font-style: normal;
-      font-size: 12px;
-      margin-top: 8px;
-      color: #bbb;
-    }
-
     .placeholder-media {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -116,43 +158,85 @@
       color: #bbb;
       font-size: 13px;
     }
+
+    /* ── Stagger ── */
+    .stagger {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .sidebar { display: none; }
+      .content { padding: 60px 0 80px; border-left: none; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="page">
 
-    <a class="back stagger" id="back">← Back</a>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <a class="back stagger" id="back">← Index</a>
+        <ul class="nav-list">
+          <li class="stagger"><a href="#problem">The Problem</a></li>
+          <li class="stagger"><a href="#ai">AI &amp; Product</a></li>
+          <li class="stagger"><a href="#build">The Build</a></li>
+          <li class="stagger"><a href="#backend">The Backend</a></li>
+        </ul>
+      </div>
+    </aside>
 
-    <h1 class="stagger">Nudge</h1>
-    <p class="meta stagger">2026</p>
+    <!-- Content -->
+    <main class="content">
 
-    <!-- Act 1: The problem -->
-    <p class="stagger">The best product advice I kept receiving was simple: <strong>solve a problem you actually live with.</strong> Not a hypothetical, not a gap in the market you read about, something real, something personal. For me, that problem showed up over Christmas, ten games of padel deep.</p>
-    <p class="stagger">I organised every single session. By January, I had no idea who had paid, who hadn't, and was dreading the awkward task of chasing a group of mates I'd known most of my life. One had flown to the other side of the world. Another was waiting on payday. All completely reasonable, but I was the one sat there feeling guilty about money that was owed to me. <em>The person who did all the organising was somehow also the one doing all the chasing.</em></p>
-    <p class="stagger">That tension, the organiser always ends up the one at a disadvantage, became the seed for Nudge.</p>
+      <h1 class="stagger">Nudge</h1>
+      <p class="meta stagger">2026</p>
 
-    <div class="media-block stagger">
-      <img src="gathering.png" alt="A Gathering of Friends, 1642" />
-    </div>
+      <!-- The Problem -->
+      <div class="section stagger" id="problem">
+        <p>The best product advice I kept receiving was simple: <strong>solve a problem you actually live with.</strong> Not a hypothetical, not a gap in the market you read about, something real, something personal. For me, that problem showed up over Christmas, ten games of padel deep.</p>
+        <p>I organised every single session. By January, I had no idea who had paid, who hadn't, and was dreading the awkward task of chasing a group of mates I'd known most of my life. One had flown to the other side of the world. Another was waiting on payday. All completely reasonable, but I was the one sat there feeling guilty about money that was owed to me. <em>The person who did all the organising was somehow also the one doing all the chasing.</em></p>
+        <p>That tension, the organiser always ends up the one at a disadvantage, became the seed for Nudge.</p>
+        <div class="media-block">
+          <img src="gathering.png" alt="A Gathering of Friends, 1642" />
+        </div>
+      </div>
 
-    <!-- Act 2: The AI angle -->
-    <p class="stagger quote">
-      "The most valuable skill of the 21st century is knowing what to do with AI."
-      <cite>Pedro Domingos</cite>
-    </p>
-    <p class="stagger section-break">Nudge was born at the crossover of 2025 and 2026, right at the peak of my curiosity about what AI could actually do in a product, not just generate text, but handle the uncomfortable, repetitive human moments most apps ignore. The kind of friction people don't talk about but deal with constantly.</p>
+      <!-- AI & Product -->
+      <div class="section stagger" id="ai">
+        <p class="quote">
+          "The most valuable skill of the 21st century is knowing what to do with AI."
+          <cite>Pedro Domingos</cite>
+        </p>
+        <p>Nudge was born at the crossover of 2025 and 2026, right at the peak of my curiosity about what AI could actually do in a product, not just generate text, but handle the uncomfortable, repetitive human moments most apps ignore. The kind of friction people don't talk about but deal with constantly.</p>
+      </div>
 
-    <!-- Act 3: The build -->
-    <p class="stagger section-break">I'd built apps before. A football grounds tracker that never shipped, but taught me everything I needed: where I cut corners, what I'd do differently, how to think about architecture before writing a single line. <strong>Nudge was where those lessons got applied.</strong> This was the one I was going to take seriously.</p>
+      <!-- The Build -->
+      <div class="section stagger" id="build">
+        <p>I'd built apps before. A football grounds tracker that never shipped, but taught me everything I needed: where I cut corners, what I'd do differently, how to think about architecture before writing a single line. <strong>Nudge was where those lessons got applied.</strong> This was the one I was going to take seriously.</p>
+        <p>My early apps had a recurring flaw. Beautiful interfaces. Zero infrastructure. I'd pour everything into the frontend, the kind of UI that could genuinely keep someone coming back, and then hit a wall the moment I needed anything to actually persist. No users, no data, no backend. A stunning shop front with nothing behind the door.</p>
+        <p>With Nudge, I made a deliberate call to flip that entirely. Backend first, frontend later, even though every instinct I had was pulling me toward the design work. I sat with the unsexy stuff: databases, auth flows, relational structure, the plumbing that nobody sees but everything depends on.</p>
+      </div>
 
-    <div class="media-block stagger">
-      <div class="placeholder-media">Image or video</div>
-    </div>
+      <!-- The Backend -->
+      <div class="section stagger" id="backend">
+        <div class="divider"></div>
+        <p>The backend is the 2026 equivalent of a receptionist. Nobody notices it when it's working. Everyone notices it when it's not. I wasn't going to make that mistake again.</p>
+        <p>What surprised me was how quickly it clicked. The concept of a relational backend, users connected to friends, friends connected to groups, groups triggering notifications, is surprisingly intuitive once you stop thinking of it as infrastructure and start thinking of it as a model of how people actually interact. It maps to real life. That realisation made it far less intimidating than I'd built it up to be.</p>
+        <p>Using Supabase as the foundation was a deliberate choice for scalability. This wasn't going to be a shell, it needed room to grow. Within roughly a day, the core was live and tested: user authentication, friend connections, communities and teams, and a notification layer all operational on a basic app shell.</p>
+        <div class="media-block">
+          <div class="placeholder-media">Image or video</div>
+        </div>
+        <div class="media-block">
+          <div class="placeholder-media">Image or video</div>
+        </div>
+      </div>
 
-    <div class="media-block stagger">
-      <div class="placeholder-media">Image or video</div>
-    </div>
-
+    </main>
   </div>
 
   <script>
@@ -178,10 +262,36 @@
       });
     });
 
+    // Back navigation
     document.getElementById('back').addEventListener('click', () => {
       document.body.style.transition = 'opacity 0.8s cubic-bezier(0.7, 0, 1, 1)';
       document.body.style.opacity = '0';
       setTimeout(() => location.href = 'index.html', 800);
+    });
+
+    // Active sidebar link on scroll
+    const sections = document.querySelectorAll('.section[id]');
+    const navLinks = document.querySelectorAll('.nav-list a');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.nav-list a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+
+    // Smooth scroll on nav click
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
     });
   </script>
 </body>
