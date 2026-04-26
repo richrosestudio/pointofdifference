@@ -21,6 +21,11 @@
       justify-content: center;
       padding: 80px 24px 120px;
       opacity: 0;
+      cursor: default;
+    }
+
+    p, h1, h2, h3, span, .meta, .clock, footer {
+      cursor: default;
     }
 
     .container {
@@ -92,6 +97,11 @@
 
     .entries li a {
       text-decoration: none;
+      cursor: pointer;
+    }
+
+    .entries li, .entries li * {
+      cursor: pointer;
     }
 
     .entry-year {
@@ -141,6 +151,7 @@
 
     #counter, #portfolio-counter {
       font-weight: 600;
+      cursor: default;
     }
 
     .stagger {
@@ -157,9 +168,10 @@
     <h1 class="stagger">Richard Rosewarne</h1>
     <p class="meta stagger">Updated Apr 24, 2026</p>
 
-    <p class="stagger"><span id="counter">10,000</span> customer conversations before I was 18. Buying and selling rare pieces to customers in Japan, America and around the globe. (If you were part of The Basement, props to you. We were 0.003% of Facebook's total membership as of 2017, while everyone else was busy updating their relationship status and posting good morning quotes over sunset photos.)</p>
+    <p class="stagger"><span id="counter">10,000</span> customer conversations before I was 18. Buying and selling rare pieces to customers in Japan, America and around the globe.</p>
     <p class="stagger">Commerce and people. The education before the education. A BA(Hons) in Marketing &amp; Management gave me the framework to match it. A CMO during my internship clocked my eye for design and creativity, not bad for someone who, if an art teacher asked them to draw round their hand, would have drawn their foot.</p>
-    <p class="stagger">If a swimming instructor threw you in the deep end with no armbands, that's what I did entering the world of sales. Dialling people who didn't know I was about to call them. Walking into businesses no one asked me to walk into. Handling objections in real time with no script to fall back on. 1,250 business cards and a <span id="portfolio-counter">£1,000,300</span> client portfolio later, my weaknesses became strengths. Outside of that, I spent a year on my own time going deep on AI, and most recently built Nudge, a full stack iOS app, front end through Claude Sonnet, backend through Supabase.</p>
+    <p class="stagger">If a swimming instructor threw you in the deep end with no armbands, that's what I did entering the world of sales. Dialling people who didn't know I was about to call them. Walking into businesses no one asked me to walk into. Handling objections in real time with no script to fall back on. 1,250 business cards and <span id="portfolio-counter">£1,000,300</span> in managed accounts later, my weaknesses became strengths.</p>
+    <p class="stagger">Outside of that, I spent a year on my own time going deep on AI, and most recently built Nudge, a full stack iOS app, front end through Claude Sonnet, backend through Supabase.</p>
     <p class="stagger">I know what people need to see. And I know how to make them act on it.</p>
 
     <div class="section stagger">
@@ -244,6 +256,27 @@
 
         requestAnimationFrame(tick);
       }, 280);
+    });
+
+    function runCounter(el, target, duration, prefix) {
+      const start = performance.now();
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(eased * target);
+        el.textContent = (prefix || '') + value.toLocaleString('en-GB');
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    document.getElementById('counter').addEventListener('mouseenter', function() {
+      runCounter(this, 10000, 1000);
+    });
+
+    document.getElementById('portfolio-counter').addEventListener('mouseenter', function() {
+      runCounter(this, 1000300, 1000, '£');
     });
 
     document.querySelectorAll('.entries li').forEach(li => {

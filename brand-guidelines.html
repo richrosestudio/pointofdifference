@@ -64,7 +64,6 @@
     }
 
     .nav-list li {
-      padding: 3px 0;
       transition: color 0s;
     }
 
@@ -72,7 +71,9 @@
       font-size: 13px;
       color: #bbb;
       display: block;
+      padding: 3px 0;
       transition: color 0s;
+      cursor: pointer;
     }
 
     .nav-list a:hover,
@@ -140,7 +141,11 @@
 
     .media-block {
       margin-top: 28px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section > .media-block:last-child {
+      margin-bottom: 0;
     }
 
     .media-block img,
@@ -175,54 +180,62 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── Doc gallery ── */
-    .doc-featured {
-      margin-top: 40px;
-      margin-left: auto;
-      width: 85%;
-      display: block;
+    /* ── Carousel ── */
+    .carousel-wrapper {
+      margin-top: 32px;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent, black 16%, black 84%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 16%, black 84%, transparent);
     }
 
-    .doc-featured img {
-      width: 100%;
-      display: block;
-    }
-
-    .doc-pair {
+    .carousel-row {
       display: flex;
       gap: 10px;
-      margin-top: 10px;
-      align-items: flex-start;
+      width: max-content;
     }
 
-    .doc-pair img {
-      width: calc(50% - 4px);
+    .carousel-row img {
+      height: 160px;
+      width: auto;
       display: block;
+      flex-shrink: 0;
     }
 
-    .doc-full {
+    .carousel-row--left {
+      animation: marquee-left 22s linear infinite;
+    }
+
+    .carousel-row--right {
+      animation: marquee-right 22s linear infinite;
       margin-top: 10px;
     }
 
-    .doc-full img {
-      width: 100%;
-      display: block;
+    @keyframes marquee-left {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    @keyframes marquee-right {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
     }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    /* ── Section titles ── */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 20px;
     }
 
-    .reveal-delay {
-      transition-delay: 0.2s;
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e8e8e8;
     }
 
     /* ── Stagger ── */
@@ -248,8 +261,8 @@
       <div class="sidebar-inner">
         <a class="back stagger" id="back">← Index</a>
         <ul class="nav-list">
-          <li class="stagger"><a href="#overview">The Brief</a></li>
-          <li class="stagger"><a href="#the-document">The Work</a></li>
+          <li class="stagger"><a href="#overview">Brief</a></li>
+          <li class="stagger"><a href="#the-document">Inside</a></li>
         </ul>
       </div>
     </aside>
@@ -262,6 +275,7 @@
 
       <!-- Overview -->
       <div class="section stagger" id="overview">
+        <h2 class="section-title">Brief</h2>
         <p>I built a set of brand guidelines that, honestly, <strong>had no business looking this good</strong> for what they were. The brief was simple, but simple doesn't mean easy.</p>
         <p>I wanted to create something that wouldn't look out of place in an S&amp;P 500 annual report. <em>The kind of document where every decision is deliberate and nothing is there by accident.</em></p>
         <div class="colour-row">
@@ -279,21 +293,22 @@
 
       <!-- The Document -->
       <div class="section stagger" id="the-document">
-
-        <!-- Block 1: Contents — inset, isolated -->
-        <div class="doc-featured reveal">
-          <img src="brand-contents.png" alt="Brand Guidelines contents page" />
-        </div>
-
-        <!-- Block 2: Brand Intro + Logo — paired -->
-        <div class="doc-pair">
-          <img class="reveal" src="brand-logo.png" alt="Logo guidelines page" />
-          <img class="reveal reveal-delay" src="brand-intro.png" alt="Brand Introduction page" />
-        </div>
-
-        <!-- Block 3: Typography — full width anchor -->
-        <div class="doc-full reveal">
-          <img src="brand-typography.png" alt="Typography guidelines page" />
+        <h2 class="section-title">Inside</h2>
+        <div class="carousel-wrapper">
+          <!-- Row 1: scrolls left — Contents + Typography (duplicated for seamless loop) -->
+          <div class="carousel-row carousel-row--left">
+            <img src="brand-contents.png" alt="Contents" />
+            <img src="brand-typography.png" alt="Typography" />
+            <img src="brand-contents.png" alt="Contents" />
+            <img src="brand-typography.png" alt="Typography" />
+          </div>
+          <!-- Row 2: scrolls right — Logo + Brand Intro (duplicated for seamless loop) -->
+          <div class="carousel-row carousel-row--right">
+            <img src="brand-logo.png" alt="Logo" />
+            <img src="brand-intro.png" alt="Brand Introduction" />
+            <img src="brand-logo.png" alt="Logo" />
+            <img src="brand-intro.png" alt="Brand Introduction" />
+          </div>
         </div>
       </div>
 
@@ -330,18 +345,6 @@
       document.body.style.opacity = '0';
       setTimeout(() => location.href = 'index.html', 800);
     });
-
-    // Scroll-reveal for doc gallery images
-    const revealEls = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -8% 0px' });
-    revealEls.forEach(el => revealObserver.observe(el));
 
     // Active sidebar link on scroll
     const sections = document.querySelectorAll('.section[id]');
