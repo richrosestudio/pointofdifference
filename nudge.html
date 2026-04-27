@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nudge — Richard Rosewarne</title>
+  <title>Nudge iOS App — Richard Rosewarne</title>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -495,6 +495,23 @@
       display: block;
     }
 
+    /* ── Closing animation ── */
+    .closing-rule {
+      border: none;
+      border-top: 1px solid #e8e8e8;
+      width: 0;
+      margin: 28px 0 20px;
+      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .closing-line span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
     /* ── Stagger ── */
     .stagger {
       opacity: 0;
@@ -533,7 +550,7 @@
     <!-- Content -->
     <main class="content">
 
-      <h1 class="stagger">Nudge</h1>
+      <h1 class="stagger">Nudge iOS App</h1>
       <p class="meta stagger">2026</p>
 
       <!-- The Problem -->
@@ -569,7 +586,7 @@
       <div class="section stagger" id="backend">
         <h2 class="section-title">Infrastructure</h2>
         <p>The backend is the 2026 equivalent of a receptionist. <em>Nobody notices it when it's working. Everyone notices it when it's not.</em></p>
-        <p>What surprised me was how quickly it clicked. The concept of a relational backend, users connected to friends, friends connected to groups, groups triggering notifications, is surprisingly intuitive once you <strong>stop thinking of it as infrastructure and start thinking of it as a model of how people actually interact.</strong> It maps to real life. That realisation made it far less intimidating than I'd built it up to be.</p>
+        <p>The concept of a relational backend, users connected to friends, friends connected to groups, groups triggering notifications, is surprisingly intuitive once you <strong>stop thinking of it as infrastructure and start thinking of it as a model of how people actually interact.</strong> It maps to real life. That realisation made it far less intimidating than I'd built it up to be.</p>
         <p>Using Supabase as the foundation was a deliberate choice for scalability. This wasn't going to be a shell, it needed room to grow. Within roughly a day, the core was live and tested: <strong>user authentication, friend connections, communities and teams, and a notification layer</strong> all operational on a basic app shell.</p>
         <div class="media-block">
           <img src="supabase.png" alt="Supabase SQL editor" />
@@ -672,7 +689,8 @@
             <span class="phone-label">Launch-ready</span>
           </div>
         </div>
-        <p>The distance between those two screens is the whole story. Every lesson, every mistake, every late night of unglamorous config work — it's all in there. <em>Nudge is still moving. So am I.</em></p>
+        <hr class="closing-rule" />
+        <p class="closing-line"><span>The</span> <span>distance</span> <span>between</span> <span>those</span> <span>two</span> <span>screens</span> <span>is</span> <span>the</span> <span>whole</span> <span>story.</span> <span>Every</span> <span>lesson,</span> <span>every</span> <span>mistake,</span> <span>every</span> <span>late</span> <span>night.</span></p>
       </div>
 
     </main>
@@ -782,6 +800,24 @@
     }
     // Fire on page load since Nudge tab is active by default (with a short delay to feel intentional)
     setTimeout(animateDefinition, 600);
+
+    // Closing line draw + word stagger
+    const closingRule = document.querySelector('.closing-rule');
+    if (closingRule) {
+      const closingSpans = document.querySelectorAll('.closing-line span');
+      const closingObs = new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting) return;
+        closingObs.disconnect();
+        closingRule.style.width = '100%';
+        closingSpans.forEach((span, i) => {
+          setTimeout(() => {
+            span.style.opacity = '1';
+            span.style.transform = 'translateY(0)';
+          }, 400 + i * 60);
+        });
+      }, { rootMargin: '0px 0px -10% 0px' });
+      closingObs.observe(closingRule);
+    }
 
     // Iteration phones staggered reveal
     const iterationPhones = document.querySelector('.iteration-phones');

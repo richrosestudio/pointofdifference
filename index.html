@@ -118,6 +118,26 @@
       color: #999;
     }
 
+    .entry-title {
+      flex: 1;
+    }
+
+    .entry-month {
+      width: 52px;
+      flex-shrink: 0;
+      color: #999;
+      text-align: right;
+      font-size: 13px;
+    }
+
+    .entries:hover li .entry-month {
+      color: #ccc;
+    }
+
+    .entries:hover li:hover .entry-month {
+      color: #999;
+    }
+
     .footer {
       margin-top: 60px;
       color: #999;
@@ -179,19 +199,23 @@
       <ul class="entries">
         <li>
           <span class="entry-year">2026</span>
-          <span class="entry-title"><a href="nudge.html">Nudge</a> <span class="new-badge"><img src="circle.png" alt="" /><span class="star">✦</span></span></span>
+          <span class="entry-title"><a href="nudge.html">Nudge iOS App</a> <span class="new-badge"><img src="circle.png" alt="" /><span class="star">✦</span></span></span>
+          <span class="entry-month">Mar</span>
         </li>
         <li>
           <span class="entry-year"></span>
-          <span class="entry-title"><a href="brand-guidelines.html">Brand Guidelines</a></span>
+          <span class="entry-title"><a href="sessions-webinar.html">Sessions Webinar Launch</a></span>
+          <span class="entry-month">Apr</span>
         </li>
         <li>
           <span class="entry-year">2025</span>
-          <span class="entry-title"><a href="#">Project Three</a></span>
+          <span class="entry-title"><a href="brand-guidelines.html">Brand Guidelines</a></span>
+          <span class="entry-month">Nov</span>
         </li>
         <li>
           <span class="entry-year">2024</span>
           <span class="entry-title"><a href="#">Project Four</a></span>
+          <span class="entry-month"></span>
         </li>
       </ul>
     </div>
