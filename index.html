@@ -174,6 +174,20 @@
       p a.accent-yellow {
         transition: background-color 0.2s ease, box-shadow 0.2s ease;
       }
+
+      .experience-track:hover .experience-dot::after,
+      .experience-dot:hover::after,
+      .experience-dot:focus-visible::after {
+        animation: none;
+      }
+
+      .experience-track:hover .experience-dot,
+      .experience-dot:hover,
+      .experience-dot:focus-visible {
+        transform: translate(50%, -50%) scale(1.05);
+        box-shadow: 0 0 6px rgba(17, 17, 17, 0.18);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
     }
 
     .entries .entry-title a.accent-yellow,
@@ -301,6 +315,7 @@
 
     #countries-counter, #revenue-counter, #portfolio-counter {
       font-weight: 600;
+      font-variant-numeric: tabular-nums;
       cursor: default;
     }
 
@@ -316,13 +331,14 @@
     .counter-anchor-size {
       visibility: hidden;
       font-weight: 600;
+      font-variant-numeric: tabular-nums;
     }
 
     .experience {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
     }
 
     .section.experience-section {
@@ -331,16 +347,19 @@
     }
 
     .experience-section .section-label {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .experience-item {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       cursor: default;
     }
 
     .experience-label {
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 0;
       color: #111;
     }
 
@@ -348,17 +367,29 @@
       display: block;
       position: relative;
       width: 100%;
+      height: 21px;
+      background: none;
+    }
+
+    .experience-track::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
       height: 1px;
       background: #f0f0f0;
+      transform: translateY(-50%);
     }
 
     .experience-fill {
       position: absolute;
       left: 0;
-      top: 0;
+      top: 50%;
       height: 1px;
       width: 0;
       background: #111;
+      transform: translateY(-50%);
       transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -375,6 +406,60 @@
       border-radius: 50%;
       background: #111;
       transform: translate(50%, -50%);
+      cursor: default;
+      transition:
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .experience-dot::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 20px;
+      height: 20px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+    }
+
+    .experience-dot::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid #111;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .experience-track:hover .experience-dot,
+    .experience-dot:hover,
+    .experience-dot:focus-visible {
+      transform: translate(50%, -50%) scale(1.08);
+      box-shadow: 0 0 6px rgba(17, 17, 17, 0.22), 0 0 12px rgba(17, 17, 17, 0.1);
+      outline: none;
+    }
+
+    .experience-track:hover .experience-dot::after,
+    .experience-dot:hover::after,
+    .experience-dot:focus-visible::after {
+      animation: dotRipple 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes dotRipple {
+      from {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.22;
+      }
+      to {
+        transform: translate(-50%, -50%) scale(1.8);
+        opacity: 0;
+      }
     }
 
     .stagger {
@@ -392,7 +477,7 @@
     <p class="meta stagger">Updated Jun 3, 2026</p>
 
     <p class="stagger"><strong><em>Forward-thinking digital marketer with a commercial edge and an AI-first mindset.</em></strong></p>
-    <p class="stagger">And why that matters to a business operating across <span id="countries-counter">150</span> countries with <span class="counter-anchor"><span id="revenue-counter">£7,200,000,000</span><span class="counter-anchor-size" aria-hidden="true">£7,200,000,000</span></span> in revenue.</p>
+    <p class="stagger">And why that matters to a business operating across <span class="counter-anchor"><span id="countries-counter">0</span><span class="counter-anchor-size" aria-hidden="true">150</span></span> countries with <span class="counter-anchor"><span id="revenue-counter">£0</span><span class="counter-anchor-size" aria-hidden="true">£7,200,000,000</span></span> in revenue.</p>
 
     <p class="stagger">A degree gave me the framework. A deliberate move into <a href="commercial-edge.html" class="accent-green">sales</a> gave me the commercial edge most marketers never get.</p>
     <p class="stagger">From <a href="website-rebuild.html" class="accent-blue">rebuilding websites from the ground up</a> to taking a <a href="brand-guidelines.html" class="accent-red">product range from first contact to live on site</a>, I know how to make digital work commercially.</p>
@@ -402,13 +487,7 @@
       <p class="section-label">Experience</p>
       <ul class="experience">
         <li class="experience-item stagger" data-fill="100">
-          <span class="experience-label">8 Years B2C &amp; B2B Marketing</span>
-          <span class="experience-track" aria-hidden="true">
-            <span class="experience-fill"><span class="experience-dot"></span></span>
-          </span>
-        </li>
-        <li class="experience-item stagger" data-fill="50">
-          <span class="experience-label">4 Years – Retail</span>
+          <span class="experience-label">8 Years Marketing</span>
           <span class="experience-track" aria-hidden="true">
             <span class="experience-fill"><span class="experience-dot"></span></span>
           </span>
@@ -528,11 +607,11 @@
       });
 
       setTimeout(() => {
-        runCounter(document.getElementById('countries-counter'), 150, 1000);
+        runCounter(document.getElementById('countries-counter'), 150, 1000, { from: 0 });
       }, 140);
 
       setTimeout(() => {
-        runCounter(document.getElementById('revenue-counter'), 7200000000, 1600, { prefix: '£' });
+        runCounter(document.getElementById('revenue-counter'), 7200000000, 1600, { prefix: '£', from: 0 });
       }, 200);
 
       initYearDigitCycles();
@@ -544,28 +623,30 @@
     }
 
     function runCounter(el, target, duration, options = {}) {
-      const { prefix = '', suffix = '', decimals = 0 } = options;
+      const { prefix = '', suffix = '', decimals = 0, from = 0 } = options;
+      const format = (value) => {
+        const n = decimals ? value : Math.round(value);
+        return decimals ? n.toFixed(decimals) : n.toLocaleString('en-GB');
+      };
+      el.textContent = prefix + format(from) + suffix;
       const start = performance.now();
       function tick(now) {
         const elapsed = now - start;
         const progress = Math.min(elapsed / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
-        const value = eased * target;
-        const formatted = decimals
-          ? value.toFixed(decimals)
-          : Math.round(value).toLocaleString('en-GB');
-        el.textContent = prefix + formatted + suffix;
+        const value = from + (target - from) * eased;
+        el.textContent = prefix + format(value) + suffix;
         if (progress < 1) requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
     }
 
     document.getElementById('countries-counter').addEventListener('mouseenter', function() {
-      runCounter(this, 150, 1000);
+      runCounter(this, 150, 1000, { from: 0 });
     });
 
     document.getElementById('revenue-counter').addEventListener('mouseenter', function() {
-      runCounter(this, 7200000000, 1600, { prefix: '£' });
+      runCounter(this, 7200000000, 1600, { prefix: '£', from: 0 });
     });
 
     function spotlightProject(li) {
