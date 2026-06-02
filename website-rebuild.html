@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Rebuild — Richard Rosewarne</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #111;
+      background: #fff;
+      opacity: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: none;
+    }
+
+    /* ── Layout ── */
+    .page {
+      display: flex;
+      min-height: 100vh;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 180px;
+      flex-shrink: 0;
+      padding: 80px 40px 80px 0;
+    }
+
+    .sidebar-inner {
+      position: sticky;
+      top: 80px;
+    }
+
+    .back {
+      display: block;
+      color: #999;
+      margin-bottom: 40px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .back:hover {
+      color: #111;
+    }
+
+    .nav-list {
+      list-style: none;
+    }
+
+    .nav-list li {
+      transition: color 0s;
+    }
+
+    .nav-list a {
+      font-size: 13px;
+      color: #bbb;
+      display: block;
+      padding: 3px 0;
+      transition: color 0s;
+      cursor: pointer;
+    }
+
+    .nav-list a:hover,
+    .nav-list a.active {
+      color: #111;
+    }
+
+    /* ── Content ── */
+    .content {
+      flex: 1;
+      padding: 80px 0 120px 48px;
+      border-left: 1px solid #f0f0f0;
+      max-width: 560px;
+    }
+
+    h1 {
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .meta {
+      color: #999;
+      margin-bottom: 40px;
+    }
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section:first-of-type {
+      margin-top: 0;
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: #111;
+    }
+
+    .section > p:last-child,
+    .section > .quote:last-child {
+      margin-bottom: 0;
+    }
+
+    .quote {
+      color: #999;
+      font-style: italic;
+      line-height: 1.8;
+      margin: 0 0 20px;
+    }
+
+    .quote cite {
+      display: block;
+      font-style: normal;
+      font-size: 12px;
+      margin-top: 8px;
+      color: #bbb;
+    }
+
+    .divider {
+      height: 1px;
+      background: #f0f0f0;
+      margin: 0 0 28px;
+    }
+
+    .media-block {
+      margin-top: 28px;
+      margin-bottom: 20px;
+    }
+
+    .section > .media-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .media-block img,
+    .media-block video {
+      width: 100%;
+      display: block;
+    }
+
+    .colour-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 28px;
+      margin-bottom: 28px;
+    }
+
+    .colour-row img {
+      flex: 0 0 auto;
+      max-height: 280px;
+      width: auto;
+      display: block;
+      opacity: 0;
+      animation: fadeInSwatch 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .colour-row img:nth-child(1) { animation-delay: 0.3s; }
+    .colour-row img:nth-child(2) { animation-delay: 0.9s; }
+    .colour-row img:nth-child(3) { animation-delay: 1.5s; }
+    .colour-row img:nth-child(4) { animation-delay: 2.1s; }
+
+    @keyframes fadeInSwatch {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Carousel ── */
+    .carousel-wrapper {
+      margin-top: 32px;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent, black 16%, black 84%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 16%, black 84%, transparent);
+    }
+
+    .carousel-row {
+      display: flex;
+      gap: 10px;
+      width: max-content;
+    }
+
+    .carousel-row img {
+      height: 160px;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .carousel-row--left {
+      animation: marquee-left 22s linear infinite;
+    }
+
+    .carousel-row--right {
+      animation: marquee-right 22s linear infinite;
+      margin-top: 10px;
+    }
+
+    @keyframes marquee-left {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    @keyframes marquee-right {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
+    }
+
+    /* ── Section titles ── */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 20px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e8e8e8;
+    }
+
+    /* ── Stagger ── */
+    .stagger {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .sidebar { display: none; }
+      .content { padding: 60px 0 80px; border-left: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <a class="back stagger" id="back">← Index</a>
+        <ul class="nav-list">
+          <li class="stagger"><a href="#brief">Brief</a></li>
+          <li class="stagger"><a href="#concept">Concept</a></li>
+          <li class="stagger"><a href="#output">Output</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+
+      <h1 class="stagger">Website Rebuild</h1>
+      <p class="meta stagger">2026</p>
+
+      <!-- Brief -->
+      <div class="section stagger" id="brief">
+        <h2 class="section-title">Brief</h2>
+        <p>Content to be added.</p>
+      </div>
+
+      <!-- Concept -->
+      <div class="section stagger" id="concept">
+        <h2 class="section-title">Concept</h2>
+        <p>Content to be added.</p>
+      </div>
+
+      <!-- Output -->
+      <div class="section stagger" id="output">
+        <h2 class="section-title">Output</h2>
+        <p>Content to be added.</p>
+      </div>
+
+
+    </main>
+  </div>
+
+  <script>
+    window.addEventListener('pageshow', () => {
+      document.body.style.transition = 'none';
+      document.body.style.opacity = '1';
+
+      const STAGGER_INITIAL = 100;
+      const STAGGER_STEP = 110;
+      const STAGGER_DURATION = '0.75s';
+      const STAGGER_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+      const STAGGER_OFFSET = '12px';
+      const staggerTransition = `opacity ${STAGGER_DURATION} ${STAGGER_EASE}, transform ${STAGGER_DURATION} ${STAGGER_EASE}`;
+
+      const els = document.querySelectorAll('.stagger');
+      els.forEach(el => {
+        el.style.transition = 'none';
+        el.style.opacity = '0';
+        el.style.transform = `translateY(${STAGGER_OFFSET})`;
+      });
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(el => {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        });
+        return;
+      }
+
+      document.body.offsetHeight;
+
+      els.forEach((el, i) => {
+        setTimeout(() => {
+          el.style.transition = staggerTransition;
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, STAGGER_INITIAL + i * STAGGER_STEP);
+      });
+    });
+
+    // Back navigation
+    document.getElementById('back').addEventListener('click', () => {
+      document.body.style.transition = 'opacity 0.8s cubic-bezier(0.7, 0, 1, 1)';
+      document.body.style.opacity = '0';
+      setTimeout(() => location.href = 'index.html', 800);
+    });
+
+    // Active sidebar link on scroll
+    const sections = document.querySelectorAll('.section[id]');
+    const navLinks = document.querySelectorAll('.nav-list a');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.nav-list a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+
+    // Smooth scroll on nav click
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

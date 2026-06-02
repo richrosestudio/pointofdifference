@@ -95,6 +95,12 @@
       padding-left: 5px;
     }
 
+    .entries li.project-spotlight,
+    .entries:hover li.project-spotlight {
+      color: #111;
+      padding-left: 5px;
+    }
+
     .entries li a {
       text-decoration: none;
       cursor: pointer;
@@ -104,10 +110,125 @@
       cursor: pointer;
     }
 
-    .entry-year {
-      width: 56px;
+    :root {
+      --accent-yellow: #FFD700;
+      --accent-blue: #2563EB;
+      --accent-red: #C53030;
+      --accent-green: #3D9E47;
+    }
+
+    .accent-yellow { color: var(--accent-yellow); }
+    .accent-blue { color: var(--accent-blue); }
+    .accent-red { color: var(--accent-red); }
+    .accent-green { color: var(--accent-green); }
+
+    p a.accent-green,
+    p a.accent-blue,
+    p a.accent-red,
+    p a.accent-yellow {
+      display: inline;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      border-radius: 3px;
+      padding: 0.1em 0.2em;
+      margin: 0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  font-weight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    p a.accent-green:hover {
+      font-weight: 500;
+      text-decoration: none;
+      background-color: color-mix(in srgb, var(--accent-green) 10%, transparent);
+      box-shadow: 0 0 12px color-mix(in srgb, var(--accent-green) 12%, transparent);
+    }
+
+    p a.accent-blue:hover {
+      font-weight: 500;
+      text-decoration: none;
+      background-color: color-mix(in srgb, var(--accent-blue) 10%, transparent);
+      box-shadow: 0 0 12px color-mix(in srgb, var(--accent-blue) 12%, transparent);
+    }
+
+    p a.accent-red:hover {
+      font-weight: 500;
+      text-decoration: none;
+      background-color: color-mix(in srgb, var(--accent-red) 10%, transparent);
+      box-shadow: 0 0 12px color-mix(in srgb, var(--accent-red) 12%, transparent);
+    }
+
+    p a.accent-yellow:hover {
+      font-weight: 500;
+      text-decoration: none;
+      background-color: color-mix(in srgb, var(--accent-yellow) 10%, transparent);
+      box-shadow: 0 0 12px color-mix(in srgb, var(--accent-yellow) 12%, transparent);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      p a.accent-green,
+      p a.accent-blue,
+      p a.accent-red,
+      p a.accent-yellow {
+        transition: background-color 0.2s ease, box-shadow 0.2s ease;
+      }
+    }
+
+    .entries .entry-title a.accent-yellow,
+    .entries:hover li .entry-title a.accent-yellow,
+    .entries:hover li:hover .entry-title a.accent-yellow { color: var(--accent-yellow); }
+
+    .entries .entry-title a.accent-blue,
+    .entries:hover li .entry-title a.accent-blue,
+    .entries:hover li:hover .entry-title a.accent-blue { color: var(--accent-blue); }
+
+    .entries .entry-title a.accent-red,
+    .entries:hover li .entry-title a.accent-red,
+    .entries:hover li:hover .entry-title a.accent-red { color: var(--accent-red); }
+
+    .entries .entry-title a.accent-green,
+    .entries:hover li .entry-title a.accent-green,
+    .entries:hover li:hover .entry-title a.accent-green { color: var(--accent-green); }
+
+    .entry-year,
+    .entry-month {
+      white-space: nowrap;
       flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .entry-year {
+      width: 5rem;
+      padding-right: 12px;
+      text-align: left;
       color: #999;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .year-digit-cycle {
+      display: inline-grid;
+      vertical-align: baseline;
+      min-width: 1ch;
+      width: auto;
+      font: inherit;
+      letter-spacing: inherit;
+      line-height: inherit;
+    }
+
+    .year-digit-cycle .year-digit {
+      grid-area: 1 / 1;
+      font: inherit;
+      line-height: inherit;
+      font-variant-numeric: tabular-nums;
+      opacity: 0;
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .year-digit-cycle .year-digit.is-active {
+      opacity: 1;
     }
 
     .entries:hover li .entry-year {
@@ -120,14 +241,19 @@
 
     .entry-title {
       flex: 1;
+      min-width: 0;
     }
 
     .entry-month {
-      width: 52px;
-      flex-shrink: 0;
+      min-width: 5.5rem;
+      padding-left: 8px;
       color: #999;
       text-align: right;
       font-size: 13px;
+    }
+
+    .entry-month:empty {
+      display: none;
     }
 
     .entries:hover li .entry-month {
@@ -141,6 +267,10 @@
     .footer {
       margin-top: 60px;
       color: #999;
+    }
+
+    .clock-location {
+      color: #FCAF26;
     }
 
     .new-badge {
@@ -169,9 +299,82 @@
       line-height: 1;
     }
 
-    #counter, #portfolio-counter {
+    #countries-counter, #revenue-counter, #portfolio-counter {
       font-weight: 600;
       cursor: default;
+    }
+
+    .counter-anchor {
+      display: inline-grid;
+      vertical-align: baseline;
+    }
+
+    .counter-anchor > * {
+      grid-area: 1 / 1;
+    }
+
+    .counter-anchor-size {
+      visibility: hidden;
+      font-weight: 600;
+    }
+
+    .experience {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .section.experience-section {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .experience-section .section-label {
+      margin-bottom: 10px;
+    }
+
+    .experience-item {
+      cursor: default;
+    }
+
+    .experience-label {
+      display: block;
+      margin-bottom: 6px;
+      color: #111;
+    }
+
+    .experience-track {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 1px;
+      background: #f0f0f0;
+    }
+
+    .experience-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 1px;
+      width: 0;
+      background: #111;
+      transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .experience-item.is-animated .experience-fill {
+      width: var(--fill);
+    }
+
+    .experience-dot {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #111;
+      transform: translate(50%, -50%);
     }
 
     .stagger {
@@ -186,36 +389,63 @@
   <div class="container">
 
     <h1 class="stagger">Richard Rosewarne</h1>
-    <p class="meta stagger">Updated Apr 24, 2026</p>
+    <p class="meta stagger">Updated Jun 3, 2026</p>
 
-    <p class="stagger"><span id="counter">10,000</span> customer conversations before I was 18. Buying and selling rare pieces to customers in Japan, America and around the globe.</p>
-    <p class="stagger">Commerce and people. The education before the education. A BA(Hons) in Marketing &amp; Management gave me the framework to match it. A CMO during my internship clocked my eye for design and creativity, not bad for someone who, if an art teacher asked them to draw round their hand, would have drawn their foot.</p>
-    <p class="stagger">If a swimming instructor threw you in the deep end with no armbands, that's what I did entering the world of sales. Dialling people who didn't know I was about to call them. Walking into businesses no one asked me to walk into. Handling objections in real time with no script to fall back on. 1,250 business cards and <span id="portfolio-counter">£1,000,300</span> in managed accounts later, my weaknesses became strengths.</p>
-    <p class="stagger">Outside of that, I spent a year on my own time going deep on AI, and most recently built Nudge, a full stack iOS app, front end through Claude Sonnet, backend through Supabase.</p>
-    <p class="stagger">I know what people need to see. And I know how to make them act on it.</p>
+    <p class="stagger"><strong><em>Forward-thinking digital marketer with a commercial edge and an AI-first mindset.</em></strong></p>
+    <p class="stagger">And why that matters to a business operating across <span id="countries-counter">150</span> countries with <span class="counter-anchor"><span id="revenue-counter">£7,200,000,000</span><span class="counter-anchor-size" aria-hidden="true">£7,200,000,000</span></span> in revenue.</p>
+
+    <p class="stagger">A degree gave me the framework. A deliberate move into <a href="commercial-edge.html" class="accent-green">sales</a> gave me the commercial edge most marketers never get.</p>
+    <p class="stagger">From <a href="website-rebuild.html" class="accent-blue">rebuilding websites from the ground up</a> to taking a <a href="brand-guidelines.html" class="accent-red">product range from first contact to live on site</a>, I know how to make digital work commercially.</p>
+    <p class="stagger">And outside of work, I've been <a href="nudge.html" class="accent-yellow">building with AI</a>. Not reading about it. Actually doing it.</p>
+
+    <div class="section experience-section stagger">
+      <p class="section-label">Experience</p>
+      <ul class="experience">
+        <li class="experience-item stagger" data-fill="100">
+          <span class="experience-label">8 Years B2C &amp; B2B Marketing</span>
+          <span class="experience-track" aria-hidden="true">
+            <span class="experience-fill"><span class="experience-dot"></span></span>
+          </span>
+        </li>
+        <li class="experience-item stagger" data-fill="50">
+          <span class="experience-label">4 Years – Retail</span>
+          <span class="experience-track" aria-hidden="true">
+            <span class="experience-fill"><span class="experience-dot"></span></span>
+          </span>
+        </li>
+        <li class="experience-item stagger" data-fill="25">
+          <span class="experience-label">2 Years – Sales</span>
+          <span class="experience-track" aria-hidden="true">
+            <span class="experience-fill"><span class="experience-dot"></span></span>
+          </span>
+        </li>
+        <li class="experience-item stagger" data-fill="6">
+          <span class="experience-label">6 Months – AI Design</span>
+          <span class="experience-track" aria-hidden="true">
+            <span class="experience-fill"><span class="experience-dot"></span></span>
+          </span>
+        </li>
+      </ul>
+    </div>
 
     <div class="section stagger">
       <p class="section-label">Notable Projects</p>
       <ul class="entries">
         <li>
           <span class="entry-year">2026</span>
-          <span class="entry-title"><a href="nudge.html">Nudge iOS App</a> <span class="new-badge"><img src="circle.png" alt="" /><span class="star">✦</span></span></span>
-          <span class="entry-month">Mar</span>
+          <span class="entry-title"><a href="nudge.html" class="accent-yellow">Nudge iOS App</a> <span class="new-badge"><img src="circle.png" alt="" /><span class="star">✦</span></span></span>
         </li>
         <li>
-          <span class="entry-year"></span>
-          <span class="entry-title"><a href="sessions-webinar.html">Sessions Webinar Launch</a></span>
-          <span class="entry-month">Apr</span>
-        </li>
-        <li>
-          <span class="entry-year">2025</span>
-          <span class="entry-title"><a href="brand-guidelines.html">Brand Guidelines</a></span>
-          <span class="entry-month">Nov</span>
+          <span class="entry-year">202<span class="year-digit-cycle" data-digits="5,6" aria-label="2025 to 2026"><span class="year-digit is-active" aria-hidden="false">5</span></span></span>
+          <span class="entry-title"><a href="commercial-edge.html" class="accent-green">Commercial Edge</a></span>
         </li>
         <li>
           <span class="entry-year">2024</span>
-          <span class="entry-title"><a href="#">Project Four</a></span>
-          <span class="entry-month"></span>
+          <span class="entry-title"><a href="brand-guidelines.html" class="accent-red">Tente Castas Launch</a></span>
+        </li>
+        <li>
+          <span class="entry-year">202<span class="year-digit-cycle" data-digits="2,3,4,5,6" aria-label="2022 to 2026"><span class="year-digit is-active" aria-hidden="false">2</span></span></span>
+          <span class="entry-title"><a href="website-rebuild.html" class="accent-blue">Website Rebuild</a></span>
         </li>
       </ul>
     </div>
@@ -224,6 +454,48 @@
 
   </div>
   <script>
+    const yearCycleIntervals = [];
+
+    function initYearDigitCycles() {
+      yearCycleIntervals.forEach(clearInterval);
+      yearCycleIntervals.length = 0;
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      document.querySelectorAll('.year-digit-cycle').forEach(slot => {
+        slot.innerHTML = '';
+        const digits = slot.dataset.digits.split(',');
+        const spans = digits.map(d => {
+          const span = document.createElement('span');
+          span.className = 'year-digit';
+          span.textContent = d;
+          span.setAttribute('aria-hidden', 'true');
+          slot.appendChild(span);
+          return span;
+        });
+
+        let index = 0;
+        const show = i => {
+          spans.forEach((s, j) => {
+            s.classList.toggle('is-active', j === i);
+            s.setAttribute('aria-hidden', j !== i ? 'true' : 'false');
+          });
+        };
+
+        if (reducedMotion) {
+          show(spans.length - 1);
+          return;
+        }
+
+        show(0);
+        const id = setInterval(() => {
+          index = (index + 1) % spans.length;
+          show(index);
+        }, 2200);
+        yearCycleIntervals.push(id);
+      });
+    }
+
     window.addEventListener('pageshow', () => {
       document.body.style.transition = 'none';
       document.body.style.opacity = '1';
@@ -233,6 +505,10 @@
         el.style.transition = 'none';
         el.style.opacity = '0';
         el.style.transform = 'translateY(10px)';
+      });
+
+      document.querySelectorAll('.experience-item').forEach(item => {
+        item.classList.remove('is-animated');
       });
 
       document.body.offsetHeight;
@@ -245,74 +521,102 @@
         }, i * 70);
       });
 
+      document.querySelectorAll('.experience-item').forEach(item => {
+        item.style.setProperty('--fill', item.dataset.fill + '%');
+        const staggerIndex = Array.from(els).indexOf(item);
+        setTimeout(() => item.classList.add('is-animated'), staggerIndex * 70 + 100);
+      });
+
       setTimeout(() => {
-        const counterEl = document.getElementById('counter');
-        const target = 10000;
-        const duration = 1000;
-        const start = performance.now();
-
-        function tick(now) {
-          const elapsed = now - start;
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          const value = Math.round(eased * target);
-          counterEl.textContent = value.toLocaleString('en-GB');
-          if (progress < 1) requestAnimationFrame(tick);
-        }
-
-        requestAnimationFrame(tick);
+        runCounter(document.getElementById('countries-counter'), 150, 1000);
       }, 140);
 
       setTimeout(() => {
-        const portfolioEl = document.getElementById('portfolio-counter');
-        const target = 1000300;
-        const duration = 1000;
-        const start = performance.now();
+        runCounter(document.getElementById('revenue-counter'), 7200000000, 1600, { prefix: '£' });
+      }, 200);
 
-        function tick(now) {
-          const elapsed = now - start;
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          const value = Math.round(eased * target);
-          portfolioEl.textContent = '£' + value.toLocaleString('en-GB');
-          if (progress < 1) requestAnimationFrame(tick);
-        }
-
-        requestAnimationFrame(tick);
-      }, 280);
+      initYearDigitCycles();
     });
 
-    function runCounter(el, target, duration, prefix) {
+    document.addEventListener('DOMContentLoaded', initYearDigitCycles);
+    if (document.readyState !== 'loading') {
+      initYearDigitCycles();
+    }
+
+    function runCounter(el, target, duration, options = {}) {
+      const { prefix = '', suffix = '', decimals = 0 } = options;
       const start = performance.now();
       function tick(now) {
         const elapsed = now - start;
         const progress = Math.min(elapsed / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
-        const value = Math.round(eased * target);
-        el.textContent = (prefix || '') + value.toLocaleString('en-GB');
+        const value = eased * target;
+        const formatted = decimals
+          ? value.toFixed(decimals)
+          : Math.round(value).toLocaleString('en-GB');
+        el.textContent = prefix + formatted + suffix;
         if (progress < 1) requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
     }
 
-    document.getElementById('counter').addEventListener('mouseenter', function() {
-      runCounter(this, 10000, 1000);
+    document.getElementById('countries-counter').addEventListener('mouseenter', function() {
+      runCounter(this, 150, 1000);
     });
 
-    document.getElementById('portfolio-counter').addEventListener('mouseenter', function() {
-      runCounter(this, 1000300, 1000, '£');
+    document.getElementById('revenue-counter').addEventListener('mouseenter', function() {
+      runCounter(this, 7200000000, 1600, { prefix: '£' });
+    });
+
+    function spotlightProject(li) {
+      document.querySelectorAll('.entries li.project-spotlight').forEach(el => {
+        el.classList.remove('project-spotlight');
+      });
+      li.classList.add('project-spotlight');
+      window.setTimeout(() => li.classList.remove('project-spotlight'), 2400);
+    }
+
+    function goToProject(href) {
+      if (!href) return;
+      if (href.endsWith('.html')) {
+        document.body.style.transition = 'opacity 0.8s cubic-bezier(0.7, 0, 1, 1)';
+        document.body.style.opacity = '0';
+        setTimeout(() => { location.href = href; }, 800);
+        return;
+      }
+      if (!href.startsWith('#')) return;
+      const li = document.querySelector(href);
+      if (!li) return;
+      li.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      spotlightProject(li);
+      history.replaceState(null, '', href);
+    }
+
+    document.querySelectorAll('p a.accent-green, p a.accent-blue, p a.accent-red, p a.accent-yellow').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        goToProject(link.getAttribute('href'));
+      });
     });
 
     document.querySelectorAll('.entries li').forEach(li => {
-      const link = li.querySelector('a[href$=".html"]');
+      const link = li.querySelector('.entry-title a');
       if (!link) return;
       li.addEventListener('click', e => {
         e.preventDefault();
-        document.body.style.transition = 'opacity 0.8s cubic-bezier(0.7, 0, 1, 1)';
-        document.body.style.opacity = '0';
-        setTimeout(() => location.href = link.href, 800);
+        goToProject(link.getAttribute('href'));
       });
     });
+
+    if (location.hash.startsWith('#project-')) {
+      const li = document.querySelector(location.hash);
+      if (li) {
+        requestAnimationFrame(() => {
+          li.scrollIntoView({ block: 'center' });
+          spotlightProject(li);
+        });
+      }
+    }
 
     function updateClock() {
       const now = new Date();
@@ -322,7 +626,8 @@
         minute: '2-digit',
         hour12: true
       });
-      document.getElementById('clock').textContent = time + ' in London, United Kingdom';
+      document.getElementById('clock').innerHTML =
+        time + ' at <span class="clock-location">JCB World Headquarters, Rocester</span>';
     }
     updateClock();
     setInterval(updateClock, 1000);

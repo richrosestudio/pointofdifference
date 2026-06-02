@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commercial Edge — Richard Rosewarne</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #111;
+      background: #fff;
+      opacity: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: none;
+    }
+
+    .page {
+      display: flex;
+      min-height: 100vh;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .sidebar {
+      width: 180px;
+      flex-shrink: 0;
+      padding: 80px 40px 80px 0;
+    }
+
+    .sidebar-inner {
+      position: sticky;
+      top: 80px;
+    }
+
+    .back {
+      display: block;
+      color: #999;
+      margin-bottom: 40px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .back:hover {
+      color: #111;
+    }
+
+    .nav-list {
+      list-style: none;
+    }
+
+    .nav-list a {
+      font-size: 13px;
+      color: #bbb;
+      display: block;
+      padding: 3px 0;
+      cursor: pointer;
+    }
+
+    .nav-list a:hover,
+    .nav-list a.active {
+      color: #111;
+    }
+
+    .content {
+      flex: 1;
+      padding: 80px 0 120px 48px;
+      border-left: 1px solid #f0f0f0;
+      max-width: 560px;
+    }
+
+    h1 {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+
+    .meta {
+      font-size: 12px;
+      color: #999;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+
+    .content {
+      line-height: 1.65;
+    }
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section:first-of-type {
+      margin-top: 0;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: #111;
+    }
+
+    .section > p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── Stat strip ── */
+    .stat-strip {
+      display: flex;
+      gap: 0;
+      margin-top: 28px;
+      margin-bottom: 28px;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-right: 32px;
+    }
+
+    .stat-item + .stat-item {
+      padding-left: 32px;
+      padding-right: 32px;
+      border-left: 1px solid #f0f0f0;
+    }
+
+    .stat-item:last-child {
+      padding-right: 0;
+    }
+
+    .stat-number {
+      font-size: 22px;
+      font-weight: 500;
+      color: #111;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #bbb;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── Showcase ── */
+    .showcase {
+      margin-top: 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+    }
+
+    .showcase-video {
+      flex-shrink: 0;
+    }
+
+    .video-frame {
+      width: 100%;
+      max-width: 220px;
+      min-width: 160px;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      line-height: 0;
+      background: #fff;
+    }
+
+    .video-frame video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .stagger {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Speech bubble (scroll reveal) ── */
+    :root {
+      --accent-green: #3D9E47;
+    }
+
+    .showcase-bubbles {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      min-width: 0;
+    }
+
+    .speech-bubble-wrap {
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+    }
+
+    .speech-bubble-row {
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .speech-bubble-column {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .speech-bubble {
+      position: relative;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(18px) scale(0.9);
+    }
+
+    .speech-bubble-wrap.is-playing .speech-bubble {
+      animation: bubbleSpring 0.65s cubic-bezier(0.34, 1.4, 0.64, 1) 0.38s forwards;
+    }
+
+    .speech-bubble-wrap--second.is-playing .speech-bubble {
+      animation-delay: 0.12s;
+    }
+
+    .speech-bubble-wrap--second.is-playing .speech-tail {
+      transition-delay: 0.6s;
+    }
+
+    .speech-bubble-wrap--second.is-playing .speech-bubble-inner {
+      transition-delay: 0.58s, 0.72s;
+    }
+
+    .speech-bubble-wrap--second.is-playing .speech-typing {
+      transition-delay: 0.58s;
+    }
+
+    @keyframes bubbleSpring {
+      0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.9);
+      }
+      75% {
+        opacity: 1;
+        transform: translateY(0) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .speech-bubble-inner {
+      position: relative;
+      padding: 12px 16px 14px 16px;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      overflow: visible;
+      opacity: 0;
+      transition:
+        opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s,
+        box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.65s;
+    }
+
+    .speech-bubble-inner::before {
+      content: '';
+      position: absolute;
+      left: -1px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: var(--accent-green);
+      border-radius: 1px;
+      z-index: 1;
+    }
+
+    .speech-bubble-wrap.is-playing .speech-bubble-inner {
+      opacity: 1;
+      box-shadow: 0 8px 28px rgba(61, 158, 71, 0.08);
+    }
+
+    .speech-tail {
+      position: absolute;
+      top: 50%;
+      left: -7px;
+      z-index: 3;
+      width: 0;
+      height: 0;
+      margin-top: -7px;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-right: 8px solid #fff;
+      filter: drop-shadow(-1px 0 0 #e8e8e8);
+      opacity: 0;
+      transform: translateX(5px);
+      transition:
+        opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.58s,
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.58s;
+    }
+
+    .speech-bubble-wrap.is-playing .speech-tail {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .speech-typing {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      align-items: center;
+      min-height: 28px;
+      opacity: 0;
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+    }
+
+    .speech-bubble-wrap.is-playing .speech-typing {
+      opacity: 1;
+    }
+
+    .speech-bubble-wrap.is-playing.is-typing-done .speech-typing {
+      opacity: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .speech-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #ccc;
+      opacity: 0.4;
+      animation: speechDotBounce 1s ease-in-out infinite;
+    }
+
+    .speech-dot:nth-child(2) { animation-delay: 0.15s; }
+    .speech-dot:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes speechDotBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    .speech-bubble-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #555;
+      margin: 0;
+    }
+
+    .speech-bubble-wrap.is-playing:not(.is-typing-done) .speech-bubble-text {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .speech-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(5px);
+      transition:
+        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .speech-word.is-on {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Closing note ── */
+    .closing-note {
+      margin-top: 48px;
+    }
+
+    .closing-rule {
+      border: none;
+      border-top: 1px solid #f0f0f0;
+      width: 100%;
+      margin: 0 0 12px;
+    }
+
+    .closing-text {
+      font-size: 12px;
+      color: #bbb;
+      letter-spacing: 0.04em;
+      margin: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .speech-tail,
+      .speech-bubble-inner {
+        transition: none;
+      }
+
+      .speech-bubble-wrap.is-playing .speech-bubble {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+
+      .speech-bubble-wrap.is-playing .speech-tail {
+        opacity: 1;
+        transform: none;
+      }
+
+      .speech-bubble-wrap.is-playing .speech-bubble-inner {
+        opacity: 1;
+      }
+
+      .speech-typing {
+        display: none;
+      }
+
+      .speech-bubble-wrap.is-playing:not(.is-typing-done) .speech-bubble-text {
+        position: static;
+        opacity: 1;
+      }
+
+      .speech-dot {
+        animation: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .sidebar { display: none; }
+      .content { padding: 60px 0 80px; border-left: none; }
+      .showcase {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .video-frame {
+        max-width: 200px;
+      }
+      .speech-bubble-row {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <a class="back stagger" id="back">← Index</a>
+        <ul class="nav-list">
+          <li class="stagger"><a href="#example">Clip</a></li>
+          <li class="stagger"><a href="#feedback">Response</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="content">
+
+      <h1 class="stagger">Commercial Edge</h1>
+      <p class="meta stagger">2025–2026</p>
+
+      <div class="section stagger" id="example">
+        <p>Currently leading a live project with one of the UK's largest solar O&amp;M companies, operating across 82 sites and 809MW under management.</p>
+        <p>Identified a bespoke product gap, coordinated between the customer and a stretched technical team, and delivered to a hard deadline with their operations director, presenting directly to the managing director. If the clip is adopted, it has the potential to become a standard solution across UK solar installations.</p>
+        <div class="stat-strip stagger">
+          <div class="stat-item">
+            <span class="stat-number">82</span>
+            <span class="stat-label">sites</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">809MW</span>
+            <span class="stat-label">under management</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">1</span>
+            <span class="stat-label">hard deadline</span>
+          </div>
+        </div>
+        <div class="showcase" id="feedback">
+          <div class="showcase-video">
+            <div class="video-frame">
+              <video
+                src="bge-example.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                aria-label="Commercial Edge example">
+              </video>
+            </div>
+          </div>
+          <div class="showcase-bubbles">
+            <div class="speech-bubble-wrap speech-bubble-wrap--first" id="bubble-1" aria-hidden="true">
+              <div class="speech-bubble-row">
+                <div class="speech-bubble-column">
+                  <div class="speech-bubble">
+                    <span class="speech-tail" aria-hidden="true"></span>
+                    <div class="speech-bubble-inner">
+                      <span class="speech-typing" aria-hidden="true">
+                        <span class="speech-dot"></span>
+                        <span class="speech-dot"></span>
+                        <span class="speech-dot"></span>
+                      </span>
+                      <p class="speech-bubble-text">Im becoming disparent</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="speech-bubble-wrap speech-bubble-wrap--second" id="bubble-2" aria-hidden="true">
+              <div class="speech-bubble-row">
+                <div class="speech-bubble-column">
+                  <div class="speech-bubble">
+                    <span class="speech-tail" aria-hidden="true"></span>
+                    <div class="speech-bubble-inner">
+                      <span class="speech-typing" aria-hidden="true">
+                        <span class="speech-dot"></span>
+                        <span class="speech-dot"></span>
+                        <span class="speech-dot"></span>
+                      </span>
+                      <p class="speech-bubble-text">with all the time i've given you I think its more than fair</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="closing-note stagger">
+        <hr class="closing-rule" />
+        <p class="closing-text">Clip under review. Outcome pending.</p>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    window.addEventListener('pageshow', () => {
+      document.body.style.transition = 'none';
+      document.body.style.opacity = '1';
+
+      const STAGGER_INITIAL = 100;
+      const STAGGER_STEP = 110;
+      const STAGGER_DURATION = '0.75s';
+      const STAGGER_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+      const STAGGER_OFFSET = '12px';
+      const staggerTransition = `opacity ${STAGGER_DURATION} ${STAGGER_EASE}, transform ${STAGGER_DURATION} ${STAGGER_EASE}`;
+
+      const els = document.querySelectorAll('.stagger');
+      els.forEach(el => {
+        el.style.transition = 'none';
+        el.style.opacity = '0';
+        el.style.transform = `translateY(${STAGGER_OFFSET})`;
+      });
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(el => {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        });
+        return;
+      }
+
+      document.body.offsetHeight;
+
+      els.forEach((el, i) => {
+        setTimeout(() => {
+          el.style.transition = staggerTransition;
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, STAGGER_INITIAL + i * STAGGER_STEP);
+      });
+    });
+
+    document.getElementById('back').addEventListener('click', () => {
+      document.body.style.transition = 'opacity 0.8s cubic-bezier(0.7, 0, 1, 1)';
+      document.body.style.opacity = '0';
+      setTimeout(() => location.href = 'index.html', 800);
+    });
+
+    const sections = document.querySelectorAll('.section[id]');
+    const navLinks = document.querySelectorAll('.nav-list a');
+    const bubbleWraps = document.querySelectorAll('.speech-bubble-wrap[id]');
+    const feedbackBlock = document.getElementById('feedback');
+
+    const scrollSpyTargets = [
+      ...sections,
+      ...(feedbackBlock ? [feedbackBlock] : []),
+      ...bubbleWraps
+    ];
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.nav-list a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    scrollSpyTargets.forEach(s => observer.observe(s));
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    const frame = document.querySelector('.video-frame');
+    const exampleVideo = document.querySelector('.video-frame video');
+    if (frame && exampleVideo) {
+      exampleVideo.playbackRate = 0.82;
+
+      exampleVideo.addEventListener('loadedmetadata', () => {
+        const { videoWidth, videoHeight } = exampleVideo;
+        if (videoWidth && videoHeight) {
+          frame.style.aspectRatio = `${videoWidth} / ${videoHeight}`;
+        }
+        exampleVideo.playbackRate = 0.82;
+      });
+
+      exampleVideo.play().catch(() => {});
+    }
+
+    function splitWords(textEl) {
+      if (textEl.dataset.split) return;
+      textEl.dataset.split = 'true';
+      const text = textEl.textContent.trim();
+      textEl.textContent = '';
+      text.split(/(\s+)/).forEach(part => {
+        if (/^\s+$/.test(part)) {
+          textEl.appendChild(document.createTextNode(part));
+        } else {
+          const span = document.createElement('span');
+          span.className = 'speech-word';
+          span.textContent = part;
+          textEl.appendChild(span);
+        }
+      });
+    }
+
+    function playSpeechBubble(wrap, reducedMotion) {
+      if (wrap.classList.contains('is-playing')) return;
+      wrap.classList.add('is-playing');
+      wrap.setAttribute('aria-hidden', 'false');
+
+      const textEl = wrap.querySelector('.speech-bubble-text');
+      splitWords(textEl);
+      const words = wrap.querySelectorAll('.speech-word');
+
+      if (reducedMotion) {
+        wrap.classList.add('is-typing-done');
+        words.forEach(w => w.classList.add('is-on'));
+        return;
+      }
+
+      setTimeout(() => wrap.classList.add('is-typing-done'), 2800);
+
+      words.forEach((w, i) => {
+        setTimeout(() => w.classList.add('is-on'), 3200 + i * 130);
+      });
+    }
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    bubbleWraps.forEach(wrap => {
+      if (reducedMotion) {
+        playSpeechBubble(wrap, true);
+        return;
+      }
+      const bubbleObs = new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting) return;
+        bubbleObs.disconnect();
+        playSpeechBubble(wrap, false);
+      }, { rootMargin: '0px 0px -15% 0px' });
+      bubbleObs.observe(wrap);
+    });
+  </script>
+</body>
+</html>

@@ -241,9 +241,9 @@
     /* ── Stagger ── */
     .stagger {
       opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(12px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* ── Mobile ── */
@@ -319,21 +319,36 @@
       document.body.style.transition = 'none';
       document.body.style.opacity = '1';
 
+      const STAGGER_INITIAL = 100;
+      const STAGGER_STEP = 110;
+      const STAGGER_DURATION = '0.75s';
+      const STAGGER_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+      const STAGGER_OFFSET = '12px';
+      const staggerTransition = `opacity ${STAGGER_DURATION} ${STAGGER_EASE}, transform ${STAGGER_DURATION} ${STAGGER_EASE}`;
+
       const els = document.querySelectorAll('.stagger');
       els.forEach(el => {
         el.style.transition = 'none';
         el.style.opacity = '0';
-        el.style.transform = 'translateY(10px)';
+        el.style.transform = `translateY(${STAGGER_OFFSET})`;
       });
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(el => {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        });
+        return;
+      }
 
       document.body.offsetHeight;
 
       els.forEach((el, i) => {
         setTimeout(() => {
-          el.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+          el.style.transition = staggerTransition;
           el.style.opacity = '1';
           el.style.transform = 'translateY(0)';
-        }, i * 70);
+        }, STAGGER_INITIAL + i * STAGGER_STEP);
       });
     });
 

@@ -26,6 +26,11 @@
       transition: none;
     }
 
+    :root {
+      --space-section: 64px;
+      --space-stack: 16px;
+    }
+
     /* ── Layout ── */
     .page {
       display: flex;
@@ -95,26 +100,66 @@
       margin-bottom: 4px;
     }
 
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .page-header h1 {
+      margin-bottom: 0;
+    }
+
+    .app-store-link {
+      display: inline-flex;
+      flex-shrink: 0;
+      cursor: pointer;
+      line-height: 0;
+      opacity: 0.9;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .app-store-link:hover {
+      opacity: 1;
+      transform: scale(1.04);
+    }
+
+    .app-store-link img {
+      display: block;
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+    }
+
     .meta {
       color: #999;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
     }
 
     .section {
-      margin-top: 40px;
+      margin-top: var(--space-section);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-stack);
     }
 
     .section:first-of-type {
       margin-top: 0;
     }
 
+    .section:not(:first-of-type) {
+      border-top: 1px solid #f0f0f0;
+      padding-top: 24px;
+    }
+
     p {
-      margin-bottom: 20px;
+      margin-bottom: var(--space-stack);
       color: #111;
     }
 
-    .section > p:last-child,
-    .section > .quote:last-child {
+    .section > p,
+    .section > .quote {
       margin-bottom: 0;
     }
 
@@ -122,7 +167,7 @@
       color: #999;
       font-style: italic;
       line-height: 1.8;
-      margin: 0 0 20px;
+      margin: 0;
     }
 
     .quote cite {
@@ -133,15 +178,8 @@
       color: #bbb;
     }
 
-    .divider {
-      height: 1px;
-      background: #f0f0f0;
-      margin: 0 0 28px;
-    }
-
     .media-block {
-      margin-top: 28px;
-      margin-bottom: 20px;
+      margin: 0;
     }
 
     .media-block img,
@@ -151,19 +189,13 @@
     }
 
     .media-block + .media-block {
-      margin-top: 16px;
-    }
-
-    .section > .media-block:last-child,
-    .section > .screen-row:last-child {
-      margin-bottom: 0;
+      margin-top: 0;
     }
 
     .screen-row {
       display: flex;
       gap: 8px;
-      margin-top: 28px;
-      margin-bottom: 20px;
+      margin: 0;
     }
 
     .screen-row img {
@@ -183,41 +215,12 @@
       50%       { opacity: 0.08; }
     }
 
-    .placeholder-media {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #f4f4f4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #bbb;
-      font-size: 13px;
-    }
-
-    /* ── Section titles ── */
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #111;
-      margin-bottom: 20px;
-    }
-
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #e8e8e8;
-    }
-
     /* ── Heatmap ── */
     .heatmap-img {
       width: 100%;
       display: block;
       opacity: 0;
-      margin-bottom: 28px;
+      margin-bottom: 0;
       transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -237,38 +240,11 @@
       90%        { opacity: 1;    filter: brightness(1); }
     }
 
-    /* ── Stats ── */
-    .stats-row {
-      display: flex;
-      gap: 0;
-      margin-top: 32px;
-      margin-bottom: 32px;
-    }
-
-    .stat {
-      flex: 1;
-    }
-
-    .stat-number {
-      font-size: 28px;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-      color: #111;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: #999;
-      line-height: 1.4;
-    }
-
     .pulse-container {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-top: 20px;
+      margin: 0;
     }
 
     .pulse-dot {
@@ -310,50 +286,116 @@
     /* ── Iteration phones ── */
     .iteration-phones {
       display: flex;
-      gap: 24px;
-      align-items: flex-start;
-      margin-top: 28px;
-      margin-bottom: 20px;
-    }
-
-    .phone-frame {
-      flex: 1;
-      display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: var(--space-stack);
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto;
+      flex-shrink: 0;
+    }
+
+    .phone-crossfade {
+      position: relative;
+      width: 100%;
+      flex-shrink: 0;
+      aspect-ratio: 552 / 1024;
+    }
+
+    .phone-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .phone-slide.phone-concept {
+      filter: saturate(0.5) brightness(0.9);
+      opacity: 1;
+    }
+
+    .phone-slide.phone-launch {
       opacity: 0;
     }
 
-    .phone-frame img {
-      width: 100%;
-      border-radius: 8px;
+    @keyframes phoneFadeConcept {
+      0%, 42% { opacity: 1; }
+      50%, 92% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
-    .phone-frame.phone-left img {
-      filter: saturate(0.5) brightness(0.9);
+    @keyframes phoneFadeLaunch {
+      0%, 42% { opacity: 0; }
+      50%, 92% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .iteration-phones.is-playing .phone-slide.phone-concept {
+      animation: phoneFadeConcept 12s ease-in-out infinite;
+    }
+
+    .iteration-phones.is-playing .phone-slide.phone-launch {
+      animation: phoneFadeLaunch 12s ease-in-out infinite;
+    }
+
+    .phone-labels {
+      position: relative;
+      width: 100%;
+      min-height: 1.2em;
+      text-align: center;
     }
 
     .phone-label {
+      position: absolute;
+      left: 0;
+      right: 0;
       font-size: 11px;
       color: #999;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      opacity: 0;
     }
 
-    .phone-frame.phone-left {
-      transform: translateY(16px) translateX(-12px);
+    .iteration-phones:not(.is-playing) .phone-label:first-child {
+      opacity: 1;
     }
 
-    .phone-frame.phone-right {
-      transform: translateY(16px) translateX(12px);
+    .iteration-phones.is-playing .phone-label:first-child {
+      animation: phoneFadeConcept 12s ease-in-out infinite;
+    }
+
+    .iteration-phones.is-playing .phone-label:last-child {
+      animation: phoneFadeLaunch 12s ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .iteration-phones.is-playing .phone-slide,
+      .iteration-phones.is-playing .phone-label {
+        animation: none !important;
+      }
+
+      .iteration-phones.is-playing .phone-slide.phone-concept {
+        opacity: 0;
+      }
+
+      .iteration-phones.is-playing .phone-slide.phone-launch {
+        opacity: 1;
+      }
+
+      .iteration-phones.is-playing .phone-label:first-child {
+        opacity: 0;
+      }
+
+      .iteration-phones.is-playing .phone-label:last-child {
+        opacity: 1;
+      }
     }
 
     /* ── Flow diagram ── */
     .flow-diagram {
       position: relative;
-      margin-top: 28px;
-      margin-bottom: 20px;
+      margin: 0;
       overflow: hidden;
     }
 
@@ -373,74 +415,11 @@
       transition: opacity 0.4s;
     }
 
-    /* ── Feature tabs ── */
-    .feature-tabs {
-      display: flex;
-      gap: 24px;
-      margin-top: 24px;
-      margin-bottom: 0;
-      border-bottom: 1px solid #f0f0f0;
-    }
-
-    .feature-tab {
-      background: none;
-      border: none;
-      padding: 0 0 12px;
-      font-size: 13px;
-      font-family: inherit;
-      color: #999;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .feature-tab::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: #111;
-      transform: scaleX(0);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .feature-tab.active {
-      color: #111;
-    }
-
-    .feature-tab.active::after {
-      transform: scaleX(1);
-    }
-
-    .feature-panels {
-      display: grid;
-    }
-
-    .feature-panel {
-      grid-row: 1;
-      grid-column: 1;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-      padding-top: 24px;
-    }
-
-    .feature-panel.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
     /* ── Nudge definition ── */
     .nudge-definition {
-      margin-top: 28px;
-      margin-bottom: 8px;
-      padding: 20px 0;
+      margin: 0;
+      padding: 0;
       border-top: 1px solid #e8e8e8;
-    }
-
-    .feature-panel .nudge-definition:first-child {
-      margin-top: 0;
     }
 
     .nudge-definition > * {
@@ -462,6 +441,7 @@
       font-size: 28px;
       font-weight: 600;
       color: #111;
+      margin-top: var(--space-stack);
       margin-bottom: 4px;
       display: inline-block;
       cursor: default;
@@ -475,7 +455,7 @@
       font-size: 12px;
       color: #999;
       letter-spacing: 0.04em;
-      margin-bottom: 14px;
+      margin-bottom: var(--space-stack);
       display: block;
     }
 
@@ -483,7 +463,7 @@
       border: none;
       border-top: 1px solid #e8e8e8;
       width: 0;
-      margin: 0 0 14px 0;
+      margin: 0 0 var(--space-stack) 0;
       transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -500,8 +480,12 @@
       border: none;
       border-top: 1px solid #e8e8e8;
       width: 0;
-      margin: 28px 0 20px;
+      margin: 0;
       transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .closing-line {
+      margin-bottom: 0;
     }
 
     .closing-line span {
@@ -515,15 +499,19 @@
     /* ── Stagger ── */
     .stagger {
       opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(12px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* ── Mobile ── */
     @media (max-width: 640px) {
+      .page { padding: 0 20px; }
       .sidebar { display: none; }
       .content { padding: 60px 0 80px; border-left: none; }
+      .iteration-phones {
+        max-width: min(280px, 100%);
+      }
     }
   </style>
 </head>
@@ -535,11 +523,11 @@
       <div class="sidebar-inner">
         <a class="back stagger" id="back">← Index</a>
         <ul class="nav-list">
-          <li class="stagger"><a href="#problem">Origin</a></li>
+          <li class="stagger"><a href="#problem">Start</a></li>
           <li class="stagger"><a href="#build">Build</a></li>
-          <li class="stagger"><a href="#backend">Infrastructure</a></li>
+          <li class="stagger"><a href="#backend">Backend</a></li>
           <li class="stagger"><a href="#frontend">Design</a></li>
-          <li class="stagger"><a href="#tools">Stack</a></li>
+          <li class="stagger"><a href="#tools">Tools</a></li>
           <li class="stagger"><a href="#output">Output</a></li>
           <li class="stagger"><a href="#features">Features</a></li>
           <li class="stagger"><a href="#iteration">Iteration</a></li>
@@ -550,44 +538,43 @@
     <!-- Content -->
     <main class="content">
 
-      <h1 class="stagger">Nudge iOS App</h1>
+      <div class="page-header stagger">
+        <h1>Nudge iOS App</h1>
+        <a href="https://apps.apple.com/us/app/nudge-team-payment-reminders/id6761142904"
+           class="app-store-link"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="View Nudge on the App Store">
+          <img src="app-store.png" alt="" width="22" height="22" />
+        </a>
+      </div>
       <p class="meta stagger">2026</p>
 
       <!-- The Problem -->
       <div class="section stagger" id="problem">
-        <h2 class="section-title">Origin</h2>
-        <p>The best product advice I kept receiving was simple: <strong>solve a problem you actually live with.</strong> Not a hypothetical, not a gap in the market you read about, something real, something personal. For me, that problem showed up over Christmas, organising padel with a group of mates.</p>
-        <p>I organised every session. By January, I had no idea who had paid, who hadn't, and had no appetite for chasing a group of mates I'd known most of my life. <em>The person who did all the organising was somehow also the one doing all the chasing.</em> That became the seed for Nudge.</p>
-        <div class="media-block">
-          <img src="gathering.png" alt="A Gathering of Friends, 1642" />
-        </div>
+        <p>The best product advice I received was simple: <strong>solve a problem you actually live with.</strong></p>
         <p class="quote">
           "The most valuable skill of the 21st century is knowing what to do with AI."
           <cite>Pedro Domingos</cite>
         </p>
-        <p>Nudge was born at the crossover of 2025 and 2026, right at the peak of my curiosity about what AI could actually do in a product, not just generate text, but handle the uncomfortable, repetitive human moments most apps ignore. The kind of friction people don't talk about but deal with constantly.</p>
       </div>
 
       <!-- The Build -->
       <div class="section stagger" id="build">
-        <h2 class="section-title">Build</h2>
-        <p>I'd built apps before. A football grounds tracker that never shipped, but taught me everything I needed: where I cut corners, what I'd do differently, how to think about architecture before writing a single line. <strong>Nudge was where those lessons got applied.</strong></p>
-        <p>My early apps had a recurring flaw. <strong>Beautiful interfaces. Zero infrastructure.</strong> I'd pour everything into the frontend, the kind of UI that could genuinely keep someone coming back, and then hit a wall the moment I needed anything to actually persist. No users, no data, no backend. <em>A stunning shop front with nothing behind the door.</em></p>
+        <p>A football grounds tracker that never shipped taught me everything, where I cut corners, what I'd do differently, how to think about architecture before writing a single line. Nudge is where those lessons got applied.</p>
+        <p>Beautiful interfaces. Zero infrastructure. Everything into the frontend, nothing behind the door. Nudge was built differently.</p>
         <div class="screen-row">
           <img src="screen1.png" alt="Terrace screen 1" />
           <img src="screen2.png" alt="Terrace screen 2" />
           <img src="screen3.png" alt="Terrace screen 3" />
           <img src="screen4.png" alt="Terrace screen 4" />
         </div>
-        <p>With Nudge, I made a deliberate call to flip that entirely. Backend first, frontend later, even though every instinct I had was pulling me toward the design work. I sat with the unglamorous stuff: databases, auth flows, relational structure, the plumbing that nobody sees but everything depends on.</p>
+        <p>Backend first, frontend later. The unglamorous stuff, databases, auth flows, relational structure, the plumbing nobody sees but everything depends on.</p>
       </div>
 
       <!-- The Backend -->
       <div class="section stagger" id="backend">
-        <h2 class="section-title">Infrastructure</h2>
         <p>The backend is the 2026 equivalent of a receptionist. <em>Nobody notices it when it's working. Everyone notices it when it's not.</em></p>
-        <p>The concept of a relational backend, users connected to friends, friends connected to groups, groups triggering notifications, is surprisingly intuitive once you <strong>stop thinking of it as infrastructure and start thinking of it as a model of how people actually interact.</strong> It maps to real life. That realisation made it far less intimidating than I'd built it up to be.</p>
-        <p>Using Supabase as the foundation was a deliberate choice for scalability. This wasn't going to be a shell, it needed room to grow. Within roughly a day, the core was live and tested: <strong>user authentication, friend connections, communities and teams, and a notification layer</strong> all operational on a basic app shell.</p>
         <div class="media-block">
           <img src="supabase.png" alt="Supabase SQL editor" />
         </div>
@@ -595,31 +582,21 @@
 
       <!-- The Frontend -->
       <div class="section stagger" id="frontend">
-        <h2 class="section-title">Design</h2>
-        <p>I came into the frontend with confidence. <strong>Design had always been my thing</strong>, the part of any project I gravitated toward, the answer I'd give when someone asked what I enjoyed most about marketing. Visuals, layouts, making something feel considered. I thought this was going to be the reward for getting the backend out of the way.</p>
-        <p>I was wrong. Not about the design, about the scale of it.</p>
         <p><em>Building an iOS app isn't designing a few screens. It's designing every screen, every state, every decision a user could possibly make.</em> Layer after layer after layer, each one revealing another underneath.</p>
-        <p>Joining a team, sending a nudge, handling edge cases, writing a privacy policy. None of it appears by accident. <strong>User experience design is strategic thinking dressed up as simplicity.</strong> The cleaner something feels to use, the more invisible work went into it. The very website you're reading this on is a good example. What looks simple on the surface has a lot of thought behind the animations and interactions. That principle runs through everything I build.</p>
-        <p>That gap between how effortless something looks and how deliberate it actually is, I didn't fully appreciate it until I was deep inside it. What this process taught me was <strong>empathy as a design tool.</strong> You have to consistently step outside your own understanding of the app, where the buttons are, what the flows mean, and inhabit the perspective of someone opening it for the first time. That mental shift is a skill, and it takes time to develop. I'm a better product thinker for having been forced to learn it.</p>
+        <p>Joining a team, sending a nudge, handling edge cases. None of it appears by accident. The cleaner something feels to use, the more invisible work went into it. This website is a good example of that.</p>
       </div>
 
       <!-- Iteration -->
       <!-- The Tools -->
       <div class="section stagger" id="tools">
-        <h2 class="section-title">Stack</h2>
-        <p>I didn't start with Cursor. I started where most people start, with Lovable, then Replit. Genuinely useful places to begin and I'd recommend them to anyone finding their feet. Could someone pick up Lovable today and build an app? Yes. <strong>The idea is what matters most.</strong> But there's a ceiling, and I hit it faster than I expected.</p>
-        <p>I remember going round in circles on frontend problems, making the same requests in slightly different ways, not really getting anywhere. <em>That friction was the signal. Not to give up, but to move up.</em> So I jumped to Cursor.</p>
-        <p>The difference was immediate. It wasn't just a better tool, it was a different kind of creative freedom. The ability to switch between models depending on what I needed meant I could treat each one like a specialist rather than a generalist. <strong>Gemini for UI inspiration and visual thinking. Claude for backend logic and structure.</strong> Having the right model for the right job changed the quality of what I was producing almost overnight. Cursor's own Composer 2 filled the gaps when credits ran low — more capable than it gets credit for.</p>
-        <p>There's a broader point here too. New models are dropping weekly, each one supposedly surpassing the last. That used to feel like something to be anxious about, a treadmill you could never quite keep up with. Now it feels like an advantage. <strong>I know the models, I know their strengths, I know how to get the best out of them.</strong> That knowledge compounds in a way that generic AI literacy simply doesn't.</p>
+        <p>Started with Lovable, then Replit. Useful starting points, but there's a ceiling. Moved to Cursor when the friction became the signal.</p>
+        <p>Gemini for UI and visual thinking. Claude for backend logic. The right model for the right job. That knowledge compounds in a way generic AI literacy simply doesn't.</p>
       </div>
 
       <!-- Output -->
       <div class="section stagger" id="output">
-        <h2 class="section-title">Output</h2>
-        <img class="heatmap-img" src="activity.png" alt="Cursor AI activity heatmap" />
-        <p>The best work I've ever done hasn't come from forcing myself to sit down and grind. <em>It's come from the point where I stop having to.</em> When a project stops feeling like something on a to-do list and starts being all you think about, that's when the output changes completely. Nudge hit that point quickly.</p>
-        <p>I wasn't showing up to build because I had to. I was showing up because I genuinely couldn't think about much else. <strong>That's a different gear entirely.</strong> The kind that's hard to manufacture and harder to fake.</p>
-        <p>29th March 2026 was the day Nudge moved furthest, fastest. <strong>31,499 lines of code added and amended in a single day.</strong> Take out six hours of sleep and that works out at roughly 1,750 changes an hour, 29 lines a minute, one line every two seconds for eighteen hours straight. Not mindless output either. Every option considered, every decision made, learning continuously the entire way through.</p>
+        <img class="heatmap-img" src="ai-line-edits.png" alt="Cursor AI line edits — 472,699 total" />
+        <p>May 17, 2026. 29,968 lines edited in a single day.</p>
         <div class="pulse-container">
           <div class="pulse-dot"></div>
           <span class="pulse-label">One line, every two seconds, for eighteen hours</span>
@@ -628,69 +605,32 @@
 
       <!-- Features -->
       <div class="section stagger" id="features">
-        <h2 class="section-title">Features</h2>
-        <p>No build is a straight line. There were features that came to me instantly, ones where the idea and the execution just aligned and an hour later it was done. There were others I was genuinely proud of, things I hadn't seen done quite that way before. And then there were the ones that humbled me completely, the ones I sat with for days, that broke and rebuilt and broke again before finally clicking. <em>Below is an honest look at a few of each.</em></p>
+        <p>Features that flew. Features that broke. Features that rebuilt themselves three times before clicking.</p>
 
-        <div class="feature-tabs">
-          <button class="feature-tab active" data-tab="tab-nudge">Nudge</button>
-          <button class="feature-tab" data-tab="tab-notifications">Notifications</button>
-          <button class="feature-tab" data-tab="tab-paywall">Paywall</button>
-          <button class="feature-tab" data-tab="tab-profiles">Profiles</button>
-          <button class="feature-tab" data-tab="tab-teams">Teams</button>
+        <div class="nudge-definition">
+          <span class="def-word">nudge</span>
+          <span class="def-meta">/nʌdʒ/ &nbsp;·&nbsp; verb, noun</span>
+          <hr class="def-rule" />
+          <span class="def-text">A gentle push, prod, or shake, often using the elbow to attract attention, or a subtle, non-coercive intervention in behavioural science designed to influence choices without restricting freedom of choice.</span>
         </div>
-
-        <div class="feature-panels">
-          <div class="feature-panel active" id="tab-nudge">
-            <div class="nudge-definition">
-              <span class="def-word">nudge</span>
-              <span class="def-meta">/nʌdʒ/ &nbsp;·&nbsp; verb, noun</span>
-              <hr class="def-rule" />
-              <span class="def-text">A gentle push, prod, or shake, often using the elbow to attract attention, or a subtle, non-coercive intervention in behavioural science designed to influence choices without restricting freedom of choice.</span>
-            </div>
-            <p>The Nudge itself required more thought than you might expect for something that sounds, on the surface, like a notification. The immediate problem: what happens if someone turns notifications off? For most apps that's an inconvenience. For Nudge, it would make the whole thing pointless. So I had to think about this differently.</p>
-            <p>The Nudge had to have value for the person receiving it, not just the person sending it. <strong>This is built for the half-swipe Snapchat crowd, the people with read receipts turned off, the ones who have quietly mastered the art of not responding.</strong> The goal was to give them a frictionless, low-pressure way to know they owe someone money without it ever needing to become a conversation in a group chat. No awkwardness, no drama, just the information they need delivered in a way that doesn't feel like a formal invoice from a bank.</p>
-            <p><em>The language I chose for the Nudge notification was deliberate.</em> Informal enough that it doesn't feel threatening, specific enough that you know exactly what you owe and why. That balance took some work to get right.</p>
-          </div>
-
-          <div class="feature-panel" id="tab-notifications">
-            <p>Notifications sit right at the heart of how Nudge works, which made it all the more frustrating that this was another one that demanded time before it gave anything back. Not complex in the way a tricky frontend problem is complex. <em>Just slow, methodical, unglamorous setup work.</em> The kind where you're not really seeing anything come to life, you're just configuring things and hoping it all connects.</p>
-            <p>When it did connect, the first test was immediately obvious. Send a Nudge to a team of 20 people and 20 notifications fire at once, one for every member. <strong>My phone absolutely buried under a stack of its own alerts.</strong> Useful proof that it worked. Not exactly the refined experience I had in mind.</p>
-          </div>
-
-          <div class="feature-panel" id="tab-paywall">
-            <p>This is the one I assumed would just work. Genuinely. My first app, a habit tracker, because of course it was, I set up all the pricing, monthly subscriptions, lifetime options, the works. Then built it, loaded it onto my phone and fully expected to tap purchase and watch money appear. Maybe materialise on the desk in front of me. Instead, nothing. Absolutely nothing happened.</p>
-            <p>That naivety was actually useful in hindsight. It made me properly learn it rather than stumble through it. With Nudge, in-app payments became one of the most time consuming parts of the entire build, not because the concept was complicated but because the admin, the setup, the Apple configuration, the testing, <strong>all of it demanded patience in a way that frontend work simply doesn't.</strong></p>
-            <p>But there's something about the things that take the longest. When they finally land, nothing else in the build comes close. I remember the moment I pressed pay and the Apple paywall slid up from the bottom of the screen. <em>That sheet appearing was genuinely one of the best moments of the entire project.</em> I don't think I've ever been so happy to see a paywall in my life.</p>
-          </div>
-
-          <div class="feature-panel" id="tab-profiles">
-            <p>With most apps I've built in the past, gamification was always part of the thinking. Badges, streaks, rewards, anything that earns a little dopamine and keeps someone coming back. But Nudge is a different kind of app. Time spent inside it is not the goal. That's actually the point. <em>If Nudge is doing its job, you barely need to open it.</em></p>
-            <p>So profiles became deliberately simple. Clean, functional, nothing unnecessary. No badges to collect, no activity streaks to maintain.</p>
-          </div>
-
-          <div class="feature-panel" id="tab-teams">
-            <p>Teams were a completely different story. What looks straightforward on the surface opened up into one of the deepest parts of the build. <strong>Every possible journey had to be accounted for, including the ones users will hopefully never need.</strong></p>
-          </div>
-        </div>
+        <p>The notification had to work even for people who ignore notifications. Built for the half-swipe crowd, frictionless, low pressure, no group chat drama. Just the information you need, delivered in a way that doesn't feel like a bank.</p>
       </div>
 
       <!-- Iteration -->
       <div class="section stagger" id="iteration">
-        <h2 class="section-title">Iteration</h2>
-        <p>One piece of advice that has stuck with me through all of this: <strong>just start.</strong> It doesn't matter if you go in the wrong direction. Going the wrong way at least tells you something, and in design that information is everything. <em>Iteration isn't a fallback plan. It is the plan.</em></p>
-        <p>The progression below tells its own story. My username on the first concept was Tractor. <strong>Tractor was my first word.</strong> Twenty-five years later, starting something new with no idea how it would turn out, that's what came back. I had no idea what I was doing either time. Both times I went anyway.</p>
+        <p>Wrong directions still tell you something, that information is everything.</p>
         <div class="iteration-phones">
-          <div class="phone-frame phone-left">
-            <img src="nudge-concept.png" alt="First concept" />
-            <span class="phone-label">First concept</span>
+          <div class="phone-crossfade">
+            <img class="phone-slide phone-concept" src="nudge-concept.png" alt="First concept" />
+            <img class="phone-slide phone-launch" src="nudge-launch.png" alt="Launch-ready" />
           </div>
-          <div class="phone-frame phone-right">
-            <img src="nudge-launch.png" alt="Launch-ready" />
+          <div class="phone-labels">
+            <span class="phone-label">First concept</span>
             <span class="phone-label">Launch-ready</span>
           </div>
         </div>
         <hr class="closing-rule" />
-        <p class="closing-line"><span>The</span> <span>distance</span> <span>between</span> <span>those</span> <span>two</span> <span>screens</span> <span>is</span> <span>the</span> <span>whole</span> <span>story.</span> <span>Every</span> <span>lesson,</span> <span>every</span> <span>mistake,</span> <span>every</span> <span>late</span> <span>night.</span></p>
+        <p class="closing-line"><span>The</span> <span>distance</span> <span>between</span> <span>those</span> <span>two</span> <span>screens</span> <span>is</span> <span>the</span> <span>whole</span> <span>story,</span> <span>every</span> <span>lesson,</span> <span>every</span> <span>mistake.</span></p>
       </div>
 
     </main>
@@ -701,21 +641,36 @@
       document.body.style.transition = 'none';
       document.body.style.opacity = '1';
 
+      const STAGGER_INITIAL = 100;
+      const STAGGER_STEP = 110;
+      const STAGGER_DURATION = '0.75s';
+      const STAGGER_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+      const STAGGER_OFFSET = '12px';
+      const staggerTransition = `opacity ${STAGGER_DURATION} ${STAGGER_EASE}, transform ${STAGGER_DURATION} ${STAGGER_EASE}`;
+
       const els = document.querySelectorAll('.stagger');
       els.forEach(el => {
         el.style.transition = 'none';
         el.style.opacity = '0';
-        el.style.transform = 'translateY(10px)';
+        el.style.transform = `translateY(${STAGGER_OFFSET})`;
       });
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(el => {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        });
+        return;
+      }
 
       document.body.offsetHeight;
 
       els.forEach((el, i) => {
         setTimeout(() => {
-          el.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+          el.style.transition = staggerTransition;
           el.style.opacity = '1';
           el.style.transform = 'translateY(0)';
-        }, i * 70);
+        }, STAGGER_INITIAL + i * STAGGER_STEP);
       });
     });
 
@@ -748,7 +703,7 @@
               requestAnimationFrame(tick);
             }
 
-            countUp(document.getElementById('stat-lines'), 31499, 1200);
+            countUp(document.getElementById('stat-lines'), 29968, 1200);
             setTimeout(() => countUp(document.getElementById('stat-changes'), 1750, 1000), 150);
           }
         });
@@ -756,23 +711,7 @@
       statsObserver.observe(statsRow);
     }
 
-    // Feature tabs
-    const featureTabs = document.querySelectorAll('.feature-tab');
-    const featurePanels = document.querySelectorAll('.feature-panel');
-
-    featureTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        featureTabs.forEach(t => t.classList.remove('active'));
-        featurePanels.forEach(p => p.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
-        if (tab.dataset.tab === 'tab-nudge') {
-          setTimeout(animateDefinition, 80);
-        }
-      });
-    });
-
-    // Nudge definition staggered reveal — triggered on tab activation, not scroll
+    // Nudge definition staggered reveal
     const nudgeDef = document.querySelector('.nudge-definition');
     let defAnimated = false;
     function animateDefinition() {
@@ -798,7 +737,6 @@
         defText.style.transform = 'translateY(0)';
       }, 360);
     }
-    // Fire on page load since Nudge tab is active by default (with a short delay to feel intentional)
     setTimeout(animateDefinition, 600);
 
     // Closing line draw + word stagger
@@ -819,24 +757,23 @@
       closingObs.observe(closingRule);
     }
 
-    // Iteration phones staggered reveal
+    // Iteration phones crossfade (concept visible by default; animate when in view)
     const iterationPhones = document.querySelector('.iteration-phones');
     if (iterationPhones) {
-      const leftFrame = iterationPhones.querySelector('.phone-left');
-      const rightFrame = iterationPhones.querySelector('.phone-right');
-      const transitionVal = 'opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1)';
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const startCrossfade = () => {
+        if (iterationPhones.classList.contains('is-playing')) return;
+        iterationPhones.classList.add('is-playing');
+      };
       const iterationObs = new IntersectionObserver(entries => {
         if (!entries[0].isIntersecting) return;
         iterationObs.disconnect();
-        leftFrame.style.transition = transitionVal;
-        leftFrame.style.opacity = '1';
-        leftFrame.style.transform = 'translateY(0) translateX(0)';
-        setTimeout(() => {
-          rightFrame.style.transition = transitionVal;
-          rightFrame.style.opacity = '1';
-          rightFrame.style.transform = 'translateY(0) translateX(0)';
-        }, 350);
-      }, { rootMargin: '0px 0px -10% 0px' });
+        if (prefersReducedMotion) {
+          startCrossfade();
+        } else {
+          setTimeout(startCrossfade, 900);
+        }
+      }, { rootMargin: '0px 0px -5% 0px' });
       iterationObs.observe(iterationPhones);
     }
 
