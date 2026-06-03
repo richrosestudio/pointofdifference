@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why It Matters - Richard Rosewarne</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --jcb-yellow: #FCAF26;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #111;
+      background: #fff;
+      opacity: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: none;
+      cursor: pointer;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      display: flex;
+      min-height: 100vh;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .sidebar {
+      width: 180px;
+      flex-shrink: 0;
+      padding: 80px 40px 80px 0;
+    }
+
+    .sidebar-inner {
+      position: sticky;
+      top: 80px;
+    }
+
+    .back {
+      display: block;
+      color: #999;
+      margin-bottom: 40px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .back:hover {
+      color: #111;
+    }
+
+    .content {
+      flex: 1;
+      padding: 80px 0 120px 48px;
+      border-left: 1px solid #f0f0f0;
+      max-width: 560px;
+    }
+
+    h1 {
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .meta {
+      color: #999;
+      margin-bottom: 40px;
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: #111;
+    }
+
+    .content > p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .why-tabs {
+      position: relative;
+      margin-top: 32px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .why-tabs__list {
+      position: relative;
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .why-tabs__list::-webkit-scrollbar {
+      display: none;
+    }
+
+    .why-tabs__tab {
+      flex-shrink: 0;
+      font-family: inherit;
+      font-size: 11px;
+      color: #999;
+      white-space: nowrap;
+      padding: 0 0 12px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .why-tabs__tab:hover {
+      color: #111;
+    }
+
+    .why-tabs__tab.is-active {
+      color: #111;
+    }
+
+    .why-tabs__indicator {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: 0;
+      background: var(--jcb-yellow);
+      border-radius: 1px;
+      transform: translateX(0);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .why-panel {
+      display: none;
+    }
+
+    .why-panel.is-active {
+      display: block;
+    }
+
+    .difference-traits {
+      margin-bottom: 28px;
+      padding-left: 1.1em;
+      list-style: disc;
+    }
+
+    .difference-traits li {
+      margin-bottom: 8px;
+      color: #111;
+    }
+
+    .difference-traits li:last-child {
+      margin-bottom: 0;
+    }
+
+    .jcb-point__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 12px;
+    }
+
+    .jcb-metric {
+      margin-top: 24px;
+    }
+
+    .jcb-metric__item {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .jcb-metric__value {
+      font-size: clamp(24px, 5vw, 32px);
+      font-weight: 600;
+      color: #111;
+      line-height: 1.1;
+      margin: 0 0 6px;
+    }
+
+    .jcb-metric__label {
+      font-size: 11px;
+      font-weight: 400;
+      color: #999;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .jcb-metric__source {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #f0f0f0;
+      opacity: 0;
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .jcb-metric__source-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #999;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .jcb-metric__source img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .jcb-metric.is-visible .jcb-metric__item {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0.08s;
+    }
+
+    .jcb-metric.is-visible .jcb-metric__source {
+      opacity: 1;
+      transition-delay: 0.2s;
+    }
+
+    #why-panel-example .geo-example {
+      margin-top: 32px;
+    }
+
+    .geo-example {
+      margin-top: 0;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .geo-example.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .geo-example__heading {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 12px;
+    }
+
+    .geo-example__question {
+      margin-bottom: 16px;
+      color: var(--jcb-yellow);
+      font-weight: 600;
+    }
+
+    .geo-example__question strong {
+      font-weight: 600;
+      color: inherit;
+    }
+
+    .geo-tabs {
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .geo-tabs__list {
+      display: flex;
+      gap: 20px;
+    }
+
+    .geo-tabs__tab {
+      flex-shrink: 0;
+      font-family: inherit;
+      font-size: 11px;
+      color: #999;
+      white-space: nowrap;
+      padding: 0 0 10px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      transition: color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .geo-tabs__tab:hover {
+      color: #111;
+    }
+
+    .geo-tabs__tab.is-active {
+      color: #111;
+      box-shadow: inset 0 -1px 0 #111;
+    }
+
+    .geo-tabs__body {
+      position: relative;
+      overflow: hidden;
+      margin-top: 12px;
+      transition: min-height 0.25s ease;
+    }
+
+    .geo-tabs__panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(4px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+      pointer-events: none;
+    }
+
+    .geo-tabs__panel.is-active {
+      position: relative;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      pointer-events: auto;
+    }
+
+    .geo-tabs__answer {
+      background: #f8f8f8;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      padding: 14px 16px;
+    }
+
+    .geo-tabs__answer p {
+      margin-bottom: 16px;
+    }
+
+    .geo-tabs__answer p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .geo-tabs__body {
+        transition: none;
+      }
+
+      .geo-tabs__panel {
+        transition: none;
+      }
+    }
+
+    .geo-example__takeaways {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #f0f0f0;
+      font-size: 12px;
+      font-weight: 400;
+      color: #999;
+      line-height: 1.5;
+    }
+
+    .geo-example__tip {
+      margin-bottom: 12px;
+    }
+
+    .geo-example__notes {
+      padding-left: 1.1em;
+      list-style: disc;
+    }
+
+    .geo-example__notes li {
+      margin-bottom: 6px;
+    }
+
+    .geo-example__notes li:last-child {
+      margin-bottom: 0;
+    }
+
+    .stagger {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .jcb-metric__item,
+      .jcb-metric__source,
+      .geo-example {
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .sidebar { display: none; }
+      .content { padding: 60px 0 80px; border-left: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <a class="back stagger" id="back">← Index</a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <h1 class="stagger">Why It Matters</h1>
+      <p class="meta stagger">2026</p>
+
+      <nav class="why-tabs stagger" aria-label="Why it matters sections">
+        <div class="why-tabs__list" role="tablist">
+          <button type="button" class="why-tabs__tab is-active" role="tab" id="why-tab-difference" aria-selected="true" aria-controls="why-panel-difference">The difference</button>
+          <button type="button" class="why-tabs__tab" role="tab" id="why-tab-example" aria-selected="false" aria-controls="why-panel-example" tabindex="-1">Example</button>
+        </div>
+        <span class="why-tabs__indicator" aria-hidden="true"></span>
+      </nav>
+
+      <div class="why-panels">
+        <div id="why-panel-difference" class="why-panel is-active" role="tabpanel" aria-labelledby="why-tab-difference">
+          <ul class="difference-traits stagger">
+            <li>Commercial thinking backed by sales experience</li>
+            <li>Data driven, not assumption driven</li>
+            <li>Comfortable coordinating across departments and seniority levels</li>
+            <li>Self taught, self motivated outside of work</li>
+            <li>Forward thinking, not just keeping up</li>
+          </ul>
+        </div>
+
+        <div id="why-panel-example" class="why-panel" role="tabpanel" aria-labelledby="why-tab-example" hidden>
+          <article class="jcb-point">
+            <h3 class="jcb-point__title">GEO Strategy</h3>
+            <p>JCB doesn't appear for questions it should own. The future of search isn't just Google. It's AI. AI referrals on jetpress.com and components-direct.com are up 444.5% YOY. The opportunity at JCB, a globally recognised brand operating across 150 countries, is significantly bigger.</p>
+
+            <section class="jcb-metric" aria-labelledby="geo-metric-label">
+              <div class="jcb-metric__item">
+                <p class="jcb-metric__value">444.5%</p>
+                <p id="geo-metric-label" class="jcb-metric__label">AI Referral Growth YOY</p>
+              </div>
+              <div class="jcb-metric__source">
+                <span class="jcb-metric__source-title">Analytics data</span>
+                <img src="google-analytics-icon.png" alt="Google Analytics" width="22" height="22" />
+              </div>
+            </section>
+          </article>
+
+          <section class="geo-example" aria-labelledby="geo-example-heading">
+            <h4 id="geo-example-heading" class="geo-example__heading">GEO in practice. A real example from JCB's own FAQ</h4>
+            <p class="geo-example__question"><strong>How much weight can a JCB Backhoe lift?</strong></p>
+
+            <div class="geo-tabs">
+              <div class="geo-tabs__list" role="tablist" aria-label="FAQ answer comparison">
+                <button type="button" class="geo-tabs__tab is-active" role="tab" id="geo-tab-before" aria-selected="true" aria-controls="geo-panel-before">Before</button>
+                <button type="button" class="geo-tabs__tab" role="tab" id="geo-tab-after" aria-selected="false" aria-controls="geo-panel-after" tabindex="-1">After</button>
+              </div>
+              <div class="geo-tabs__body">
+                <div class="geo-tabs__panel is-active" role="tabpanel" id="geo-panel-before" aria-labelledby="geo-tab-before">
+                  <div class="geo-tabs__answer">
+                    <p>The 3CX Hydrogen Backhoe can lift up to 2-tonne on the quick hitch mounted Loader end forks.</p>
+                  </div>
+                </div>
+                <div class="geo-tabs__panel" role="tabpanel" id="geo-panel-after" aria-labelledby="geo-tab-after" hidden>
+                  <div class="geo-tabs__answer">
+                    <p>JCB backhoe loaders vary in lifting capacity depending on the model and configuration.</p>
+                    <p>The JCB 3CX, one of the world's most popular backhoe loaders, is capable of loading a 20-tonne lorry in under five minutes, with large-capacity buckets up to 0.48m³.</p>
+                    <p>For heavier lifting requirements, larger models in the JCB range offer increased capacity suited to more demanding applications.</p>
+                    <p>Lifting performance is also affected by reach distance, attachment type and ground conditions.</p>
+                    <p>As a general guide: standard backhoe loaders are suited to a wide range of loading and excavating tasks; hydrogen models deliver the same performance as diesel counterparts with zero emissions.</p>
+                    <p>Always consult your nearest JCB dealer for precise specifications based on your job requirements.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="geo-example__takeaways">
+              <p class="geo-example__tip">A simple design improvement JCB could also make: converting the FAQ page to expandable and collapsible accordion format. Cleaner UX, easier to navigate and with proper FAQ schema markup, no negative impact on SEO or GEO. Google and AI engines crawl the content regardless of whether it's expanded or collapsed, as long as it's present in the HTML on page load.</p>
+
+              <ul class="geo-example__notes">
+                <li>AI engines cite sources that directly and thoroughly answer the question</li>
+                <li>Conversational language matches how people search through AI</li>
+                <li>Authoritative, specific answers build trust with both users and AI</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    window.addEventListener('pageshow', () => {
+      document.body.style.transition = 'none';
+      document.body.style.opacity = '1';
+
+      const STAGGER_INITIAL = 100;
+      const STAGGER_STEP = 110;
+      const STAGGER_DURATION = '0.75s';
+      const STAGGER_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+      const STAGGER_OFFSET = '12px';
+      const staggerTransition = `opacity ${STAGGER_DURATION} ${STAGGER_EASE}, transform ${STAGGER_DURATION} ${STAGGER_EASE}`;
+
+      const els = document.querySelectorAll('.stagger');
+      els.forEach(el => {
+        el.style.transition = 'none';
+        el.style.opacity = '0';
+        el.style.transform = `translateY(${STAGGER_OFFSET})`;
+      });
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(el => {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        });
+        return;
+      }
+
+      document.body.offsetHeight;
+
+      els.forEach((el, i) => {
+        setTimeout(() => {
+          el.style.transition = staggerTransition;
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, STAGGER_INITIAL + i * STAGGER_STEP);
+      });
+    });
+
+    document.getElementById('back').addEventListener('click', () => {
+      document.body.style.transition = 'opacity 0.8s cubic-bezier(0.7, 0, 1, 1)';
+      document.body.style.opacity = '0';
+      setTimeout(() => location.href = 'index.html', 800);
+    });
+
+    function revealOnScroll(el) {
+      const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) el.classList.add('is-visible');
+      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      obs.observe(el);
+      revealIfInView(el);
+    }
+
+    function revealIfInView(el) {
+      const panel = el.closest('.why-panel');
+      if (panel && !panel.classList.contains('is-active')) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.92 && rect.bottom > window.innerHeight * 0.08) {
+        el.classList.add('is-visible');
+      }
+    }
+
+    const jcbMetric = document.querySelector('.jcb-metric');
+    if (jcbMetric) revealOnScroll(jcbMetric);
+
+    const geoExample = document.querySelector('.geo-example');
+    if (geoExample) revealOnScroll(geoExample);
+
+    const whyTabButtons = document.querySelectorAll('.why-tabs__tab');
+    const whyTabIndicator = document.querySelector('.why-tabs__indicator');
+    const whyPanels = document.querySelectorAll('.why-panel');
+
+    function moveWhyTabIndicator(tab) {
+      if (!tab || !whyTabIndicator) return;
+      whyTabIndicator.style.width = `${tab.offsetWidth}px`;
+      whyTabIndicator.style.transform = `translateX(${tab.offsetLeft}px)`;
+    }
+
+    function activateWhyPanel(panelId) {
+      const panel = document.getElementById(panelId);
+      const tab = document.querySelector(`.why-tabs__tab[aria-controls="${panelId}"]`);
+      if (!panel || !tab) return;
+
+      whyTabButtons.forEach(t => {
+        const isActive = t === tab;
+        t.classList.toggle('is-active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        t.tabIndex = isActive ? 0 : -1;
+      });
+
+      whyPanels.forEach(p => {
+        const isActive = p === panel;
+        p.classList.toggle('is-active', isActive);
+        p.hidden = !isActive;
+      });
+
+      moveWhyTabIndicator(tab);
+
+      panel.querySelectorAll('.jcb-metric, .geo-example').forEach(revealIfInView);
+    }
+
+    whyTabButtons.forEach(tab => {
+      tab.addEventListener('click', () => {
+        activateWhyPanel(tab.getAttribute('aria-controls'));
+      });
+    });
+
+    const activeWhyTab = document.querySelector('.why-tabs__tab.is-active');
+    if (activeWhyTab) moveWhyTabIndicator(activeWhyTab);
+    window.addEventListener('resize', () => {
+      const current = document.querySelector('.why-tabs__tab.is-active');
+      if (current) moveWhyTabIndicator(current);
+    });
+
+    const geoTabs = document.querySelector('.geo-tabs');
+    if (geoTabs) {
+      const tabButtons = geoTabs.querySelectorAll('.geo-tabs__tab');
+      const tabPanels = geoTabs.querySelectorAll('.geo-tabs__panel');
+      const geoTabBody = geoTabs.querySelector('.geo-tabs__body');
+
+      function measureGeoTabBody() {
+        if (!geoTabBody) return;
+        const activePanel = geoTabs.querySelector('.geo-tabs__panel.is-active');
+        if (!activePanel) return;
+
+        const probe = activePanel.cloneNode(true);
+        probe.style.cssText = 'position:absolute;left:-9999px;width:' + geoTabBody.offsetWidth + 'px;visibility:hidden;opacity:1;transform:none;';
+        probe.classList.add('is-active');
+        probe.hidden = false;
+        document.body.appendChild(probe);
+        geoTabBody.style.minHeight = probe.offsetHeight + 'px';
+        document.body.removeChild(probe);
+      }
+
+      measureGeoTabBody();
+      window.addEventListener('resize', measureGeoTabBody);
+
+      tabButtons.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const panel = document.getElementById(tab.getAttribute('aria-controls'));
+          if (!panel) return;
+
+          tabButtons.forEach(t => {
+            const isActive = t === tab;
+            t.classList.toggle('is-active', isActive);
+            t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            t.tabIndex = isActive ? 0 : -1;
+          });
+
+          tabPanels.forEach(p => {
+            const isActive = p === panel;
+            p.classList.toggle('is-active', isActive);
+            p.hidden = !isActive;
+          });
+
+          measureGeoTabBody();
+        });
+      });
+    }
+  </script>
+</body>
+</html>

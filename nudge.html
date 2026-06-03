@@ -24,10 +24,11 @@
       color: inherit;
       text-decoration: none;
       transition: none;
+      cursor: pointer;
     }
 
     :root {
-      --space-section: 64px;
+      --space-section: 40px;
       --space-stack: 16px;
     }
 
@@ -61,28 +62,6 @@
     }
 
     .back:hover {
-      color: #111;
-    }
-
-    .nav-list {
-      list-style: none;
-    }
-
-    .nav-list li {
-      transition: color 0s;
-    }
-
-    .nav-list a {
-      font-size: 13px;
-      color: #bbb;
-      display: block;
-      padding: 3px 0;
-      transition: color 0s;
-      cursor: pointer;
-    }
-
-    .nav-list a:hover,
-    .nav-list a.active {
       color: #111;
     }
 
@@ -146,11 +125,6 @@
 
     .section:first-of-type {
       margin-top: 0;
-    }
-
-    .section:not(:first-of-type) {
-      border-top: 1px solid #f0f0f0;
-      padding-top: 24px;
     }
 
     p {
@@ -390,36 +364,16 @@
       .iteration-phones.is-playing .phone-label:last-child {
         opacity: 1;
       }
-    }
 
-    /* ── Flow diagram ── */
-    .flow-diagram {
-      position: relative;
-      margin: 0;
-      overflow: hidden;
-    }
-
-    .flow-img-base {
-      width: 100%;
-      display: block;
-      filter: grayscale(1) brightness(0.8);
-    }
-
-    .flow-img-color {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      display: block;
-      filter: saturate(0.75);
-      opacity: 0;
-      transition: opacity 0.4s;
+      .example-vanish {
+        transition: none;
+      }
     }
 
     /* ── Nudge definition ── */
     .nudge-definition {
       margin: 0;
       padding: 0;
-      border-top: 1px solid #e8e8e8;
     }
 
     .nudge-definition > * {
@@ -441,7 +395,7 @@
       font-size: 28px;
       font-weight: 600;
       color: #111;
-      margin-top: var(--space-stack);
+      margin-top: 0;
       margin-bottom: 4px;
       display: inline-block;
       cursor: default;
@@ -449,6 +403,16 @@
 
     .def-word:hover {
       animation: nudge-jiggle 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+    }
+
+    .example-vanish {
+      font-weight: 600;
+      cursor: default;
+      transition: opacity 0.35s ease;
+    }
+
+    .example-vanish:hover {
+      opacity: 0;
     }
 
     .def-meta {
@@ -473,27 +437,6 @@
       line-height: 1.7;
       font-style: italic;
       display: block;
-    }
-
-    /* ── Closing animation ── */
-    .closing-rule {
-      border: none;
-      border-top: 1px solid #e8e8e8;
-      width: 0;
-      margin: 0;
-      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .closing-line {
-      margin-bottom: 0;
-    }
-
-    .closing-line span {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(4px);
-      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* ── Stagger ── */
@@ -522,16 +465,6 @@
     <aside class="sidebar">
       <div class="sidebar-inner">
         <a class="back stagger" id="back">← Index</a>
-        <ul class="nav-list">
-          <li class="stagger"><a href="#problem">Start</a></li>
-          <li class="stagger"><a href="#build">Build</a></li>
-          <li class="stagger"><a href="#backend">Backend</a></li>
-          <li class="stagger"><a href="#frontend">Design</a></li>
-          <li class="stagger"><a href="#tools">Tools</a></li>
-          <li class="stagger"><a href="#output">Output</a></li>
-          <li class="stagger"><a href="#features">Features</a></li>
-          <li class="stagger"><a href="#iteration">Iteration</a></li>
-        </ul>
       </div>
     </aside>
 
@@ -552,29 +485,22 @@
 
       <!-- The Problem -->
       <div class="section stagger" id="problem">
-        <p>The best product advice I received was simple: <strong>solve a problem you actually live with.</strong></p>
-        <p class="quote">
-          "The most valuable skill of the 21st century is knowing what to do with AI."
-          <cite>Pedro Domingos</cite>
-        </p>
+        <p>Nudge is an iOS app for team payment reminders, built from scratch using AI-assisted development.</p>
       </div>
 
       <!-- The Build -->
       <div class="section stagger" id="build">
-        <p>A football grounds tracker that never shipped taught me everything, where I cut corners, what I'd do differently, how to think about architecture before writing a single line. Nudge is where those lessons got applied.</p>
-        <p>Beautiful interfaces. Zero infrastructure. Everything into the frontend, nothing behind the door. Nudge was built differently.</p>
         <div class="screen-row">
-          <img src="screen1.png" alt="Terrace screen 1" />
-          <img src="screen2.png" alt="Terrace screen 2" />
-          <img src="screen3.png" alt="Terrace screen 3" />
-          <img src="screen4.png" alt="Terrace screen 4" />
+          <img src="screen1.png" alt="Nudge app screen 1" />
+          <img src="screen2.png" alt="Nudge app screen 2" />
+          <img src="screen3.png" alt="Nudge app screen 3" />
+          <img src="screen4.png" alt="Nudge app screen 4" />
         </div>
-        <p>Backend first, frontend later. The unglamorous stuff, databases, auth flows, relational structure, the plumbing nobody sees but everything depends on.</p>
+        <p>Database and auth layer first, UI on top. Supabase handles the backend: schema design, auth flows, real-time subscriptions.</p>
       </div>
 
       <!-- The Backend -->
       <div class="section stagger" id="backend">
-        <p>The backend is the 2026 equivalent of a receptionist. <em>Nobody notices it when it's working. Everyone notices it when it's not.</em></p>
         <div class="media-block">
           <img src="supabase.png" alt="Supabase SQL editor" />
         </div>
@@ -582,14 +508,13 @@
 
       <!-- The Frontend -->
       <div class="section stagger" id="frontend">
-        <p><em>Building an iOS app isn't designing a few screens. It's designing every screen, every state, every decision a user could possibly make.</em> Layer after layer after layer, each one revealing another underneath.</p>
-        <p>Joining a team, sending a nudge, handling edge cases. None of it appears by accident. The cleaner something feels to use, the more invisible work went into it. This website is a good example of that.</p>
+        <p>Joining a team, sending a nudge, handling edge cases. None of it appears by accident. The cleaner something feels to use, the more invisible work went into it. <span class="example-vanish">This website is a good example of that.</span></p>
       </div>
 
       <!-- Iteration -->
       <!-- The Tools -->
       <div class="section stagger" id="tools">
-        <p>Started with Lovable, then Replit. Useful starting points, but there's a ceiling. Moved to Cursor when the friction became the signal.</p>
+        <p>Started with Lovable, then Replit. Useful starting points, but there's a ceiling. Moved to Cursor.</p>
         <p>Gemini for UI and visual thinking. Claude for backend logic. The right model for the right job. That knowledge compounds in a way generic AI literacy simply doesn't.</p>
       </div>
 
@@ -605,20 +530,17 @@
 
       <!-- Features -->
       <div class="section stagger" id="features">
-        <p>Features that flew. Features that broke. Features that rebuilt themselves three times before clicking.</p>
-
         <div class="nudge-definition">
           <span class="def-word">nudge</span>
           <span class="def-meta">/nʌdʒ/ &nbsp;·&nbsp; verb, noun</span>
           <hr class="def-rule" />
           <span class="def-text">A gentle push, prod, or shake, often using the elbow to attract attention, or a subtle, non-coercive intervention in behavioural science designed to influence choices without restricting freedom of choice.</span>
         </div>
-        <p>The notification had to work even for people who ignore notifications. Built for the half-swipe crowd, frictionless, low pressure, no group chat drama. Just the information you need, delivered in a way that doesn't feel like a bank.</p>
+        <p>The notification had to work even for people who ignore notifications. Frictionless, low pressure, no group chat drama.</p>
       </div>
 
       <!-- Iteration -->
       <div class="section stagger" id="iteration">
-        <p>Wrong directions still tell you something, that information is everything.</p>
         <div class="iteration-phones">
           <div class="phone-crossfade">
             <img class="phone-slide phone-concept" src="nudge-concept.png" alt="First concept" />
@@ -629,8 +551,6 @@
             <span class="phone-label">Launch-ready</span>
           </div>
         </div>
-        <hr class="closing-rule" />
-        <p class="closing-line"><span>The</span> <span>distance</span> <span>between</span> <span>those</span> <span>two</span> <span>screens</span> <span>is</span> <span>the</span> <span>whole</span> <span>story,</span> <span>every</span> <span>lesson,</span> <span>every</span> <span>mistake.</span></p>
       </div>
 
     </main>
@@ -739,24 +659,6 @@
     }
     setTimeout(animateDefinition, 600);
 
-    // Closing line draw + word stagger
-    const closingRule = document.querySelector('.closing-rule');
-    if (closingRule) {
-      const closingSpans = document.querySelectorAll('.closing-line span');
-      const closingObs = new IntersectionObserver(entries => {
-        if (!entries[0].isIntersecting) return;
-        closingObs.disconnect();
-        closingRule.style.width = '100%';
-        closingSpans.forEach((span, i) => {
-          setTimeout(() => {
-            span.style.opacity = '1';
-            span.style.transform = 'translateY(0)';
-          }, 400 + i * 60);
-        });
-      }, { rootMargin: '0px 0px -10% 0px' });
-      closingObs.observe(closingRule);
-    }
-
     // Iteration phones crossfade (concept visible by default; animate when in view)
     const iterationPhones = document.querySelector('.iteration-phones');
     if (iterationPhones) {
@@ -777,30 +679,6 @@
       iterationObs.observe(iterationPhones);
     }
 
-    // Flow diagram clockwise colour sweep
-    const flowDiagram = document.querySelector('.flow-diagram');
-    if (flowDiagram) {
-      const colorImg = flowDiagram.querySelector('.flow-img-color');
-      const flowObs = new IntersectionObserver(entries => {
-        if (!entries[0].isIntersecting) return;
-        flowObs.disconnect();
-        colorImg.style.opacity = '1';
-        const duration = 3500;
-        const start = performance.now();
-        function sweep(now) {
-          const p = Math.min((now - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - p, 2);
-          const deg = eased * 360;
-          const mask = `conic-gradient(from -90deg at 50% 50%, black 0deg, black ${deg}deg, transparent ${deg}deg)`;
-          colorImg.style.maskImage = mask;
-          colorImg.style.webkitMaskImage = mask;
-          if (p < 1) requestAnimationFrame(sweep);
-        }
-        requestAnimationFrame(sweep);
-      }, { rootMargin: '0px 0px -10% 0px' });
-      flowObs.observe(flowDiagram);
-    }
-
     // Heatmap scroll reveal
     const heatmapImg = document.querySelector('.heatmap-img');
     if (heatmapImg) {
@@ -815,30 +693,6 @@
       heatmapObserver.observe(heatmapImg);
     }
 
-    // Active sidebar link on scroll
-    const sections = document.querySelectorAll('.section[id]');
-    const navLinks = document.querySelectorAll('.nav-list a');
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(l => l.classList.remove('active'));
-          const active = document.querySelector(`.nav-list a[href="#${entry.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    }, { rootMargin: '-20% 0px -70% 0px' });
-
-    sections.forEach(s => observer.observe(s));
-
-    // Smooth scroll on nav click
-    navLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-      });
-    });
   </script>
 </body>
 </html>

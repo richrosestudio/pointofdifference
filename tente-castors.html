@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tente Castors Launch - Richard Rosewarne</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #111;
+      background: #fff;
+      opacity: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: none;
+      cursor: pointer;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .range-link {
+      position: relative;
+      z-index: 1;
+    }
+
+    .range-link-wheel {
+      position: fixed;
+      top: var(--roll-top, 50%);
+      left: var(--roll-start, 0);
+      width: 20px;
+      height: 20px;
+      margin-top: -10px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 40;
+      color: #999;
+      transform: translateX(0) rotate(0deg);
+      will-change: transform, opacity;
+    }
+
+    .range-link-wheel.is-rolling {
+      opacity: 1;
+      animation: range-wheel-roll 12s linear forwards;
+    }
+
+    @keyframes range-wheel-roll {
+      0% {
+        transform: translateX(0) rotate(0deg);
+      }
+      50% {
+        transform: translateX(var(--roll-distance)) rotate(360deg);
+      }
+      100% {
+        transform: translateX(0) rotate(720deg);
+      }
+    }
+
+    .page {
+      display: flex;
+      min-height: 100vh;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .sidebar {
+      width: 180px;
+      flex-shrink: 0;
+      padding: 80px 40px 80px 0;
+    }
+
+    .sidebar-inner {
+      position: sticky;
+      top: 80px;
+    }
+
+    .back {
+      display: block;
+      color: #999;
+      margin-bottom: 40px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .back:hover {
+      color: #111;
+    }
+
+    .content {
+      flex: 1;
+      padding: 80px 0 120px 48px;
+      border-left: 1px solid #f0f0f0;
+      max-width: 560px;
+    }
+
+    h1 {
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .meta {
+      color: #999;
+      margin-bottom: 40px;
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: #111;
+    }
+
+    .content > p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .launch-metrics {
+      margin: 28px 0 20px;
+    }
+
+    .launch-metrics__row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px 32px;
+      justify-content: space-between;
+    }
+
+    .launch-metrics__item {
+      flex: 1 1 0;
+      min-width: 100px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .launch-metrics__value {
+      font-size: clamp(24px, 5vw, 32px);
+      font-weight: 600;
+      color: #111;
+      line-height: 1.1;
+      margin: 0 0 6px;
+    }
+
+    .launch-metrics__label {
+      font-size: 11px;
+      font-weight: 400;
+      color: #999;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .launch-metrics__footnote {
+      font-size: 10px;
+      font-weight: 400;
+      color: #bbb;
+      line-height: 1.5;
+      margin: 12px 0 0;
+      opacity: 0;
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .launch-metrics__footer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #f0f0f0;
+      opacity: 0;
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .launch-metrics__heading {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .launch-metrics__title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #999;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .launch-metrics__subtitle {
+      font-size: 10px;
+      font-weight: 400;
+      color: #bbb;
+      line-height: 1.5;
+      margin: 4px 0 0;
+    }
+
+    .launch-metrics__logo {
+      height: 18px;
+      width: auto;
+      max-width: 80px;
+      object-fit: contain;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .launch-metrics.is-visible .launch-metrics__item:nth-child(1) { opacity: 1; transform: none; transition-delay: 0.08s; }
+    .launch-metrics.is-visible .launch-metrics__item:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.16s; }
+    .launch-metrics.is-visible .launch-metrics__item:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.24s; }
+    .launch-metrics.is-visible .launch-metrics__item:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.32s; }
+    .launch-metrics.is-visible .launch-metrics__footnote { opacity: 1; transition-delay: 0.4s; }
+    .launch-metrics.is-visible .launch-metrics__footer { opacity: 1; transition-delay: 0.48s; }
+
+    .stagger {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .launch-metrics__item,
+      .launch-metrics__footnote,
+      .launch-metrics__footer {
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
+
+      .range-link-wheel,
+      .range-link-wheel.is-rolling {
+        animation: none;
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .sidebar { display: none; }
+      .content { padding: 60px 0 80px; border-left: none; }
+
+      .launch-metrics__row {
+        gap: 20px;
+      }
+
+      .launch-metrics__item {
+        flex: 1 1 calc(50% - 10px);
+        min-width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <a class="back stagger" id="back">← Index</a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <h1 class="stagger">Tente Castors Launch</h1>
+      <p class="meta stagger">2024</p>
+      <p class="stagger">Found at the NEC. 234 products at launch, negotiated, categorised and live on site.</p>
+      <p class="stagger">Every department involved, every detail checked.</p>
+      <section class="launch-metrics" aria-labelledby="launch-metrics-title" aria-describedby="launch-metrics-subtitle">
+        <div class="launch-metrics__row">
+          <div class="launch-metrics__item">
+            <p class="launch-metrics__value">2,758</p>
+            <p class="launch-metrics__label">Contacts Reached</p>
+          </div>
+          <div class="launch-metrics__item">
+            <p class="launch-metrics__value">19.23%</p>
+            <p class="launch-metrics__label">Open Rate</p>
+          </div>
+          <div class="launch-metrics__item">
+            <p class="launch-metrics__value">4.39%</p>
+            <p class="launch-metrics__label">Click Through Rate</p>
+          </div>
+          <div class="launch-metrics__item">
+            <p class="launch-metrics__value">98.8%</p>
+            <p class="launch-metrics__label">Delivery Rate</p>
+          </div>
+        </div>
+        <p class="launch-metrics__footnote">Above industry average Click Through Rate of 2-3%</p>
+        <div class="launch-metrics__footer">
+          <div class="launch-metrics__heading">
+            <h2 id="launch-metrics-title" class="launch-metrics__title">Marketing campaign highlight</h2>
+            <p id="launch-metrics-subtitle" class="launch-metrics__subtitle">Initial launch email</p>
+          </div>
+          <img class="launch-metrics__logo" src="hubspot-logo.png" alt="HubSpot" width="72" height="18" />
+        </div>
+      </section>
+      <p class="stagger">
+        <a class="range-link" href="https://www.jetpress.com/component-and-fastener-products/industrial-hardware/castors-wheels-and-stems" target="_blank" rel="noopener noreferrer">View the range →</a>
+      </p>
+    </main>
+  </div>
+
+  <span class="range-link-wheel" id="range-link-wheel" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="10" cy="10" r="8.25" stroke="currentColor" stroke-width="1.25"/>
+      <circle cx="10" cy="10" r="2.25" fill="currentColor"/>
+      <path d="M10 2.5v15M2.5 10h15M4.6 4.6l10.8 10.8M15.4 4.6L4.6 15.4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+    </svg>
+  </span>
+
+  <script>
+    window.addEventListener('pageshow', () => {
+      document.body.style.transition = 'none';
+      document.body.style.opacity = '1';
+
+      const STAGGER_INITIAL = 100;
+      const STAGGER_STEP = 110;
+      const STAGGER_DURATION = '0.75s';
+      const STAGGER_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+      const STAGGER_OFFSET = '12px';
+      const staggerTransition = `opacity ${STAGGER_DURATION} ${STAGGER_EASE}, transform ${STAGGER_DURATION} ${STAGGER_EASE}`;
+
+      const els = document.querySelectorAll('.stagger');
+      els.forEach(el => {
+        el.style.transition = 'none';
+        el.style.opacity = '0';
+        el.style.transform = `translateY(${STAGGER_OFFSET})`;
+      });
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(el => {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        });
+        return;
+      }
+
+      document.body.offsetHeight;
+
+      els.forEach((el, i) => {
+        setTimeout(() => {
+          el.style.transition = staggerTransition;
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, STAGGER_INITIAL + i * STAGGER_STEP);
+      });
+    });
+
+    document.getElementById('back').addEventListener('click', () => {
+      document.body.style.transition = 'opacity 0.8s cubic-bezier(0.7, 0, 1, 1)';
+      document.body.style.opacity = '0';
+      setTimeout(() => location.href = 'index.html', 800);
+    });
+
+    const rangeLink = document.querySelector('.range-link');
+    const rangeWheel = document.getElementById('range-link-wheel');
+    if (rangeLink && rangeWheel && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      rangeLink.addEventListener('mouseenter', () => {
+        const r = rangeLink.getBoundingClientRect();
+        const startX = r.right + 12;
+        const endX = window.innerWidth - 36;
+        rangeWheel.style.setProperty('--roll-top', `${r.top + r.height / 2}px`);
+        rangeWheel.style.setProperty('--roll-start', `${startX}px`);
+        rangeWheel.style.setProperty('--roll-distance', `${endX - startX}px`);
+        rangeWheel.classList.remove('is-rolling');
+        void rangeWheel.offsetWidth;
+        rangeWheel.classList.add('is-rolling');
+      });
+      rangeLink.addEventListener('mouseleave', () => {
+        rangeWheel.classList.remove('is-rolling');
+      });
+      rangeWheel.addEventListener('animationend', e => {
+        if (e.animationName === 'range-wheel-roll') {
+          rangeWheel.classList.remove('is-rolling');
+        }
+      });
+    }
+
+    const launchMetrics = document.querySelector('.launch-metrics');
+    if (launchMetrics) {
+      const metricsObs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) launchMetrics.classList.add('is-visible');
+      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      metricsObs.observe(launchMetrics);
+      if (launchMetrics.getBoundingClientRect().top < window.innerHeight * 0.92) {
+        launchMetrics.classList.add('is-visible');
+      }
+    }
+  </script>
+</body>
+</html>

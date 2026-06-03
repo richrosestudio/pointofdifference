@@ -24,6 +24,7 @@
       color: inherit;
       text-decoration: none;
       transition: none;
+      cursor: pointer;
     }
 
     /* ── Layout ── */
@@ -56,28 +57,6 @@
     }
 
     .back:hover {
-      color: #111;
-    }
-
-    .nav-list {
-      list-style: none;
-    }
-
-    .nav-list li {
-      transition: color 0s;
-    }
-
-    .nav-list a {
-      font-size: 13px;
-      color: #bbb;
-      display: block;
-      padding: 3px 0;
-      transition: color 0s;
-      cursor: pointer;
-    }
-
-    .nav-list a:hover,
-    .nav-list a.active {
       color: #111;
     }
 
@@ -260,11 +239,6 @@
     <aside class="sidebar">
       <div class="sidebar-inner">
         <a class="back stagger" id="back">← Index</a>
-        <ul class="nav-list">
-          <li class="stagger"><a href="#brief">Brief</a></li>
-          <li class="stagger"><a href="#concept">Concept</a></li>
-          <li class="stagger"><a href="#output">Output</a></li>
-        </ul>
       </div>
     </aside>
 
@@ -277,19 +251,19 @@
       <!-- Brief -->
       <div class="section stagger" id="brief">
         <h2 class="section-title">Brief</h2>
-        <p>Content to be added.</p>
+        <p>Concept and asset package for a live virtual event aimed at existing customers, with the goal of driving product adoption and reducing churn.</p>
       </div>
 
       <!-- Concept -->
       <div class="section stagger" id="concept">
         <h2 class="section-title">Concept</h2>
-        <p>Content to be added.</p>
+        <p>Minimal, brand-consistent creative. Email campaign paired with a dedicated landing page optimised for registration, built to convert warm contacts already in the CRM.</p>
       </div>
 
       <!-- Output -->
       <div class="section stagger" id="output">
         <h2 class="section-title">Output</h2>
-        <p>Content to be added.</p>
+        <p>In progress.</p>
       </div>
 
 
@@ -341,30 +315,6 @@
       setTimeout(() => location.href = 'index.html', 800);
     });
 
-    // Active sidebar link on scroll
-    const sections = document.querySelectorAll('.section[id]');
-    const navLinks = document.querySelectorAll('.nav-list a');
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(l => l.classList.remove('active'));
-          const active = document.querySelector(`.nav-list a[href="#${entry.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    }, { rootMargin: '-20% 0px -70% 0px' });
-
-    sections.forEach(s => observer.observe(s));
-
-    // Smooth scroll on nav click
-    navLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-      });
-    });
   </script>
 </body>
 </html>

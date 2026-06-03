@@ -21,11 +21,6 @@
       justify-content: center;
       padding: 80px 24px 120px;
       opacity: 0;
-      cursor: default;
-    }
-
-    p, h1, h2, h3, span, .meta, .clock, footer {
-      cursor: default;
     }
 
     .container {
@@ -53,6 +48,7 @@
       color: inherit;
       text-decoration: none;
       transition: none;
+      cursor: pointer;
     }
 
     a:hover {
@@ -111,16 +107,42 @@
     }
 
     :root {
+      --jcb-yellow: #FCAF26;
       --accent-yellow: #0071E3;
       --accent-blue: #FFD700;
       --accent-red: #B3B3B3;
       --accent-green: #3D8F3D;
+      --accent-muted: #c8c8c8;
+    }
+
+    .why-matters-link {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      border-radius: 3px;
+      padding: 0.1em 0.2em;
+      margin: 0;
+      transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  font-weight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .why-matters-link:hover {
+      color: var(--jcb-yellow);
+      font-weight: 500;
+      background-color: color-mix(in srgb, var(--jcb-yellow) 10%, transparent);
+      box-shadow: 0 0 12px color-mix(in srgb, var(--jcb-yellow) 12%, transparent);
     }
 
     .accent-yellow { color: var(--accent-yellow); }
     .accent-blue { color: var(--accent-blue); }
     .accent-red { color: var(--accent-red); }
     .accent-green { color: var(--accent-green); }
+    .accent-muted { color: var(--accent-muted); }
 
     p a.accent-green,
     p a.accent-blue,
@@ -175,18 +197,8 @@
         transition: background-color 0.2s ease, box-shadow 0.2s ease;
       }
 
-      .experience-track:hover .experience-dot::after,
-      .experience-dot:hover::after,
-      .experience-dot:focus-visible::after {
-        animation: none;
-      }
-
-      .experience-track:hover .experience-dot,
-      .experience-dot:hover,
-      .experience-dot:focus-visible {
-        transform: translate(50%, -50%) scale(1.05);
-        box-shadow: 0 0 6px rgba(17, 17, 17, 0.18);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      .why-matters-link {
+        transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
       }
     }
 
@@ -205,6 +217,10 @@
     .entries .entry-title a.accent-green,
     .entries:hover li .entry-title a.accent-green,
     .entries:hover li:hover .entry-title a.accent-green { color: var(--accent-green); }
+
+    .entries .entry-title a.accent-muted,
+    .entries:hover li .entry-title a.accent-muted,
+    .entries:hover li:hover .entry-title a.accent-muted { color: var(--accent-muted); }
 
     .entry-year,
     .entry-month {
@@ -279,12 +295,12 @@
     }
 
     .footer {
-      margin-top: 60px;
+      margin-top: 40px;
       color: #999;
     }
 
     .clock-location {
-      color: #FCAF26;
+      color: var(--jcb-yellow);
     }
 
     .new-badge {
@@ -313,10 +329,16 @@
       line-height: 1;
     }
 
+    .counter-anchor,
+    #countries-counter,
+    #revenue-counter,
+    #portfolio-counter {
+      cursor: default;
+    }
+
     #countries-counter, #revenue-counter, #portfolio-counter {
       font-weight: 600;
       font-variant-numeric: tabular-nums;
-      cursor: default;
     }
 
     .counter-anchor {
@@ -338,7 +360,7 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 20px;
     }
 
     .section.experience-section {
@@ -353,7 +375,7 @@
     .experience-item {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 6px;
       cursor: default;
     }
 
@@ -367,7 +389,7 @@
       display: block;
       position: relative;
       width: 100%;
-      height: 21px;
+      height: 8px;
       background: none;
     }
 
@@ -378,7 +400,7 @@
       right: 0;
       top: 50%;
       height: 1px;
-      background: #f0f0f0;
+      background: #e4e4e4;
       transform: translateY(-50%);
     }
 
@@ -401,15 +423,14 @@
       position: absolute;
       right: 0;
       top: 50%;
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      background: #111;
+      background: #fff;
+      border: 1.5px solid #111;
+      box-sizing: border-box;
       transform: translate(50%, -50%);
       cursor: default;
-      transition:
-        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .experience-dot::before {
@@ -421,45 +442,6 @@
       height: 20px;
       transform: translate(-50%, -50%);
       border-radius: 50%;
-    }
-
-    .experience-dot::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 100%;
-      height: 100%;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      border: 1px solid #111;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .experience-track:hover .experience-dot,
-    .experience-dot:hover,
-    .experience-dot:focus-visible {
-      transform: translate(50%, -50%) scale(1.08);
-      box-shadow: 0 0 6px rgba(17, 17, 17, 0.22), 0 0 12px rgba(17, 17, 17, 0.1);
-      outline: none;
-    }
-
-    .experience-track:hover .experience-dot::after,
-    .experience-dot:hover::after,
-    .experience-dot:focus-visible::after {
-      animation: dotRipple 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes dotRipple {
-      from {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0.22;
-      }
-      to {
-        transform: translate(-50%, -50%) scale(1.8);
-        opacity: 0;
-      }
     }
 
     .stagger {
@@ -476,18 +458,18 @@
     <h1 class="stagger">Richard Rosewarne</h1>
     <p class="meta stagger">Updated Jun 3, 2026</p>
 
-    <p class="stagger"><strong><em>Forward-thinking digital marketer with a commercial edge and an AI-first mindset.</em></strong></p>
-    <p class="stagger">And why that matters to a business operating across <span class="counter-anchor"><span id="countries-counter">0</span><span class="counter-anchor-size" aria-hidden="true">150</span></span> countries with <span class="counter-anchor"><span id="revenue-counter">£0</span><span class="counter-anchor-size" aria-hidden="true">£7,200,000,000</span></span> in revenue.</p>
+    <p class="stagger"><strong><em>Forward-thinking digital marketer with a commercial edge and a future-first mindset.</em></strong></p>
+    <p class="stagger"><a href="why-it-matters.html" class="why-matters-link">And why that matters</a> to a business operating across <span class="counter-anchor"><span id="countries-counter">0</span><span class="counter-anchor-size" aria-hidden="true">150</span></span> countries and over <span class="counter-anchor"><span id="revenue-counter">£0</span><span class="counter-anchor-size" aria-hidden="true">£5,000,000,000</span></span> in revenue.</p>
 
     <p class="stagger">A degree gave me the framework. A deliberate move into <a href="commercial-edge.html" class="accent-green">sales</a> gave me the commercial edge most marketers never get.</p>
-    <p class="stagger">From <a href="website-rebuild.html" class="accent-blue">rebuilding websites from the ground up</a> to taking a <a href="brand-guidelines.html" class="accent-red">product range from first contact to live on site</a>, I know how to make digital work commercially.</p>
-    <p class="stagger">Outside of work, I build a full stack iOS app, built <span class="accent-yellow">entirely with AI</span>.</p>
+    <p class="stagger">From <a href="website-rebuild.html" class="accent-blue">rebuilding websites from the ground up</a> to taking a <a href="tente-castors.html" class="accent-red">product range from first contact to live on site</a>, I know how to make digital work commercially.</p>
+    <p class="stagger">Outside of work, I built a full-stack iOS app, <a href="nudge.html" class="accent-yellow">built entirely with AI</a>.</p>
 
     <div class="section experience-section stagger">
       <p class="section-label">Experience</p>
       <ul class="experience">
         <li class="experience-item stagger" data-fill="100">
-          <span class="experience-label">8 Years Marketing</span>
+          <span class="experience-label">8 Years – Marketing</span>
           <span class="experience-track" aria-hidden="true">
             <span class="experience-fill"><span class="experience-dot"></span></span>
           </span>
@@ -498,8 +480,8 @@
             <span class="experience-fill"><span class="experience-dot"></span></span>
           </span>
         </li>
-        <li class="experience-item stagger" data-fill="6">
-          <span class="experience-label">6 Months – AI Design</span>
+        <li class="experience-item stagger" data-fill="12.5">
+          <span class="experience-label">1 Year – AI</span>
           <span class="experience-track" aria-hidden="true">
             <span class="experience-fill"><span class="experience-dot"></span></span>
           </span>
@@ -515,12 +497,16 @@
           <span class="entry-title"><a href="nudge.html" class="accent-yellow">Nudge iOS App</a> <span class="new-badge"><img src="circle.png" alt="" /><span class="star">✦</span></span></span>
         </li>
         <li>
+          <span class="entry-year">2025</span>
+          <span class="entry-title"><a href="brand-guidelines.html" class="accent-red">Brand Guidelines</a></span>
+        </li>
+        <li>
           <span class="entry-year">202<span class="year-digit-cycle" data-digits="5,6" aria-label="2025 to 2026"><span class="year-digit is-active" aria-hidden="false">5</span></span></span>
           <span class="entry-title"><a href="commercial-edge.html" class="accent-green">Commercial Edge</a></span>
         </li>
         <li>
           <span class="entry-year">2024</span>
-          <span class="entry-title"><a href="brand-guidelines.html" class="accent-red">Tente Castas Launch</a></span>
+          <span class="entry-title"><a href="tente-castors.html" class="accent-red">Tente Castors Launch</a></span>
         </li>
         <li>
           <span class="entry-year">202<span class="year-digit-cycle" data-digits="2,3,4,5,6" aria-label="2022 to 2026"><span class="year-digit is-active" aria-hidden="false">2</span></span></span>
@@ -611,7 +597,7 @@
       }, 140);
 
       setTimeout(() => {
-        runCounter(document.getElementById('revenue-counter'), 7200000000, 1600, { prefix: '£', from: 0 });
+        runCounter(document.getElementById('revenue-counter'), 5000000000, 1600, { prefix: '£', from: 0 });
       }, 200);
 
       initYearDigitCycles();
@@ -646,7 +632,7 @@
     });
 
     document.getElementById('revenue-counter').addEventListener('mouseenter', function() {
-      runCounter(this, 7200000000, 1600, { prefix: '£', from: 0 });
+      runCounter(this, 5000000000, 1600, { prefix: '£', from: 0 });
     });
 
     function spotlightProject(li) {
@@ -674,6 +660,13 @@
     }
 
     document.querySelectorAll('p a.accent-green, p a.accent-blue, p a.accent-red, p a.accent-yellow').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        goToProject(link.getAttribute('href'));
+      });
+    });
+
+    document.querySelectorAll('.why-matters-link').forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
         goToProject(link.getAttribute('href'));
