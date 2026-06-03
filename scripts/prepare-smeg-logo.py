@@ -8,7 +8,8 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "smeg-logo-source.jpg"
 OUT = ROOT / "smeg-logo.png"
-LOGO_COLOR = (17, 17, 17, 255)
+LOGO_COLOR = (17, 17, 17)
+BG_THRESHOLD = 245
 
 
 def main() -> None:
@@ -22,12 +23,11 @@ def main() -> None:
         for x in range(w):
             r, g, b, _a = pixels[x, y]
             lum = max(r, g, b)
-            if lum == 0:
+            if lum >= BG_THRESHOLD:
                 continue
-            if lum >= 240:
-                out_px[x, y] = (255, 255, 255, 255)
-            elif lum <= 30:
-                out_px[x, y] = LOGO_COLOR
+            # Map anti-aliased greys to dark logo with proportional alpha
+            alpha = min(255, int((BG_THRESHOLD - lum) / (BG_THRESHOLD - 20) * 255))
+            out_px[x, y] = (*LOGO_COLOR, alpha)
 
     bbox = out.getbbox()
     if not bbox:

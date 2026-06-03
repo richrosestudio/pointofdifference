@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="icon" href="favicon.png" type="image/png" />
   <title>Website Rebuild - Richard Rosewarne</title>
   <style>
@@ -556,8 +558,8 @@
       position: relative;
       width: 100%;
       aspect-ratio: 2.5 / 1;
-      max-height: 140px;
-      min-height: 100px;
+      max-height: 220px;
+      min-height: 140px;
     }
 
     .logo-rebrand__slide {
@@ -732,13 +734,28 @@
       margin: 0;
     }
 
-    .feature-results__icon {
+    .analytics-source {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .analytics-source img {
       width: 22px;
       height: 22px;
       border-radius: 5px;
       object-fit: contain;
       display: block;
       flex-shrink: 0;
+    }
+
+    .analytics-source__label {
+      font-size: 11px;
+      font-weight: 400;
+      color: #999;
+      line-height: 1.4;
+      white-space: nowrap;
     }
 
     .feature-results__slot {
@@ -1267,7 +1284,10 @@
             <section class="feature-results" aria-label="Results">
               <div class="feature-results__heading">
                 <h3 class="feature-results__title">Results</h3>
-                <img class="feature-results__icon" src="google-analytics-icon.png" alt="" width="22" height="22" />
+                <div class="analytics-source">
+                  <img src="google-analytics-icon.png" alt="" width="22" height="22" />
+                  <span class="analytics-source__label">Source google analytics</span>
+                </div>
               </div>
               <div class="feature-results__slot" data-results-slot>
                 <div class="feature-metrics feature-metrics--grouped">
@@ -1304,7 +1324,10 @@
             <section class="feature-results" aria-label="Results">
               <div class="feature-results__heading">
                 <h3 class="feature-results__title">Results</h3>
-                <img class="feature-results__icon" src="google-analytics-icon.png" alt="" width="22" height="22" />
+                <div class="analytics-source">
+                  <img src="google-analytics-icon.png" alt="" width="22" height="22" />
+                  <span class="analytics-source__label">Source google analytics</span>
+                </div>
               </div>
               <div class="feature-results__slot" data-results-slot>
                 <div class="feature-metrics">
@@ -1329,7 +1352,10 @@
             <section class="feature-results" aria-label="Results">
               <div class="feature-results__heading">
                 <h3 class="feature-results__title">Results</h3>
-                <img class="feature-results__icon" src="google-analytics-icon.png" alt="" width="22" height="22" />
+                <div class="analytics-source">
+                  <img src="google-analytics-icon.png" alt="" width="22" height="22" />
+                  <span class="analytics-source__label">Source google analytics</span>
+                </div>
               </div>
               <div class="feature-results__slot" data-results-slot>
                 <div class="feature-metrics">
@@ -1451,7 +1477,7 @@
         const probe = document.createElement('div');
         probe.className = 'rebuild-features__panel';
         probe.style.cssText = `position:absolute;left:-9999px;width:${width}px;visibility:hidden;`;
-        probe.innerHTML = panel.innerHTML;
+        probe.appendChild(panel.cloneNode(true));
         document.body.appendChild(probe);
         max = Math.max(max, probe.offsetHeight);
         document.body.removeChild(probe);

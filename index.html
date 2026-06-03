@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="icon" href="favicon.png" type="image/png" />
   <title>Richard Rosewarne</title>
   <style>
@@ -520,6 +522,15 @@
 
   </div>
   <script>
+    const ALLOWED_PAGES = new Set([
+      'why-it-matters.html',
+      'commercial-edge.html',
+      'website-rebuild.html',
+      'tente-castors.html',
+      'nudge.html',
+      'brand-guidelines.html'
+    ]);
+
     const yearCycleIntervals = [];
 
     function initYearDigitCycles() {
@@ -646,14 +657,19 @@
 
     function goToProject(href) {
       if (!href) return;
-      if (href.endsWith('.html')) {
+      if (ALLOWED_PAGES.has(href)) {
         document.body.style.transition = 'opacity 0.8s cubic-bezier(0.7, 0, 1, 1)';
         document.body.style.opacity = '0';
         setTimeout(() => { location.href = href; }, 800);
         return;
       }
       if (!href.startsWith('#')) return;
-      const li = document.querySelector(href);
+      let li;
+      try {
+        li = document.querySelector(href);
+      } catch (e) {
+        return;
+      }
       if (!li) return;
       li.scrollIntoView({ behavior: 'smooth', block: 'center' });
       spotlightProject(li);
@@ -684,13 +700,15 @@
     });
 
     if (location.hash.startsWith('#project-')) {
-      const li = document.querySelector(location.hash);
-      if (li) {
-        requestAnimationFrame(() => {
-          li.scrollIntoView({ block: 'center' });
-          spotlightProject(li);
-        });
-      }
+      try {
+        const li = document.querySelector(location.hash);
+        if (li) {
+          requestAnimationFrame(() => {
+            li.scrollIntoView({ block: 'center' });
+            spotlightProject(li);
+          });
+        }
+      } catch (e) {}
     }
 
     function updateClock() {
@@ -701,8 +719,13 @@
         minute: '2-digit',
         hour12: true
       });
-      document.getElementById('clock').innerHTML =
-        time + ' at <span class="clock-location">JCB World Headquarters, Rocester</span>';
+      const clock = document.getElementById('clock');
+      clock.replaceChildren();
+      clock.appendChild(document.createTextNode(time + ' at '));
+      const locationSpan = document.createElement('span');
+      locationSpan.className = 'clock-location';
+      locationSpan.textContent = 'JCB World Headquarters, Rocester';
+      clock.appendChild(locationSpan);
     }
     updateClock();
     setInterval(updateClock, 1000);

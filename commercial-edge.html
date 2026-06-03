@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="icon" href="favicon.png" type="image/png" />
   <title>Commercial Edge - Richard Rosewarne</title>
   <style>
@@ -245,8 +247,14 @@
       margin-top: 28px;
     }
 
+    .uk-clients__card {
+      background: #fafafa;
+      border: 1px solid #f0f0f0;
+      border-radius: 4px;
+      padding: 24px 28px;
+    }
+
     .uk-map {
-      max-width: 320px;
       opacity: 0;
       transform: translateY(8px);
       transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
@@ -260,35 +268,40 @@
     }
 
     .uk-map__land {
-      fill: #f8f8f8;
-      stroke: #e8e8e8;
-      stroke-width: 1;
+      fill: #f0f0f0;
+      stroke: #ddd;
+      stroke-width: 1.25;
     }
 
     @keyframes uk-dot-pulse {
-      0%, 100% { opacity: 0; }
+      0%, 100% { opacity: 0.4; }
       50%      { opacity: 1; }
     }
 
     .uk-map__dot {
-      fill: #888;
-      filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.12));
+      fill: #111;
+      filter: drop-shadow(0 0 3px rgba(17, 17, 17, 0.15));
       animation: uk-dot-pulse 3.2s ease-in-out infinite;
     }
 
     .deals-metric {
       display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-top: 24px;
+      align-items: flex-end;
+      gap: 20px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    .deals-metric__brand {
+      flex-shrink: 0;
     }
 
     .deals-metric__logo {
-      height: 18px;
+      height: 20px;
       width: auto;
-      max-width: 80px;
+      max-width: 88px;
       object-fit: contain;
-      flex-shrink: 0;
       display: block;
     }
 
@@ -300,17 +313,21 @@
     }
 
     .deals-metric__value {
-      font-size: clamp(24px, 5vw, 32px);
+      font-size: 28px;
       font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
       color: #111;
       line-height: 1.1;
-      margin: 0 0 6px;
+      margin: 0 0 4px;
     }
 
     .deals-metric__label {
       font-size: 11px;
       font-weight: 400;
       color: #999;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       line-height: 1.5;
       margin: 0;
     }
@@ -342,7 +359,7 @@
 
       .uk-map__dot {
         animation: none;
-        opacity: 0.85;
+        opacity: 0.75;
       }
     }
 
@@ -418,47 +435,51 @@
         </div>
 
         <section class="uk-clients" aria-label="UK client locations">
+          <div class="uk-clients__card">
           <div class="uk-map">
             <svg viewBox="0 0 400 520" role="img" aria-label="Map of Great Britain">
               <path class="uk-map__land" d="M207.8 107.1 L165.0 158.2 L205.8 151.7 L249.6 152.0 L239.2 190.5 L203.2 232.9 L244.6 235.9 L247.8 240.9 L283.4 296.6 L310.8 304.2 L335.4 358.1 L346.8 376.8 L395.3 385.8 L390.4 416.0 L370.0 429.9 L386.0 454.3 L350.0 479.1 L296.5 478.6 L228.4 491.6 L209.7 482.3 L183.3 504.5 L146.3 499.1 L118.2 517.2 L96.9 507.7 L155.6 458.1 L191.4 447.9 L191.1 447.8 L128.6 439.9 L117.3 421.1 L159.1 406.5 L137.2 381.0 L144.8 350.1 L204.2 354.3 L204.3 354.3 L210.2 326.9 L183.4 297.8 L182.8 297.1 L134.2 288.8 L124.7 276.0 L139.2 254.9 L126.1 241.8 L104.5 264.2 L102.2 218.6 L82.0 194.5 L96.5 145.7 L127.6 107.3 L159.5 111.1 L207.8 107.1 Z"/>
-              <circle class="uk-map__dot" cx="244.4" cy="177.3" r="3.5" style="animation-delay: 0s"/>
-              <circle class="uk-map__dot" cx="159.2" cy="161.7" r="3.5" style="animation-delay: 0.18s"/>
-              <circle class="uk-map__dot" cx="209.2" cy="209.9" r="3.5" style="animation-delay: 0.3s"/>
-              <circle class="uk-map__dot" cx="200.4" cy="234" r="3.5" style="animation-delay: 0.36s"/>
-              <circle class="uk-map__dot" cx="158" cy="238.3" r="3.5" style="animation-delay: 0.48s"/>
-              <circle class="uk-map__dot" cx="263.6" cy="279.9" r="3.5" style="animation-delay: 0.6s"/>
-              <circle class="uk-map__dot" cx="272.8" cy="283.2" r="3.5" style="animation-delay: 0.66s"/>
-              <circle class="uk-map__dot" cx="284.8" cy="328.1" r="3.5" style="animation-delay: 0.78s"/>
-              <circle class="uk-map__dot" cx="266" cy="335.6" r="3.5" style="animation-delay: 0.9s"/>
-              <circle class="uk-map__dot" cx="314.4" cy="338" r="3.5" style="animation-delay: 0.96s"/>
-              <circle class="uk-map__dot" cx="238.4" cy="350.8" r="3.5" style="animation-delay: 1.08s"/>
-              <circle class="uk-map__dot" cx="208.4" cy="354.1" r="3.5" style="animation-delay: 1.2s"/>
-              <circle class="uk-map__dot" cx="269.2" cy="355.5" r="3.5" style="animation-delay: 1.26s"/>
-              <circle class="uk-map__dot" cx="282" cy="375.8" r="3.5" style="animation-delay: 1.38s"/>
-              <circle class="uk-map__dot" cx="252.4" cy="397.6" r="3.5" style="animation-delay: 1.5s"/>
-              <circle class="uk-map__dot" cx="282.8" cy="390.5" r="3.5" style="animation-delay: 1.56s"/>
-              <circle class="uk-map__dot" cx="267.6" cy="401.3" r="3.5" style="animation-delay: 1.68s"/>
-              <circle class="uk-map__dot" cx="332.8" cy="410.8" r="3.5" style="animation-delay: 1.8s"/>
-              <circle class="uk-map__dot" cx="380" cy="390.9" r="3.5" style="animation-delay: 1.86s"/>
-              <circle class="uk-map__dot" cx="277.6" cy="432.5" r="3.5" style="animation-delay: 1.98s"/>
-              <circle class="uk-map__dot" cx="323.2" cy="443.9" r="3.5" style="animation-delay: 2.1s"/>
-              <circle class="uk-map__dot" cx="289.2" cy="446.7" r="3.5" style="animation-delay: 2.16s"/>
-              <circle class="uk-map__dot" cx="272" cy="472.3" r="3.5" style="animation-delay: 2.28s"/>
-              <circle class="uk-map__dot" cx="322.8" cy="476.5" r="3.5" style="animation-delay: 2.4s"/>
-              <circle class="uk-map__dot" cx="224.4" cy="446.7" r="3.5" style="animation-delay: 2.46s"/>
-              <circle class="uk-map__dot" cx="200.8" cy="445.3" r="3.5" style="animation-delay: 2.58s"/>
-              <circle class="uk-map__dot" cx="170.4" cy="438.7" r="3.5" style="animation-delay: 2.7s"/>
-              <circle class="uk-map__dot" cx="186.8" cy="481.2" r="3.5" style="animation-delay: 2.76s"/>
-              <circle class="uk-map__dot" cx="162.4" cy="497.8" r="3.5" style="animation-delay: 2.88s"/>
-              <circle class="uk-map__dot" cx="252.8" cy="481.2" r="3.5" style="animation-delay: 0.12s"/>
+              <circle class="uk-map__dot" cx="244.4" cy="177.3" r="4" style="animation-delay: 0s"/>
+              <circle class="uk-map__dot" cx="159.2" cy="161.7" r="4" style="animation-delay: 0.18s"/>
+              <circle class="uk-map__dot" cx="209.2" cy="209.9" r="4" style="animation-delay: 0.3s"/>
+              <circle class="uk-map__dot" cx="200.4" cy="234" r="4" style="animation-delay: 0.36s"/>
+              <circle class="uk-map__dot" cx="158" cy="238.3" r="4" style="animation-delay: 0.48s"/>
+              <circle class="uk-map__dot" cx="263.6" cy="279.9" r="4" style="animation-delay: 0.6s"/>
+              <circle class="uk-map__dot" cx="272.8" cy="283.2" r="4" style="animation-delay: 0.66s"/>
+              <circle class="uk-map__dot" cx="284.8" cy="328.1" r="4" style="animation-delay: 0.78s"/>
+              <circle class="uk-map__dot" cx="266" cy="335.6" r="4" style="animation-delay: 0.9s"/>
+              <circle class="uk-map__dot" cx="314.4" cy="338" r="4" style="animation-delay: 0.96s"/>
+              <circle class="uk-map__dot" cx="238.4" cy="350.8" r="4" style="animation-delay: 1.08s"/>
+              <circle class="uk-map__dot" cx="208.4" cy="354.1" r="4" style="animation-delay: 1.2s"/>
+              <circle class="uk-map__dot" cx="269.2" cy="355.5" r="4" style="animation-delay: 1.26s"/>
+              <circle class="uk-map__dot" cx="282" cy="375.8" r="4" style="animation-delay: 1.38s"/>
+              <circle class="uk-map__dot" cx="252.4" cy="397.6" r="4" style="animation-delay: 1.5s"/>
+              <circle class="uk-map__dot" cx="282.8" cy="390.5" r="4" style="animation-delay: 1.56s"/>
+              <circle class="uk-map__dot" cx="267.6" cy="401.3" r="4" style="animation-delay: 1.68s"/>
+              <circle class="uk-map__dot" cx="332.8" cy="410.8" r="4" style="animation-delay: 1.8s"/>
+              <circle class="uk-map__dot" cx="380" cy="390.9" r="4" style="animation-delay: 1.86s"/>
+              <circle class="uk-map__dot" cx="277.6" cy="432.5" r="4" style="animation-delay: 1.98s"/>
+              <circle class="uk-map__dot" cx="323.2" cy="443.9" r="4" style="animation-delay: 2.1s"/>
+              <circle class="uk-map__dot" cx="289.2" cy="446.7" r="4" style="animation-delay: 2.16s"/>
+              <circle class="uk-map__dot" cx="272" cy="472.3" r="4" style="animation-delay: 2.28s"/>
+              <circle class="uk-map__dot" cx="322.8" cy="476.5" r="4" style="animation-delay: 2.4s"/>
+              <circle class="uk-map__dot" cx="224.4" cy="446.7" r="4" style="animation-delay: 2.46s"/>
+              <circle class="uk-map__dot" cx="200.8" cy="445.3" r="4" style="animation-delay: 2.58s"/>
+              <circle class="uk-map__dot" cx="170.4" cy="438.7" r="4" style="animation-delay: 2.7s"/>
+              <circle class="uk-map__dot" cx="186.8" cy="481.2" r="4" style="animation-delay: 2.76s"/>
+              <circle class="uk-map__dot" cx="162.4" cy="497.8" r="4" style="animation-delay: 2.88s"/>
+              <circle class="uk-map__dot" cx="252.8" cy="481.2" r="4" style="animation-delay: 0.12s"/>
             </svg>
           </div>
           <div class="deals-metric">
-            <img class="deals-metric__logo" src="hubspot-logo.png" alt="HubSpot" width="72" height="18" />
+            <div class="deals-metric__brand">
+              <img class="deals-metric__logo" src="hubspot-logo.png" alt="HubSpot" width="80" height="20" />
+            </div>
             <div class="deals-metric__item">
               <p class="deals-metric__value">£1.11M</p>
               <p class="deals-metric__label">Current Open Deals</p>
             </div>
+          </div>
           </div>
         </section>
       </div>

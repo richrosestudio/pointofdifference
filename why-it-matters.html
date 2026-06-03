@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="icon" href="favicon.png" type="image/png" />
   <title>Why It Matters - Richard Rosewarne</title>
   <style>
@@ -217,20 +219,25 @@
       transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .jcb-metric__source-title {
-      font-size: 11px;
-      font-weight: 600;
-      color: #999;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+    .analytics-source {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .jcb-metric__source img {
+    .analytics-source img {
       width: 22px;
       height: 22px;
       object-fit: contain;
       flex-shrink: 0;
       display: block;
+    }
+
+    .analytics-source__label {
+      font-size: 11px;
+      font-weight: 400;
+      color: #999;
+      line-height: 1.4;
     }
 
     .jcb-metric.is-visible .jcb-metric__item {
@@ -455,16 +462,16 @@
                 <p class="jcb-metric__value">444.5%</p>
                 <p id="geo-metric-label" class="jcb-metric__label">AI Referral Growth YOY</p>
               </div>
-              <div class="jcb-metric__source">
-                <span class="jcb-metric__source-title">Analytics data</span>
-                <img src="google-analytics-icon.png" alt="Google Analytics" width="22" height="22" />
+              <div class="jcb-metric__source analytics-source">
+                <img src="google-analytics-icon.png" alt="" width="22" height="22" />
+                <span class="analytics-source__label">Source google analytics</span>
               </div>
             </section>
           </article>
 
           <section class="geo-example" aria-labelledby="geo-example-heading">
             <h4 id="geo-example-heading" class="geo-example__heading">GEO in practice. A real example from JCB's own FAQ</h4>
-            <p class="geo-example__question"><strong>How much weight can a JCB Backhoe lift?</strong></p>
+            <p class="geo-example__question"><strong>What is the difference between a Backhoe and an excavator?</strong></p>
 
             <div class="geo-tabs">
               <div class="geo-tabs__list" role="tablist" aria-label="FAQ answer comparison">
@@ -474,17 +481,20 @@
               <div class="geo-tabs__body">
                 <div class="geo-tabs__panel is-active" role="tabpanel" id="geo-panel-before" aria-labelledby="geo-tab-before">
                   <div class="geo-tabs__answer">
-                    <p>The 3CX Hydrogen Backhoe can lift up to 2-tonne on the quick hitch mounted Loader end forks.</p>
+                    <p>A Backhoe's excavator arm offers a 180 degree working range from the rear of the machine. An excavator can slew 360 degrees.</p>
                   </div>
                 </div>
                 <div class="geo-tabs__panel" role="tabpanel" id="geo-panel-after" aria-labelledby="geo-tab-after" hidden>
                   <div class="geo-tabs__answer">
-                    <p>JCB backhoe loaders vary in lifting capacity depending on the model and configuration.</p>
-                    <p>The JCB 3CX, one of the world's most popular backhoe loaders, is capable of loading a 20-tonne lorry in under five minutes, with large-capacity buckets up to 0.48m³.</p>
-                    <p>For heavier lifting requirements, larger models in the JCB range offer increased capacity suited to more demanding applications.</p>
-                    <p>Lifting performance is also affected by reach distance, attachment type and ground conditions.</p>
-                    <p>As a general guide: standard backhoe loaders are suited to a wide range of loading and excavating tasks; hydrogen models deliver the same performance as diesel counterparts with zero emissions.</p>
-                    <p>Always consult your nearest JCB dealer for precise specifications based on your job requirements.</p>
+                    <p>A backhoe loader and an excavator are both digging machines but suit different jobs. The key difference is rotation and versatility.</p>
+                    <p>A backhoe loader, like the JCB 3CX, has a digging arm mounted at the rear with a 180 degree working range. At the front it has a loader bucket, making it a dual purpose machine suited to loading, digging and site transport. It can also travel on public roads, making it ideal for utility and construction work.</p>
+                    <p>An excavator can slew a full 360 degrees, giving the operator complete rotation without moving the machine. This makes it better suited to deep excavation, demolition and confined site work where precision and reach matter more than versatility.</p>
+                    <ul>
+                      <li>Choose a backhoe loader for mixed tasks, digging, loading and site travel</li>
+                      <li>Choose an excavator for dedicated digging, demolition or precision excavation</li>
+                      <li>Both are available across the JCB range in multiple sizes to suit your application</li>
+                    </ul>
+                    <p>Speak to your nearest JCB dealer to find the right machine for your job.</p>
                   </div>
                 </div>
               </div>
