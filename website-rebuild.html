@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Website Rebuild — Richard Rosewarne</title>
+  <title>Website Rebuild - Richard Rosewarne</title>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -561,6 +561,257 @@
       margin-bottom: 20px;
     }
 
+    .logo-rebrand__crossfade {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2.5 / 1;
+      max-height: 140px;
+      min-height: 100px;
+    }
+
+    .logo-rebrand__slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .logo-rebrand__slide--before {
+      opacity: 1;
+    }
+
+    .logo-rebrand__slide--after {
+      opacity: 0;
+    }
+
+    @keyframes logoFadeBefore {
+      0%, 40% { opacity: 1; }
+      45%, 88% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes logoFadeAfter {
+      0%, 40% { opacity: 0; }
+      45%, 88% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes logoLabelBefore {
+      0%, 40% { opacity: 1; color: #111; }
+      45%, 88% { opacity: 0.45; color: #999; }
+      100% { opacity: 1; color: #111; }
+    }
+
+    @keyframes logoLabelAfter {
+      0%, 40% { opacity: 0.45; color: #999; }
+      45%, 88% { opacity: 1; color: #111; }
+      100% { opacity: 0.45; color: #999; }
+    }
+
+    .logo-rebrand.is-playing .logo-rebrand__slide--before {
+      animation: logoFadeBefore 10s ease-in-out infinite;
+    }
+
+    .logo-rebrand.is-playing .logo-rebrand__slide--after {
+      animation: logoFadeAfter 10s ease-in-out infinite;
+    }
+
+    .logo-rebrand__labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 11px;
+    }
+
+    .logo-rebrand__label--before {
+      color: #111;
+    }
+
+    .logo-rebrand__label--after {
+      color: #999;
+    }
+
+    .logo-rebrand.is-playing .logo-rebrand__label--before {
+      animation: logoLabelBefore 10s ease-in-out infinite;
+    }
+
+    .logo-rebrand.is-playing .logo-rebrand__label--after {
+      animation: logoLabelAfter 10s ease-in-out infinite;
+    }
+
+    .icon-rebrand__row {
+      display: flex;
+      gap: 16px;
+    }
+
+    .icon-rebrand__item {
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+    }
+
+    .icon-rebrand__frame {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 72px;
+    }
+
+    .icon-rebrand__frame img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 72px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .icon-rebrand__caption {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #999;
+      text-align: center;
+    }
+
+    .live-chat-win {
+      margin-top: 28px;
+      border: 1px solid #f0f0f0;
+      border-left: 3px solid #FCB026;
+      border-radius: 4px;
+      padding: 20px 24px;
+    }
+
+    .live-chat-win__inner {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .live-chat-win__logo {
+      width: auto;
+      height: 44px;
+      max-width: 96px;
+      object-fit: contain;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .live-chat-win__eyebrow {
+      font-size: 11px;
+      color: #999;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .live-chat-win__headline {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 6px;
+    }
+
+    .live-chat-win__text {
+      font-size: 13px;
+      color: #999;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .live-chat-annotate {
+      margin: 32px 0 0;
+      max-width: 100%;
+    }
+
+    .live-chat-annotate__layout {
+      display: flex;
+      align-items: stretch;
+      gap: 20px;
+      max-width: 100%;
+    }
+
+    .live-chat-annotate__shot {
+      flex: 0 0 auto;
+      width: min(260px, 38%);
+    }
+
+    .live-chat-annotate__shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      border: 1px solid #f0f0f0;
+    }
+
+    .live-chat-annotate__notes {
+      flex: 1;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%;
+      min-width: 0;
+    }
+
+    .live-chat-annotate__note {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .live-chat-annotate__line {
+      flex: 0 0 28px;
+      height: 1px;
+      background: #ddd;
+    }
+
+    .live-chat-annotate__caption {
+      font-size: 12px;
+      color: #999;
+      line-height: 1.5;
+      margin: 0;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .live-chat-annotate.is-visible .live-chat-annotate__note:nth-child(1) { opacity: 1; transition-delay: 0.08s; }
+    .live-chat-annotate.is-visible .live-chat-annotate__note:nth-child(2) { opacity: 1; transition-delay: 0.16s; }
+    .live-chat-annotate.is-visible .live-chat-annotate__note:nth-child(3) { opacity: 1; transition-delay: 0.24s; }
+    .live-chat-annotate.is-visible .live-chat-annotate__note:nth-child(4) { opacity: 1; transition-delay: 0.32s; }
+    .live-chat-annotate.is-visible .live-chat-annotate__note:nth-child(5) { opacity: 1; transition-delay: 0.4s; }
+
+    .live-chat-annotate__mobile-list {
+      display: none;
+      list-style: none;
+      margin: 16px 0 0;
+      padding: 0;
+    }
+
+    .live-chat-annotate__mobile-list li {
+      font-size: 11px;
+      color: #999;
+      line-height: 1.5;
+      margin-bottom: 10px;
+      opacity: 0;
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .live-chat-annotate__mobile-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .live-chat-annotate.is-visible .live-chat-annotate__mobile-list li:nth-child(1) { opacity: 1; transition-delay: 0.08s; }
+    .live-chat-annotate.is-visible .live-chat-annotate__mobile-list li:nth-child(2) { opacity: 1; transition-delay: 0.16s; }
+    .live-chat-annotate.is-visible .live-chat-annotate__mobile-list li:nth-child(3) { opacity: 1; transition-delay: 0.24s; }
+    .live-chat-annotate.is-visible .live-chat-annotate__mobile-list li:nth-child(4) { opacity: 1; transition-delay: 0.32s; }
+    .live-chat-annotate.is-visible .live-chat-annotate__mobile-list li:nth-child(5) { opacity: 1; transition-delay: 0.4s; }
+
     @media (prefers-reduced-motion: reduce) {
       .rebuild-timeline__track::before {
         animation: none;
@@ -584,6 +835,30 @@
 
       .rebuild-features__panel {
         transition: none;
+      }
+
+      .logo-rebrand__slide--before {
+        display: none;
+      }
+
+      .logo-rebrand__slide--after {
+        position: relative;
+        opacity: 1;
+      }
+
+      .logo-rebrand__label--before {
+        display: none;
+      }
+
+      .logo-rebrand__label--after {
+        color: #111;
+        opacity: 1;
+      }
+
+      .live-chat-annotate__note,
+      .live-chat-annotate__mobile-list li {
+        transition: none;
+        opacity: 1;
       }
     }
 
@@ -626,6 +901,30 @@
         padding: 0 8px;
         -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
         mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+      }
+
+      .live-chat-win__inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .live-chat-annotate__layout {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .live-chat-annotate__shot {
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+      }
+
+      .live-chat-annotate__notes {
+        display: none;
+      }
+
+      .live-chat-annotate__mobile-list {
+        display: block;
       }
     }
   </style>
@@ -759,22 +1058,105 @@
         <div class="rebuild-features__viewport">
           <div class="rebuild-features__panel is-active" id="visual-rebrand" role="tabpanel" aria-labelledby="tab-visual-rebrand">
             <h2 class="section-title">Visual Rebrand</h2>
-            <p>Content to be added.</p>
+            <p>The JET PRESS logo was never going to change. The challenge was bringing Components Direct closer to it, creating a visual connection between the two brands without losing their individual identities.</p>
+            <p>The answer was a consistent colour scheme and a modernised logo.</p>
+            <div class="logo-rebrand media-block">
+              <div class="logo-rebrand__crossfade" aria-hidden="true">
+                <img class="logo-rebrand__slide logo-rebrand__slide--before" src="comdir-logo-before.png" alt="" />
+                <img class="logo-rebrand__slide logo-rebrand__slide--after" src="comdir-logo-after.png" alt="Components Direct logo after rebrand" />
+              </div>
+              <div class="logo-rebrand__labels">
+                <span class="logo-rebrand__label logo-rebrand__label--before">Before</span>
+                <span class="logo-rebrand__label logo-rebrand__label--after">After</span>
+              </div>
+            </div>
+            <p>Two new icons were also created. In the age of social media, an icon is just as important as the logo itself, it's the first thing people see.</p>
+            <div class="icon-rebrand media-block">
+              <div class="icon-rebrand__row">
+                <figure class="icon-rebrand__item">
+                  <div class="icon-rebrand__frame">
+                    <img src="jetpress-icon.png" alt="JET PRESS social icon" />
+                  </div>
+                  <figcaption class="icon-rebrand__caption">JET PRESS</figcaption>
+                </figure>
+                <figure class="icon-rebrand__item">
+                  <div class="icon-rebrand__frame">
+                    <img src="comdir-icon.png" alt="Components Direct social icon" />
+                  </div>
+                  <figcaption class="icon-rebrand__caption">Components Direct</figcaption>
+                </figure>
+              </div>
+            </div>
           </div>
 
           <div class="rebuild-features__panel" id="site-map-restructure" role="tabpanel" aria-labelledby="tab-site-map-restructure" hidden>
             <h2 class="section-title">Site Map Restructure</h2>
-            <p>Content to be added.</p>
+            <p>Before you build, you plan. Every page, every category, every user journey mapped out in full before anything went live.</p>
+            <p>Working across departments to understand what content existed, what was missing, and what needed to move. Lots of spreadsheets. Lots of conversations. But getting the architecture right from the start meant everything built on top of it had a solid foundation.</p>
+            <div class="media-block">
+              <img src="dilbert-spreadsheet.png" alt="Dilbert comic about spreadsheet errors" />
+            </div>
           </div>
 
           <div class="rebuild-features__panel" id="live-chat" role="tabpanel" aria-labelledby="tab-live-chat" hidden>
             <h2 class="section-title">Live Chat</h2>
-            <p>Content to be added.</p>
+            <p>Not everyone picks up the phone anymore. For a new generation of buyers, live chat is how you make first contact, and if it's not there, they leave.</p>
+            <p>I pushed for this despite pushback from sales and customer service, who'd tried it before and found it created more noise than value. Their concern was valid. So we solved it.</p>
+            <p>This time we built it properly. Smart routing, qualifying questions upfront, directing users to the right person before the conversation even started. Less noise. More qualified conversations. Better experience for everyone.</p>
+            <aside class="live-chat-win" aria-label="First major win">
+              <div class="live-chat-win__inner">
+                <img class="live-chat-win__logo" src="smeg-logo.png" alt="Smeg" />
+                <div class="live-chat-win__copy">
+                  <p class="live-chat-win__eyebrow">First major win</p>
+                  <p class="live-chat-win__headline">£20,000 order from Smeg</p>
+                  <p class="live-chat-win__text">A customer who might not have wanted to pick up the phone.</p>
+                </div>
+              </div>
+            </aside>
+            <figure class="live-chat-annotate">
+              <div class="live-chat-annotate__layout">
+                <div class="live-chat-annotate__shot">
+                  <img src="live-chat-screenshot.png" alt="JET PRESS live chat widget" width="367" height="619" />
+                </div>
+                <ol class="live-chat-annotate__notes">
+                  <li class="live-chat-annotate__note">
+                    <span class="live-chat-annotate__line" aria-hidden="true"></span>
+                    <p class="live-chat-annotate__caption">On brand. Instantly recognisable.</p>
+                  </li>
+                  <li class="live-chat-annotate__note">
+                    <span class="live-chat-annotate__line" aria-hidden="true"></span>
+                    <p class="live-chat-annotate__caption">Sets expectations immediately.</p>
+                  </li>
+                  <li class="live-chat-annotate__note">
+                    <span class="live-chat-annotate__line" aria-hidden="true"></span>
+                    <p class="live-chat-annotate__caption">Filters the wrong audience before the conversation starts.</p>
+                  </li>
+                  <li class="live-chat-annotate__note">
+                    <span class="live-chat-annotate__line" aria-hidden="true"></span>
+                    <p class="live-chat-annotate__caption">Directs the user to the right person from the outset.</p>
+                  </li>
+                  <li class="live-chat-annotate__note">
+                    <span class="live-chat-annotate__line" aria-hidden="true"></span>
+                    <p class="live-chat-annotate__caption">Frictionless. No forms. No phone calls.</p>
+                  </li>
+                </ol>
+              </div>
+              <ul class="live-chat-annotate__mobile-list" aria-label="Live chat highlights">
+                <li>On brand. Instantly recognisable.</li>
+                <li>Sets expectations immediately.</li>
+                <li>Filters the wrong audience before the conversation starts.</li>
+                <li>Directs the user to the right person from the outset.</li>
+                <li>Frictionless. No forms. No phone calls.</li>
+              </ul>
+            </figure>
           </div>
 
           <div class="rebuild-features__panel" id="custom-filter-system" role="tabpanel" aria-labelledby="tab-custom-filter-system" hidden>
             <h2 class="section-title">Custom Filter System</h2>
-            <p>Content to be added.</p>
+            <p>Every competitor had one. We didn't. And you could feel it in the data, users landing, searching, and leaving because they couldn't find what they needed fast enough.</p>
+            <p>Tens of thousands of products. Every one needing accurate data, correct categorisation, and a logical place in the filter architecture. Spreadsheet heavy, hours of calls with developers, and constant tinkering at every step.</p>
+            <p>A small team. A mammoth task. But a non-negotiable one.</p>
+            <p>The result: a filter system built around how customers actually search, not how the business organises its stock.</p>
           </div>
 
           <div class="rebuild-features__panel" id="apple-pay-google-pay" role="tabpanel" aria-labelledby="tab-apple-pay-google-pay" hidden>
@@ -876,9 +1258,8 @@
       });
     });
 
-    // Feature tabs — one panel visible at a time
+    // Feature tabs: one panel visible at a time
     const tabLinks = document.querySelectorAll('.rebuild-tabs__tab');
-    const tabsList = document.querySelector('.rebuild-tabs__list');
     const tabIndicator = document.querySelector('.rebuild-tabs__indicator');
     const featuresViewport = document.querySelector('.rebuild-features__viewport');
     const featurePanels = document.querySelectorAll('.rebuild-features__panel');
@@ -916,11 +1297,38 @@
       moveTabIndicator(tab);
     }
 
+    const logoRebrand = document.querySelector('.logo-rebrand');
+    const visualRebrandPanel = document.getElementById('visual-rebrand');
+    const chatAnnotate = document.querySelector('.live-chat-annotate');
+    const liveChatPanel = document.getElementById('live-chat');
+    const logoMotion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function revealChatAnnotateIfVisible() {
+      if (!chatAnnotate || !liveChatPanel?.classList.contains('is-active')) return;
+      const rect = chatAnnotate.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.92 && rect.bottom > window.innerHeight * 0.08) {
+        chatAnnotate.classList.add('is-visible');
+      }
+    }
+
+    function syncLogoRebrandPlayback() {
+      if (!logoRebrand || !visualRebrandPanel) return;
+      if (logoMotion && visualRebrandPanel.classList.contains('is-active')) {
+        logoRebrand.classList.add('is-playing');
+      } else {
+        logoRebrand.classList.remove('is-playing');
+      }
+    }
+
     function showFeaturePanel(id) {
       const next = document.getElementById(id);
       const current = document.querySelector('.rebuild-features__panel.is-active');
       const tab = document.querySelector(`.rebuild-tabs__tab[href="#${id}"]`);
       if (!next || !tab || current === next) return;
+
+      if (logoRebrand && current && current.id === 'visual-rebrand') {
+        logoRebrand.classList.remove('is-playing');
+      }
 
       setActiveTab(tab);
 
@@ -928,9 +1336,27 @@
         next.hidden = false;
         next.removeAttribute('hidden');
         if (featureMotion) {
-          requestAnimationFrame(() => requestAnimationFrame(() => next.classList.add('is-active')));
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            next.classList.add('is-active');
+            if (id === 'visual-rebrand') {
+              setFeaturesPanelHeight();
+              syncLogoRebrandPlayback();
+            }
+            if (id === 'live-chat') {
+              setFeaturesPanelHeight();
+              revealChatAnnotateIfVisible();
+            }
+          }));
         } else {
           next.classList.add('is-active');
+          if (id === 'visual-rebrand') {
+            setFeaturesPanelHeight();
+            syncLogoRebrandPlayback();
+          }
+          if (id === 'live-chat') {
+            setFeaturesPanelHeight();
+            revealChatAnnotateIfVisible();
+          }
         }
       };
 
@@ -962,6 +1388,41 @@
 
     setFeaturesPanelHeight();
     if (tabLinks.length) moveTabIndicator(tabLinks[0]);
+
+    if (logoRebrand && logoMotion) {
+      const logoObs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) syncLogoRebrandPlayback();
+        else logoRebrand.classList.remove('is-playing');
+      }, { rootMargin: '0px 0px -5% 0px' });
+      logoObs.observe(logoRebrand);
+    }
+
+    if (chatAnnotate) {
+      const annotateObs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) chatAnnotate.classList.add('is-visible');
+      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      annotateObs.observe(chatAnnotate);
+      if (liveChatPanel?.classList.contains('is-active')) {
+        revealChatAnnotateIfVisible();
+      }
+    }
+
+    const featureImages = document.querySelectorAll('.logo-rebrand__slide, .live-chat-annotate__shot img');
+    let featureImagesLoaded = 0;
+    featureImages.forEach(img => {
+      const onFeatureImageLoad = () => {
+        featureImagesLoaded += 1;
+        if (featureImagesLoaded === featureImages.length) setFeaturesPanelHeight();
+      };
+      if (img.complete) onFeatureImageLoad();
+      else img.addEventListener('load', onFeatureImageLoad);
+    });
+
+    window.addEventListener('load', () => {
+      setFeaturesPanelHeight();
+      syncLogoRebrandPlayback();
+      revealChatAnnotateIfVisible();
+    });
 
     window.addEventListener('resize', () => {
       setFeaturesPanelHeight();
