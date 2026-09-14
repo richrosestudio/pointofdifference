@@ -6,6 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'self'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="icon" href="favicon.png" type="image/png" />
+  <script src="auth.js"></script>
   <title>Nudge iOS App - Richard Rosewarne</title>
   <style>
     *, *::before, *::after {
@@ -562,6 +563,7 @@
   <script>
     window.addEventListener('pageshow', () => {
       document.body.style.transition = 'none';
+      if (window.podAuth && !window.podAuth.reveal()) return;
       document.body.style.opacity = '1';
 
       const STAGGER_INITIAL = 100;

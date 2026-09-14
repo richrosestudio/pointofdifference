@@ -6,6 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'self'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="icon" href="favicon.png" type="image/png" />
+  <script src="auth.js"></script>
   <title>Why It Matters - Richard Rosewarne</title>
   <style>
     *, *::before, *::after {
@@ -360,6 +361,18 @@
       margin-bottom: 0;
     }
 
+    .geo-tabs__answer ul {
+      margin: 0 0 16px 1.2em;
+    }
+
+    .geo-tabs__answer li {
+      margin-bottom: 6px;
+    }
+
+    .geo-tabs__answer li:last-child {
+      margin-bottom: 0;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .geo-tabs__body {
         transition: none;
@@ -518,6 +531,7 @@
   <script>
     window.addEventListener('pageshow', () => {
       document.body.style.transition = 'none';
+      if (window.podAuth && !window.podAuth.reveal()) return;
       document.body.style.opacity = '1';
 
       const STAGGER_INITIAL = 100;
