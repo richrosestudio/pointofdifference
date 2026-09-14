@@ -1,6 +1,7 @@
 (function () {
   const STORAGE_KEY = 'pod-auth-v1';
   const PASS_HASH = '87d2aa8e8e1dce3fd0d9ec06228852d757219ab959717b9cb28bc9edabb2143d';
+  const WRAP_ID = 'pod-content-wrap';
 
   let gateEl = null;
 
@@ -23,6 +24,23 @@
     return Array.from(new Uint8Array(buf), b => b.toString(16).padStart(2, '0')).join('');
   }
 
+  function ensureContentWrap() {
+    let wrap = document.getElementById(WRAP_ID);
+    if (wrap) return wrap;
+
+    wrap = document.createElement('div');
+    wrap.id = WRAP_ID;
+
+    const nodes = Array.from(document.body.childNodes);
+    nodes.forEach(node => {
+      if (node.nodeType === 1 && node.classList && node.classList.contains('pod-gate')) return;
+      wrap.appendChild(node);
+    });
+
+    document.body.appendChild(wrap);
+    return wrap;
+  }
+
   function removeGate() {
     if (!gateEl) return;
 
@@ -34,8 +52,6 @@
       el.remove();
       if (!gateEl) {
         document.documentElement.classList.remove('pod-locked');
-        document.body.style.filter = '';
-        document.body.style.transform = '';
       }
     }, 320);
 
@@ -49,31 +65,41 @@
     style.id = 'pod-auth-styles';
     style.textContent = [
       'html.pod-locked { overflow: hidden; }',
-      'html.pod-locked body {',
-      '  filter: blur(28px) saturate(80%);',
-      '  transform: scale(1.02);',
+      '#pod-content-wrap { min-height: 100vh; }',
+      'html.pod-locked #pod-content-wrap {',
+      '  filter: blur(96px) saturate(140%) contrast(88%);',
+      '  -webkit-filter: blur(96px) saturate(140%) contrast(88%);',
+      '  transform: scale(1.06);',
+      '  transform-origin: center top;',
       '  pointer-events: none; user-select: none;',
       '}',
       '.pod-gate {',
       '  position: fixed; inset: 0; z-index: 10000;',
       '  display: flex; align-items: center; justify-content: center;',
-      '  padding: 24px; pointer-events: auto;',
+      '  padding: 24px; pointer-events: auto; filter: none;',
       '  animation: pod-gate-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;',
       '}',
       '.pod-gate.is-leaving {',
       '  animation: pod-gate-out 0.32s cubic-bezier(0.7, 0, 1, 1) forwards;',
       '}',
       '.pod-gate__veil {',
-      '  position: absolute; inset: -20px;',
-      '  background: rgba(255, 255, 255, 0.78);',
-      '  backdrop-filter: blur(80px) saturate(110%);',
-      '  -webkit-backdrop-filter: blur(80px) saturate(110%);',
+      '  position: absolute; inset: 0; pointer-events: auto;',
+      '}',
+      '.pod-gate__veil-frost {',
+      '  position: absolute; inset: 0;',
+      '  background: rgba(255, 255, 255, 0.82);',
+      '}',
+      '.pod-gate__veil-soften {',
+      '  position: absolute; inset: 0;',
+      '  background: rgba(255, 255, 255, 0.28);',
+      '  backdrop-filter: blur(24px) brightness(1.08);',
+      '  -webkit-backdrop-filter: blur(24px) brightness(1.08);',
       '}',
       '.pod-gate__panel {',
       '  position: relative; z-index: 1;',
       '  width: 100%; max-width: 260px;',
       '  padding: 22px 20px 20px;',
-      '  background: rgba(255, 255, 255, 0.92);',
+      '  background: rgba(255, 255, 255, 0.96);',
       '  border: 1px solid rgba(17, 17, 17, 0.08);',
       '  border-radius: 10px;',
       '  box-shadow:',
@@ -139,7 +165,7 @@
       '  .pod-gate, .pod-gate__panel { animation: none; }',
       '  .pod-gate.is-leaving, .pod-gate.is-leaving .pod-gate__panel { animation: none; opacity: 0; }',
       '  .pod-gate__panel.is-shake { animation: none; }',
-      '  html.pod-locked body { transform: none; }',
+      '  html.pod-locked #pod-content-wrap { transform: none; }',
       '}'
     ].join('\n');
     document.head.appendChild(style);
@@ -156,6 +182,7 @@
     if (gateEl || isAuthed()) return;
 
     ensureGateStyles();
+    ensureContentWrap();
     document.documentElement.classList.add('pod-locked');
 
     if (!document.querySelector('meta[name="robots"][data-pod-auth]')) {
@@ -175,6 +202,12 @@
     const veil = document.createElement('div');
     veil.className = 'pod-gate__veil';
     veil.setAttribute('aria-hidden', 'true');
+
+    const soften = document.createElement('div');
+    soften.className = 'pod-gate__veil-soften';
+
+    const frost = document.createElement('div');
+    frost.className = 'pod-gate__veil-frost';
 
     const panel = document.createElement('div');
     panel.className = 'pod-gate__panel';
@@ -200,6 +233,8 @@
     panel.appendChild(label);
     panel.appendChild(input);
     panel.appendChild(error);
+    veil.appendChild(soften);
+    veil.appendChild(frost);
     gateEl.appendChild(veil);
     gateEl.appendChild(panel);
     document.body.appendChild(gateEl);
