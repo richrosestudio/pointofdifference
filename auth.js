@@ -34,6 +34,8 @@
       el.remove();
       if (!gateEl) {
         document.documentElement.classList.remove('pod-locked');
+        document.body.style.filter = '';
+        document.body.style.transform = '';
       }
     }, 320);
 
@@ -47,6 +49,11 @@
     style.id = 'pod-auth-styles';
     style.textContent = [
       'html.pod-locked { overflow: hidden; }',
+      'html.pod-locked body {',
+      '  filter: blur(28px) saturate(80%);',
+      '  transform: scale(1.02);',
+      '  pointer-events: none; user-select: none;',
+      '}',
       '.pod-gate {',
       '  position: fixed; inset: 0; z-index: 10000;',
       '  display: flex; align-items: center; justify-content: center;',
@@ -57,10 +64,10 @@
       '  animation: pod-gate-out 0.32s cubic-bezier(0.7, 0, 1, 1) forwards;',
       '}',
       '.pod-gate__veil {',
-      '  position: absolute; inset: 0;',
-      '  background: rgba(255, 255, 255, 0.42);',
-      '  backdrop-filter: blur(40px) saturate(120%);',
-      '  -webkit-backdrop-filter: blur(40px) saturate(120%);',
+      '  position: absolute; inset: -20px;',
+      '  background: rgba(255, 255, 255, 0.78);',
+      '  backdrop-filter: blur(80px) saturate(110%);',
+      '  -webkit-backdrop-filter: blur(80px) saturate(110%);',
       '}',
       '.pod-gate__panel {',
       '  position: relative; z-index: 1;',
@@ -132,6 +139,7 @@
       '  .pod-gate, .pod-gate__panel { animation: none; }',
       '  .pod-gate.is-leaving, .pod-gate.is-leaving .pod-gate__panel { animation: none; opacity: 0; }',
       '  .pod-gate__panel.is-shake { animation: none; }',
+      '  html.pod-locked body { transform: none; }',
       '}'
     ].join('\n');
     document.head.appendChild(style);
