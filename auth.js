@@ -65,11 +65,14 @@
     style.id = 'pod-auth-styles';
     style.textContent = [
       'html.pod-locked { overflow: hidden; }',
-      '#pod-content-wrap { min-height: 100vh; }',
+      '#pod-content-wrap {',
+      '  width: 100%; min-height: 100vh;',
+      '  display: flex; justify-content: center;',
+      '}',
       'html.pod-locked #pod-content-wrap {',
-      '  filter: blur(96px) saturate(140%) contrast(88%);',
-      '  -webkit-filter: blur(96px) saturate(140%) contrast(88%);',
-      '  transform: scale(1.06);',
+      '  filter: blur(52px) saturate(110%);',
+      '  -webkit-filter: blur(52px) saturate(110%);',
+      '  transform: scale(1.03);',
       '  transform-origin: center top;',
       '  pointer-events: none; user-select: none;',
       '}',
@@ -83,29 +86,20 @@
       '  animation: pod-gate-out 0.32s cubic-bezier(0.7, 0, 1, 1) forwards;',
       '}',
       '.pod-gate__veil {',
-      '  position: absolute; inset: 0; pointer-events: auto;',
-      '}',
-      '.pod-gate__veil-frost {',
-      '  position: absolute; inset: 0;',
-      '  background: rgba(255, 255, 255, 0.82);',
-      '}',
-      '.pod-gate__veil-soften {',
-      '  position: absolute; inset: 0;',
-      '  background: rgba(255, 255, 255, 0.28);',
-      '  backdrop-filter: blur(24px) brightness(1.08);',
-      '  -webkit-backdrop-filter: blur(24px) brightness(1.08);',
+      '  position: absolute; inset: 0; z-index: 0; pointer-events: auto;',
+      '  background: rgba(255, 255, 255, 0.38);',
       '}',
       '.pod-gate__panel {',
-      '  position: relative; z-index: 1;',
+      '  position: relative; z-index: 2;',
       '  width: 100%; max-width: 260px;',
       '  padding: 22px 20px 20px;',
-      '  background: rgba(255, 255, 255, 0.96);',
-      '  border: 1px solid rgba(17, 17, 17, 0.08);',
+      '  background: #fff;',
+      '  border: 1px solid rgba(17, 17, 17, 0.14);',
       '  border-radius: 10px;',
       '  box-shadow:',
-      '    0 1px 0 rgba(255, 255, 255, 0.9) inset,',
-      '    0 18px 48px rgba(17, 17, 17, 0.08),',
-      '    0 2px 8px rgba(17, 17, 17, 0.04);',
+      '    0 0 0 1px rgba(255, 255, 255, 0.8),',
+      '    0 12px 40px rgba(17, 17, 17, 0.14),',
+      '    0 2px 8px rgba(17, 17, 17, 0.06);',
       '  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;',
       '  font-size: 14px; line-height: 1.6; color: #111;',
       '  animation: pod-panel-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;',
@@ -203,12 +197,6 @@
     veil.className = 'pod-gate__veil';
     veil.setAttribute('aria-hidden', 'true');
 
-    const soften = document.createElement('div');
-    soften.className = 'pod-gate__veil-soften';
-
-    const frost = document.createElement('div');
-    frost.className = 'pod-gate__veil-frost';
-
     const panel = document.createElement('div');
     panel.className = 'pod-gate__panel';
 
@@ -233,11 +221,10 @@
     panel.appendChild(label);
     panel.appendChild(input);
     panel.appendChild(error);
-    veil.appendChild(soften);
-    veil.appendChild(frost);
     gateEl.appendChild(veil);
     gateEl.appendChild(panel);
     document.body.appendChild(gateEl);
+    document.body.style.opacity = '1';
 
     function shakePanel() {
       panel.classList.remove('is-shake');
